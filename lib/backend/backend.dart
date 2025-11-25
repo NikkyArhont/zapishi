@@ -16,6 +16,7 @@ import 'schema/masters_record.dart';
 import 'schema/records_record.dart';
 import 'schema/chat_record.dart';
 import 'schema/messages_record.dart';
+import 'schema/tarif_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -35,6 +36,7 @@ export 'schema/masters_record.dart';
 export 'schema/records_record.dart';
 export 'schema/chat_record.dart';
 export 'schema/messages_record.dart';
+export 'schema/tarif_record.dart';
 
 /// Functions to query ServicesRecords (as a Stream and as a Future).
 Future<int> queryServicesRecordCount({
@@ -438,6 +440,43 @@ Future<List<MessagesRecord>> queryMessagesRecordOnce({
     queryCollectionOnce(
       MessagesRecord.collection,
       MessagesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query TarifRecords (as a Stream and as a Future).
+Future<int> queryTarifRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      TarifRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<TarifRecord>> queryTarifRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TarifRecord.collection,
+      TarifRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<TarifRecord>> queryTarifRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TarifRecord.collection,
+      TarifRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

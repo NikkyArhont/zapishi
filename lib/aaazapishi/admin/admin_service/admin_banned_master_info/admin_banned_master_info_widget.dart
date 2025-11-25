@@ -1,21 +1,23 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'admin_hide_servicenfo_model.dart';
-export 'admin_hide_servicenfo_model.dart';
+import 'admin_banned_master_info_model.dart';
+export 'admin_banned_master_info_model.dart';
 
-class AdminHideServicenfoWidget extends StatefulWidget {
-  const AdminHideServicenfoWidget({super.key});
+class AdminBannedMasterInfoWidget extends StatefulWidget {
+  const AdminBannedMasterInfoWidget({super.key});
 
   @override
-  State<AdminHideServicenfoWidget> createState() =>
-      _AdminHideServicenfoWidgetState();
+  State<AdminBannedMasterInfoWidget> createState() =>
+      _AdminBannedMasterInfoWidgetState();
 }
 
-class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
-  late AdminHideServicenfoModel _model;
+class _AdminBannedMasterInfoWidgetState
+    extends State<AdminBannedMasterInfoWidget> {
+  late AdminBannedMasterInfoModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +28,7 @@ class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminHideServicenfoModel());
+    _model = createModel(context, () => AdminBannedMasterInfoModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -52,7 +54,6 @@ class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 430.0,
-      height: 420.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.circular(16.0),
@@ -60,7 +61,7 @@ class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
       child: Padding(
         padding: EdgeInsets.all(24.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
@@ -79,7 +80,7 @@ class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
                   child: Align(
                     alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Text(
-                      'Услуга снята с публикации',
+                      'Пользователю запрещено публиковать объявления',
                       style:
                           FlutterFlowTheme.of(context).displayMedium.override(
                                 font: GoogleFonts.geologica(
@@ -108,10 +109,33 @@ class _AdminHideServicenfoWidgetState extends State<AdminHideServicenfoWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
-                  'assets/images/Group_(1).png',
+                  'assets/images/Group_(3).png',
                   width: 150.0,
                   height: 150.0,
                   fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(1.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
+                text: 'Ок',
+                options: FFButtonOptions(
+                  width: 120.0,
+                  height: 48.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                        fontFamily: 'involve',
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
               ),
             ),

@@ -430,6 +430,64 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: SubbscribesWidget.routeName,
+          path: SubbscribesWidget.routePath,
+          builder: (context, params) => SubbscribesWidget(),
+        ),
+        FFRoute(
+          name: ChooseSubbscribesWidget.routeName,
+          path: ChooseSubbscribesWidget.routePath,
+          asyncParams: {
+            'master': getDoc(['masters'], MastersRecord.fromSnapshot),
+            'tarif': getDoc(['tarif'], TarifRecord.fromSnapshot),
+          },
+          builder: (context, params) => ChooseSubbscribesWidget(
+            master: params.getParam(
+              'master',
+              ParamType.Document,
+            ),
+            tarif: params.getParam(
+              'tarif',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AdminOrdersWidget.routeName,
+          path: AdminOrdersWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AdminOrdersWidget(),
+        ),
+        FFRoute(
+          name: AdminServicePageWidget.routeName,
+          path: AdminServicePageWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AdminServicePageWidget(
+            serviceRef: params.getParam(
+              'serviceRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['services'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: PoliticWidget.routeName,
+          path: PoliticWidget.routePath,
+          builder: (context, params) => PoliticWidget(),
+        ),
+        FFRoute(
+          name: UserAgreevmentWidget.routeName,
+          path: UserAgreevmentWidget.routePath,
+          builder: (context, params) => UserAgreevmentWidget(),
+        ),
+        FFRoute(
+          name: AdminMoneyWidget.routeName,
+          path: AdminMoneyWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AdminMoneyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -620,9 +678,9 @@ class FFRoute {
                   color: FlutterFlowTheme.of(context).secondary,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/Logo_(3).png',
-                      width: 150.0,
-                      fit: BoxFit.contain,
+                      'assets/images/Frame_1851040970.png',
+                      width: 300.0,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 )

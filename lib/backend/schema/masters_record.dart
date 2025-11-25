@@ -136,6 +136,21 @@ class MastersRecord extends FirestoreRecord {
   JobStatus? get jobStatus => _jobStatus;
   bool hasJobStatus() => _jobStatus != null;
 
+  // "tarifs" field.
+  List<MasterTarifStruct>? _tarifs;
+  List<MasterTarifStruct> get tarifs => _tarifs ?? const [];
+  bool hasTarifs() => _tarifs != null;
+
+  // "activeTarif" field.
+  bool? _activeTarif;
+  bool get activeTarif => _activeTarif ?? false;
+  bool hasActiveTarif() => _activeTarif != null;
+
+  // "banned" field.
+  bool? _banned;
+  bool get banned => _banned ?? false;
+  bool hasBanned() => _banned != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _phone = snapshotData['phone'] as String?;
@@ -172,6 +187,12 @@ class MastersRecord extends FirestoreRecord {
     _jobStatus = snapshotData['jobStatus'] is JobStatus
         ? snapshotData['jobStatus']
         : deserializeEnum<JobStatus>(snapshotData['jobStatus']);
+    _tarifs = getStructList(
+      snapshotData['tarifs'],
+      MasterTarifStruct.fromMap,
+    );
+    _activeTarif = snapshotData['activeTarif'] as bool?;
+    _banned = snapshotData['banned'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -224,6 +245,8 @@ Map<String, dynamic> createMastersRecordData({
   double? raiting,
   DocumentReference? job,
   JobStatus? jobStatus,
+  bool? activeTarif,
+  bool? banned,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -242,6 +265,8 @@ Map<String, dynamic> createMastersRecordData({
       'raiting': raiting,
       'job': job,
       'jobStatus': jobStatus,
+      'activeTarif': activeTarif,
+      'banned': banned,
     }.withoutNulls,
   );
 
@@ -283,7 +308,10 @@ class MastersRecordDocumentEquality implements Equality<MastersRecord> {
         listEquality.equals(e1?.childCat, e2?.childCat) &&
         listEquality.equals(e1?.records, e2?.records) &&
         e1?.job == e2?.job &&
-        e1?.jobStatus == e2?.jobStatus;
+        e1?.jobStatus == e2?.jobStatus &&
+        listEquality.equals(e1?.tarifs, e2?.tarifs) &&
+        e1?.activeTarif == e2?.activeTarif &&
+        e1?.banned == e2?.banned;
   }
 
   @override
@@ -311,7 +339,10 @@ class MastersRecordDocumentEquality implements Equality<MastersRecord> {
         e?.childCat,
         e?.records,
         e?.job,
-        e?.jobStatus
+        e?.jobStatus,
+        e?.tarifs,
+        e?.activeTarif,
+        e?.banned
       ]);
 
   @override

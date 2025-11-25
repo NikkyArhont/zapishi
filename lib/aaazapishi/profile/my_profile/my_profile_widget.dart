@@ -637,51 +637,65 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 56.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.wallet_rounded,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            Text(
-                              'Тариф',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts:
-                                        !FlutterFlowTheme.of(context)
-                                            .bodyMediumIsCustom,
+                      if (currentUserDocument?.mainMaster != null)
+                        AuthUserStreamWidget(
+                          builder: (context) => InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(SubbscribesWidget.routeName);
+                            },
+                            child: Container(
+                              height: 56.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(14.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.wallet_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
                                   ),
-                            ),
-                            Expanded(
-                              child: Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
-                                child: FaIcon(
-                                  FontAwesomeIcons.angleRight,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24.0,
-                                ),
+                                  Text(
+                                    'Тариф',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily,
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts:
+                                              !FlutterFlowTheme.of(context)
+                                                  .bodyMediumIsCustom,
+                                        ),
+                                  ),
+                                  Expanded(
+                                    child: Align(
+                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.angleRight,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                                    .divide(SizedBox(width: 12.0))
+                                    .addToStart(SizedBox(width: 16.0))
+                                    .addToEnd(SizedBox(width: 16.0)),
                               ),
                             ),
-                          ]
-                              .divide(SizedBox(width: 12.0))
-                              .addToStart(SizedBox(width: 16.0))
-                              .addToEnd(SizedBox(width: 16.0)),
+                          ),
                         ),
-                      ),
                       Container(
                         height: 56.0,
                         decoration: BoxDecoration(

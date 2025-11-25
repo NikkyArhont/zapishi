@@ -85,9 +85,9 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
           color: FlutterFlowTheme.of(context).secondary,
           child: Center(
             child: Image.asset(
-              'assets/images/Logo_(3).png',
-              width: 150.0,
-              fit: BoxFit.contain,
+              'assets/images/Frame_1851040970.png',
+              width: 300.0,
+              fit: BoxFit.fitWidth,
             ),
           ),
         )
@@ -228,6 +228,24 @@ final parametersBuilderMap =
               data, 'organisation', MastersRecord.fromSnapshot),
         },
       ),
+  'subbscribes': ParameterData.none(),
+  'chooseSubbscribes': (data) async => ParameterData(
+        allParams: {
+          'master': await getDocumentParameter<MastersRecord>(
+              data, 'master', MastersRecord.fromSnapshot),
+          'tarif': await getDocumentParameter<TarifRecord>(
+              data, 'tarif', TarifRecord.fromSnapshot),
+        },
+      ),
+  'adminOrders': ParameterData.none(),
+  'adminServicePage': (data) async => ParameterData(
+        allParams: {
+          'serviceRef': getParameter<DocumentReference>(data, 'serviceRef'),
+        },
+      ),
+  'politic': ParameterData.none(),
+  'userAgreevment': ParameterData.none(),
+  'adminMoney': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

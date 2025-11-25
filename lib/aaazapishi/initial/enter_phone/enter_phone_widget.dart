@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -303,6 +304,12 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                                             !FlutterFlowTheme.of(context)
                                                 .bodyLargeIsCustom,
                                       ),
+                                  mouseCursor: SystemMouseCursors.click,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      context
+                                          .pushNamed(PoliticWidget.routeName);
+                                    },
                                 ),
                                 TextSpan(
                                   text: ' и ',
@@ -334,6 +341,12 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                                             !FlutterFlowTheme.of(context)
                                                 .bodyLargeIsCustom,
                                       ),
+                                  mouseCursor: SystemMouseCursors.click,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      context.pushNamed(
+                                          UserAgreevmentWidget.routeName);
+                                    },
                                 )
                               ],
                               style: FlutterFlowTheme.of(context)

@@ -72,7 +72,7 @@ class _DeleteAccountAnimWidgetState extends State<DeleteAccountAnimWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
-                'assets/images/Group_(1).png',
+                'assets/images/Group_(3).png',
                 width: 180.0,
                 height: 180.0,
                 fit: BoxFit.contain,

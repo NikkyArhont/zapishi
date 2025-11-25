@@ -1,8 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'admin_show_serv_widget.dart' show AdminShowServWidget;
+import 'admin_banned_master_info_widget.dart' show AdminBannedMasterInfoWidget;
 import 'package:flutter/material.dart';
 
-class AdminShowServModel extends FlutterFlowModel<AdminShowServWidget> {
+class AdminBannedMasterInfoModel
+    extends FlutterFlowModel<AdminBannedMasterInfoWidget> {
   @override
   void initState(BuildContext context) {}
 

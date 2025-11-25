@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -45,11 +46,6 @@ class ServicesRecord extends FirestoreRecord {
   List<DocumentReference> get reviews => _reviews ?? const [];
   bool hasReviews() => _reviews != null;
 
-  // "show" field.
-  bool? _show;
-  bool get show => _show ?? false;
-  bool hasShow() => _show != null;
-
   // "fixedPrice" field.
   bool? _fixedPrice;
   bool get fixedPrice => _fixedPrice ?? false;
@@ -85,6 +81,16 @@ class ServicesRecord extends FirestoreRecord {
   LatLng? get locationMaster => _locationMaster;
   bool hasLocationMaster() => _locationMaster != null;
 
+  // "whenCreate" field.
+  DateTime? _whenCreate;
+  DateTime? get whenCreate => _whenCreate;
+  bool hasWhenCreate() => _whenCreate != null;
+
+  // "status" field.
+  ServiceStatus? _status;
+  ServiceStatus? get status => _status;
+  bool hasStatus() => _status != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _price = castToType<int>(snapshotData['price']);
@@ -92,7 +98,6 @@ class ServicesRecord extends FirestoreRecord {
     _photo = getDataList(snapshotData['photo']);
     _raiting = castToType<double>(snapshotData['raiting']);
     _reviews = getDataList(snapshotData['reviews']);
-    _show = snapshotData['show'] as bool?;
     _fixedPrice = snapshotData['fixedPrice'] as bool?;
     _category = getDataList(snapshotData['category']);
     _whoCreate = snapshotData['whoCreate'] as DocumentReference?;
@@ -100,6 +105,10 @@ class ServicesRecord extends FirestoreRecord {
     _masters = getDataList(snapshotData['masters']);
     _duration = castToType<int>(snapshotData['duration']);
     _locationMaster = snapshotData['locationMaster'] as LatLng?;
+    _whenCreate = snapshotData['whenCreate'] as DateTime?;
+    _status = snapshotData['status'] is ServiceStatus
+        ? snapshotData['status']
+        : deserializeEnum<ServiceStatus>(snapshotData['status']);
   }
 
   static CollectionReference get collection =>
@@ -141,12 +150,13 @@ Map<String, dynamic> createServicesRecordData({
   int? price,
   String? description,
   double? raiting,
-  bool? show,
   bool? fixedPrice,
   DocumentReference? whoCreate,
   DocumentReference? organisation,
   int? duration,
   LatLng? locationMaster,
+  DateTime? whenCreate,
+  ServiceStatus? status,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -154,12 +164,13 @@ Map<String, dynamic> createServicesRecordData({
       'price': price,
       'description': description,
       'raiting': raiting,
-      'show': show,
       'fixedPrice': fixedPrice,
       'whoCreate': whoCreate,
       'organisation': organisation,
       'duration': duration,
       'locationMaster': locationMaster,
+      'whenCreate': whenCreate,
+      'status': status,
     }.withoutNulls,
   );
 
@@ -178,14 +189,15 @@ class ServicesRecordDocumentEquality implements Equality<ServicesRecord> {
         listEquality.equals(e1?.photo, e2?.photo) &&
         e1?.raiting == e2?.raiting &&
         listEquality.equals(e1?.reviews, e2?.reviews) &&
-        e1?.show == e2?.show &&
         e1?.fixedPrice == e2?.fixedPrice &&
         listEquality.equals(e1?.category, e2?.category) &&
         e1?.whoCreate == e2?.whoCreate &&
         e1?.organisation == e2?.organisation &&
         listEquality.equals(e1?.masters, e2?.masters) &&
         e1?.duration == e2?.duration &&
-        e1?.locationMaster == e2?.locationMaster;
+        e1?.locationMaster == e2?.locationMaster &&
+        e1?.whenCreate == e2?.whenCreate &&
+        e1?.status == e2?.status;
   }
 
   @override
@@ -196,14 +208,15 @@ class ServicesRecordDocumentEquality implements Equality<ServicesRecord> {
         e?.photo,
         e?.raiting,
         e?.reviews,
-        e?.show,
         e?.fixedPrice,
         e?.category,
         e?.whoCreate,
         e?.organisation,
         e?.masters,
         e?.duration,
-        e?.locationMaster
+        e?.locationMaster,
+        e?.whenCreate,
+        e?.status
       ]);
 
   @override

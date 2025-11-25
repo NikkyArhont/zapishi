@@ -806,3 +806,22 @@ double? getRaiting(List<ReviewsRecord>? reviews) {
 
   return total / reviews.length;
 }
+
+bool? checkCatFilter(
+  List<DocumentReference>? listFilter,
+  List<DocumentReference>? listCat,
+) {
+// если один из списков пуст — true
+  if (listFilter == null || listFilter.isEmpty) return true;
+  if (listCat == null || listCat.isEmpty) return true;
+
+  // ищем совпадение
+  for (final ref in listFilter) {
+    if (listCat.contains(ref)) {
+      return true;
+    }
+  }
+
+  // совпадений нет
+  return false;
+}

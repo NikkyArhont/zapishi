@@ -2025,6 +2025,7 @@ class _MasterCreateWidgetState extends State<MasterCreateWidget> {
                                           remotePrice: int.tryParse(
                                               _model.textController5.text),
                                           jobStatus: JobStatus.alone,
+                                          banned: false,
                                         ),
                                         ...mapToFirestore(
                                           {
@@ -2067,6 +2068,7 @@ class _MasterCreateWidgetState extends State<MasterCreateWidget> {
                                           remotePrice: int.tryParse(
                                               _model.textController5.text),
                                           jobStatus: JobStatus.alone,
+                                          banned: false,
                                         ),
                                         ...mapToFirestore(
                                           {
@@ -2105,6 +2107,8 @@ class _MasterCreateWidgetState extends State<MasterCreateWidget> {
                                             duration: currentLoop1Item.duration,
                                             locationMaster: _model
                                                 .newMaster?.adres.location,
+                                            whenCreate: getCurrentTimestamp,
+                                            status: ServiceStatus.show,
                                           ),
                                           ...mapToFirestore(
                                             {
@@ -2128,6 +2132,8 @@ class _MasterCreateWidgetState extends State<MasterCreateWidget> {
                                             duration: currentLoop1Item.duration,
                                             locationMaster: _model
                                                 .newMaster?.adres.location,
+                                            whenCreate: getCurrentTimestamp,
+                                            status: ServiceStatus.show,
                                           ),
                                           ...mapToFirestore(
                                             {

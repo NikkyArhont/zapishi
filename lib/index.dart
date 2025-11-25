@@ -74,3 +74,16 @@ export '/aaazapishi/cabinet/master_offer_organisation/master_offer_organisation_
     show MasterOfferOrganisationWidget;
 export '/aaazapishi/cabinet/master_offer_set_serv/master_offer_set_serv_widget.dart'
     show MasterOfferSetServWidget;
+export '/aaazapishi/profile/subbscribes/subbscribes_widget.dart'
+    show SubbscribesWidget;
+export '/aaazapishi/profile/choose_subbscribes/choose_subbscribes_widget.dart'
+    show ChooseSubbscribesWidget;
+export '/aaazapishi/admin/admin_orders/admin_orders/admin_orders_widget.dart'
+    show AdminOrdersWidget;
+export '/aaazapishi/admin/admin_service/admin_service_page/admin_service_page_widget.dart'
+    show AdminServicePageWidget;
+export '/aaazapishi/initial/politic/politic_widget.dart' show PoliticWidget;
+export '/aaazapishi/initial/user_agreevment/user_agreevment_widget.dart'
+    show UserAgreevmentWidget;
+export '/aaazapishi/admin/admin_money/admin_money/admin_money_widget.dart'
+    show AdminMoneyWidget;

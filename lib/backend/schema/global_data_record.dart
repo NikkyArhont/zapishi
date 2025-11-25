@@ -15,13 +15,25 @@ class GlobalDataRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "comission" field.
-  int? _comission;
-  int get comission => _comission ?? 0;
-  bool hasComission() => _comission != null;
+  // "taxForFree" field.
+  int? _taxForFree;
+  int get taxForFree => _taxForFree ?? 0;
+  bool hasTaxForFree() => _taxForFree != null;
+
+  // "taxForMasters" field.
+  int? _taxForMasters;
+  int get taxForMasters => _taxForMasters ?? 0;
+  bool hasTaxForMasters() => _taxForMasters != null;
+
+  // "daysForFree" field.
+  int? _daysForFree;
+  int get daysForFree => _daysForFree ?? 0;
+  bool hasDaysForFree() => _daysForFree != null;
 
   void _initializeFields() {
-    _comission = castToType<int>(snapshotData['comission']);
+    _taxForFree = castToType<int>(snapshotData['taxForFree']);
+    _taxForMasters = castToType<int>(snapshotData['taxForMasters']);
+    _daysForFree = castToType<int>(snapshotData['daysForFree']);
   }
 
   static CollectionReference get collection =>
@@ -59,11 +71,15 @@ class GlobalDataRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createGlobalDataRecordData({
-  int? comission,
+  int? taxForFree,
+  int? taxForMasters,
+  int? daysForFree,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'comission': comission,
+      'taxForFree': taxForFree,
+      'taxForMasters': taxForMasters,
+      'daysForFree': daysForFree,
     }.withoutNulls,
   );
 
@@ -75,11 +91,14 @@ class GlobalDataRecordDocumentEquality implements Equality<GlobalDataRecord> {
 
   @override
   bool equals(GlobalDataRecord? e1, GlobalDataRecord? e2) {
-    return e1?.comission == e2?.comission;
+    return e1?.taxForFree == e2?.taxForFree &&
+        e1?.taxForMasters == e2?.taxForMasters &&
+        e1?.daysForFree == e2?.daysForFree;
   }
 
   @override
-  int hash(GlobalDataRecord? e) => const ListEquality().hash([e?.comission]);
+  int hash(GlobalDataRecord? e) => const ListEquality()
+      .hash([e?.taxForFree, e?.taxForMasters, e?.daysForFree]);
 
   @override
   bool isValidKey(Object? o) => o is GlobalDataRecord;

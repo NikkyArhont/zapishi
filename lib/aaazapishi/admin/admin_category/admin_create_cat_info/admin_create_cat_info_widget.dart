@@ -111,7 +111,7 @@ class _AdminCreateCatInfoWidgetState extends State<AdminCreateCatInfoWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
-                  'assets/images/Group_(1).png',
+                  'assets/images/Group_(3).png',
                   width: 150.0,
                   height: 150.0,
                   fit: BoxFit.contain,

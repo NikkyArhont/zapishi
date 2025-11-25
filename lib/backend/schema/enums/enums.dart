@@ -26,12 +26,10 @@ enum DebateStatus {
 
 enum AdminMenu {
   profile,
-  emploees,
   category,
-  users,
-  service,
-  subcategory,
   orders,
+  money,
+  chats,
 }
 
 enum RecordStatus {
@@ -45,6 +43,12 @@ enum JobStatus {
   hasOffer,
   alone,
   worInOrg,
+}
+
+enum ServiceStatus {
+  show,
+  hide,
+  denied,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {
@@ -70,6 +74,8 @@ T? deserializeEnum<T>(String? value) {
       return RecordStatus.values.deserialize(value) as T?;
     case (JobStatus):
       return JobStatus.values.deserialize(value) as T?;
+    case (ServiceStatus):
+      return ServiceStatus.values.deserialize(value) as T?;
     default:
       return null;
   }

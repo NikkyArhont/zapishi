@@ -87,10 +87,10 @@ class _StartpageWidgetState extends State<StartpageWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
-                      'assets/images/Logo_(3).png',
+                      'assets/images/Frame_1851040970.png',
                       width: 190.0,
                       height: 190.0,
-                      fit: BoxFit.none,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

@@ -1,5 +1,7 @@
-import '/aaazapishi/admin/admin_category/modal_service/admin_hide_servicenfo/admin_hide_servicenfo_widget.dart';
+import '/aaazapishi/admin/admin_service/admin_hide_servicenfo/admin_hide_servicenfo_widget.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -11,10 +13,10 @@ export 'admin_hide_serv_model.dart';
 class AdminHideServWidget extends StatefulWidget {
   const AdminHideServWidget({
     super.key,
-    required this.servRef,
+    required this.servDocc,
   });
 
-  final DocumentReference? servRef;
+  final ServicesRecord? servDocc;
 
   @override
   State<AdminHideServWidget> createState() => _AdminHideServWidgetState();
@@ -33,6 +35,9 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminHideServModel());
+
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -119,7 +124,7 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
             Align(
               alignment: AlignmentDirectional(-1.0, 0.0),
               child: Text(
-                'Услуга не будет отображаться в приложении пользователя и будет перенесена в архив',
+                'Причина:',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                       fontSize: 18.0,
@@ -129,29 +134,93 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
                     ),
               ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                'assets/images/Group.png',
-                width: 160.0,
-                height: 160.0,
-                fit: BoxFit.cover,
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional(0.0, -1.0),
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  child: TextFormField(
+                    controller: _model.textController,
+                    focusNode: _model.textFieldFocusNode,
+                    autofocus: false,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      isDense: false,
+                      labelStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily:
+                                FlutterFlowTheme.of(context).titleSmallFamily,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                            useGoogleFonts: !FlutterFlowTheme.of(context)
+                                .titleSmallIsCustom,
+                          ),
+                      hintText: 'Введите',
+                      hintStyle: FlutterFlowTheme.of(context)
+                          .bodyLarge
+                          .override(
+                            fontFamily: 'involve',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            letterSpacing: 0.0,
+                          ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      filled: true,
+                      fillColor: Color(0xFFF5F5F5),
+                      hoverColor: Color(0x1B0D7A5F),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                          fontFamily: 'involve',
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                    maxLines: 5,
+                    cursorColor: FlutterFlowTheme.of(context).primaryText,
+                    validator:
+                        _model.textControllerValidator.asValidator(context),
+                  ),
+                ),
               ),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Align(
-                  alignment: AlignmentDirectional(1.0, 0.0),
+                Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
                       Navigator.pop(context);
                     },
-                    text: 'Нет',
+                    text: 'Отмена',
                     options: FFButtonOptions(
-                      width: 160.0,
-                      height: 58.0,
+                      height: 48.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
@@ -171,32 +240,42 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(1.0, 0.0),
+                Expanded(
                   child: Builder(
                     builder: (context) => FFButtonWidget(
-                      onPressed: () async {
-                        await widget.servRef!.update(createServicesRecordData(
-                          show: false,
-                        ));
-                        Navigator.pop(context);
-                        await showDialog(
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: AdminHideServicenfoWidget(),
-                            );
-                          },
-                        );
-                      },
-                      text: 'Да',
+                      onPressed: (_model.textController.text == '')
+                          ? null
+                          : () async {
+                              await widget.servDocc!.reference
+                                  .update(createServicesRecordData(
+                                status: ServiceStatus.hide,
+                              ));
+                              triggerPushNotification(
+                                notificationTitle:
+                                    'Ваша услуга снята с публикации',
+                                notificationText: _model.textController.text,
+                                userRefs: [widget.servDocc!.whoCreate!],
+                                initialPageName: 'cabinet',
+                                parameterData: {},
+                              );
+                              Navigator.pop(context);
+                              _model.updatePage(() {});
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: AdminHideServicenfoWidget(),
+                                  );
+                                },
+                              );
+                            },
+                      text: 'Снять с публикации',
                       options: FFButtonOptions(
-                        width: 160.0,
                         height: 48.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
@@ -210,11 +289,12 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(16.0),
+                        disabledColor: FlutterFlowTheme.of(context).secondary,
                       ),
                     ),
                   ),
                 ),
-              ].divide(SizedBox(width: 32.0)),
+              ].divide(SizedBox(width: 12.0)),
             ),
           ],
         ),

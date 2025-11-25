@@ -135,7 +135,7 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
               ),
             ),
             FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.emploees)
+              onPressed: (widget.currentAdminPage == AdminMenu.orders)
                   ? null
                   : () {
                       print('Button pressed ...');
@@ -164,7 +164,7 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
               ),
             ),
             FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.users)
+              onPressed: (widget.currentAdminPage == AdminMenu.money)
                   ? null
                   : () {
                       print('Button pressed ...');
@@ -251,7 +251,7 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
               ),
             ),
             FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.orders)
+              onPressed: (widget.currentAdminPage == AdminMenu.chats)
                   ? null
                   : () {
                       print('Button pressed ...');
