@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ну, погоди! — Мини-игра</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-wrapper">
+      <header class="hud">
+        <div class="hud__group">Счёт: <span id="scoreValue">0</span></div>
+        <div class="hud__group">Ошибки: <span id="errorsValue">0</span>/3</div>
+        <div class="hud__controls">
+          <button id="startBtn" class="primary">Старт</button>
+          <button id="pauseBtn" class="secondary" disabled>Пауза</button>
+        </div>
+      </header>
+
+      <section class="stage">
+        <canvas id="gameCanvas" width="360" height="640" aria-label="Игровое поле"></canvas>
+        <div id="overlay" class="overlay visible">НАЖМИ СТАРТ</div>
+      </section>
+
+      <section class="controls" aria-label="Управление волком">
+        <div></div>
+        <button class="control" data-dir="up">⬆️</button>
+        <div></div>
+        <button class="control" data-dir="left">⬅️</button>
+        <button class="control" data-dir="down">⬇️</button>
+        <button class="control" data-dir="right">➡️</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
