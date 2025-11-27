@@ -32,7 +32,7 @@ export '/aaazapishi/admin/admin_category/admin_category/admin_category_widget.da
     show AdminCategoryWidget;
 export '/aaazapishi/master/master_page/master_page_widget.dart'
     show MasterPageWidget;
-export '/aaazapishi/create_debate/create_debate_widget.dart'
+export '/aaazapishi/records/create_debate/create_debate_widget.dart'
     show CreateDebateWidget;
 export '/aaazapishi/master/service_page_z/service_page_z_widget.dart'
     show ServicePageZWidget;
@@ -87,3 +87,5 @@ export '/aaazapishi/initial/user_agreevment/user_agreevment_widget.dart'
     show UserAgreevmentWidget;
 export '/aaazapishi/admin/admin_money/admin_money/admin_money_widget.dart'
     show AdminMoneyWidget;
+export '/aaazapishi/admin/admin_chats/admin_c_chats/admin_c_chats_widget.dart'
+    show AdminCChatsWidget;

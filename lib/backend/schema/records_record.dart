@@ -101,6 +101,11 @@ class RecordsRecord extends FirestoreRecord {
   DocumentReference? get reviewOnClient => _reviewOnClient;
   bool hasReviewOnClient() => _reviewOnClient != null;
 
+  // "report" field.
+  ReportStruct? _report;
+  ReportStruct get report => _report ?? ReportStruct();
+  bool hasReport() => _report != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _master = snapshotData['master'] as DocumentReference?;
@@ -123,6 +128,9 @@ class RecordsRecord extends FirestoreRecord {
     _clientPhone = snapshotData['clientPhone'] as String?;
     _chatRecord = snapshotData['chatRecord'] as DocumentReference?;
     _reviewOnClient = snapshotData['reviewOnClient'] as DocumentReference?;
+    _report = snapshotData['report'] is ReportStruct
+        ? snapshotData['report']
+        : ReportStruct.maybeFromMap(snapshotData['report']);
   }
 
   static CollectionReference get collection =>
@@ -176,6 +184,7 @@ Map<String, dynamic> createRecordsRecordData({
   String? clientPhone,
   DocumentReference? chatRecord,
   DocumentReference? reviewOnClient,
+  ReportStruct? report,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -195,11 +204,15 @@ Map<String, dynamic> createRecordsRecordData({
       'clientPhone': clientPhone,
       'chatRecord': chatRecord,
       'reviewOnClient': reviewOnClient,
+      'report': ReportStruct().toMap(),
     }.withoutNulls,
   );
 
   // Handle nested data for "location" field.
   addSearchPlaceStructData(firestoreData, location, 'location');
+
+  // Handle nested data for "report" field.
+  addReportStructData(firestoreData, report, 'report');
 
   return firestoreData;
 }
@@ -226,7 +239,8 @@ class RecordsRecordDocumentEquality implements Equality<RecordsRecord> {
         e1?.clientName == e2?.clientName &&
         e1?.clientPhone == e2?.clientPhone &&
         e1?.chatRecord == e2?.chatRecord &&
-        e1?.reviewOnClient == e2?.reviewOnClient;
+        e1?.reviewOnClient == e2?.reviewOnClient &&
+        e1?.report == e2?.report;
   }
 
   @override
@@ -247,7 +261,8 @@ class RecordsRecordDocumentEquality implements Equality<RecordsRecord> {
         e?.clientName,
         e?.clientPhone,
         e?.chatRecord,
-        e?.reviewOnClient
+        e?.reviewOnClient,
+        e?.report
       ]);
 
   @override

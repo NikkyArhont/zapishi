@@ -7,6 +7,7 @@ export 'filter_data_struct.dart';
 export 'master_tarif_struct.dart';
 export 'planer_data_master_struct.dart';
 export 'planer_data_organisation_struct.dart';
+export 'report_struct.dart';
 export 'search_place_struct.dart';
 export 'service_detail_inorder_struct.dart';
 export 'weekly_work_struct.dart';

@@ -1,4 +1,5 @@
 import '/aaazapishi/components/backbutton/backbutton_widget.dart';
+import '/aaazapishi/components/calendar/calendar_widget.dart';
 import '/aaazapishi/reviews/empty_r_eviews/empty_r_eviews_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -604,21 +605,60 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                               ),
                               Align(
                                 alignment: AlignmentDirectional(-1.0, 0.0),
-                                child: Text(
-                                  'Смотреть',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .labelMediumIsCustom,
-                                      ),
+                                child: Builder(
+                                  builder: (context) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(dialogContext)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
+                                              child: CalendarWidget(
+                                                loadSchedulle:
+                                                    masterPageOfferMastersRecord
+                                                        .workTime,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      'Смотреть',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts:
+                                                !FlutterFlowTheme.of(context)
+                                                    .labelMediumIsCustom,
+                                          ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

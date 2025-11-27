@@ -1,6 +1,20 @@
 {
   "indexes": [
     {
+      "collectionGroup": "services",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organisation",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "category",
       "queryScope": "COLLECTION",
       "fields": [

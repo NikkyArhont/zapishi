@@ -825,3 +825,190 @@ bool? checkCatFilter(
   // совпадений нет
   return false;
 }
+
+List<ServicesRecord>? sortServices(
+  LatLng? user,
+  String? sortType,
+  List<ServicesRecord>? services,
+) {
+  if (services == null) return null;
+
+  void sortByRating() {
+    services.sort((a, b) {
+      final ra = a.raiting ?? 0;
+      final rb = b.raiting ?? 0;
+      return rb.compareTo(ra);
+    });
+  }
+
+  if (sortType == "1") {
+    sortByRating();
+    return services;
+  }
+
+  if (sortType == "2" && user == null) {
+    sortByRating();
+    return services;
+  }
+
+  if (sortType == "2" && user != null) {
+    double distance(LatLng a, LatLng b) {
+      const R = 6371;
+      double toRad(double x) => x * math.pi / 180;
+
+      final dLat = toRad(b.latitude - a.latitude);
+      final dLon = toRad(b.longitude - a.longitude);
+
+      final lat1 = toRad(a.latitude);
+      final lat2 = toRad(b.latitude);
+
+      final h = math.sin(dLat / 2) * math.sin(dLat / 2) +
+          math.cos(lat1) *
+              math.cos(lat2) *
+              math.sin(dLon / 2) *
+              math.sin(dLon / 2);
+
+      final c = 2 * math.atan2(math.sqrt(h), math.sqrt(1 - h));
+      return R * c;
+    }
+
+    services.sort((a, b) {
+      final la = a.locationMaster;
+      final lb = b.locationMaster;
+
+      if (la == null || lb == null) return 0;
+
+      final da = distance(user, la);
+      final db = distance(user, lb);
+
+      return da.compareTo(db);
+    });
+
+    return services;
+  }
+
+  return services;
+}
+
+bool? checkWorkDay(
+  DateTime? day,
+  List<WorkSchedulleStruct>? schedulle,
+) {
+  if (day == null || schedulle == null || schedulle.isEmpty) {
+    return false;
+  }
+
+  return schedulle.any((item) {
+    final d = item.data;
+    if (d == null) return false;
+
+    return d.year == day.year && d.month == day.month && d.day == day.day;
+  });
+}
+
+bool? mainFilter(
+  FilterDataStruct? filter,
+  ServicesRecord? service,
+  MastersRecord? master,
+) {
+  if (filter == null || service == null || master == null) return false;
+
+  // --- Вспомогательная функция расстояния ---
+  double calcDistanceKm(LatLng a, LatLng b) {
+    double _degToRad(double deg) => deg * math.pi / 180;
+
+    const R = 6371.0; // км
+    double dLat = _degToRad(b.latitude - a.latitude);
+    double dLon = _degToRad(b.longitude - a.longitude);
+
+    double lat1 = _degToRad(a.latitude);
+    double lat2 = _degToRad(b.latitude);
+
+    double h = math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(lat1) *
+            math.cos(lat2) *
+            math.sin(dLon / 2) *
+            math.sin(dLon / 2);
+
+    double c = 2 * math.atan2(math.sqrt(h), math.sqrt(1 - h));
+
+    return R * c;
+  }
+
+  // ------------------------
+  // 1. ФИЛЬТР: Категории
+  // ------------------------
+  final filterCats = filter.category ?? [];
+  final serviceCats = service.category ?? [];
+
+  if (filterCats.isNotEmpty) {
+    final hasCatMatch = serviceCats.any((cat) => filterCats.contains(cat));
+    if (!hasCatMatch) return false;
+  }
+
+  // ------------------------
+  // 2. ФИЛЬТР: Дата (dateServ)
+  // ------------------------
+  if (filter.dateServ != null) {
+    final workTime = master.workTime ?? [];
+
+    final matchDay = workTime.any((item) {
+      final d = item.data;
+      if (d == null) return false;
+
+      return d.year == filter.dateServ!.year &&
+          d.month == filter.dateServ!.month &&
+          d.day == filter.dateServ!.day;
+    });
+
+    if (!matchDay) return false;
+  }
+
+  // ------------------------
+  // 3. ФИЛЬТР: Местоположение (atHome + onRadius)
+  // ------------------------
+
+  LatLng? userPoint = filter.userPoint;
+
+  // CASE 1: atHome = false, onRadius = false → сравнение placeId
+  if (filter.atHome == false && filter.onRadius == false) {
+    if (filter.place == null || master.adres == null) return false;
+
+    if (filter.place!.placeId == null || master.adres!.placeId == null) {
+      return false;
+    }
+
+    if (filter.place!.placeId != master.adres!.placeId) return false;
+  }
+
+  // CASE 2: atHome = true, onRadius = true → удалённый адрес + радиус
+  if (filter.atHome == true && filter.onRadius == true) {
+    if (master.remoteAdres?.location == null || userPoint == null) {
+      return false;
+    }
+
+    final dist = calcDistanceKm(userPoint, master.remoteAdres!.location!);
+    final radius = filter.locationRadius ?? 0;
+
+    if (dist > radius) return false;
+  }
+
+  // CASE 3: atHome = true, onRadius = false → мастер выезжает
+  if (filter.atHome == true && filter.onRadius == false) {
+    if (master.remoteAdres == null) return false;
+  }
+
+  // CASE 4: atHome = false, onRadius = true → обычный адрес + радиус
+  if (filter.atHome == false && filter.onRadius == true) {
+    if (master.adres?.location == null || userPoint == null) {
+      return false;
+    }
+
+    final dist = calcDistanceKm(userPoint, master.adres!.location!);
+    final radius = filter.locationRadius ?? 0;
+
+    if (dist > radius) return false;
+  }
+
+  return true;
+}

@@ -147,7 +147,16 @@ final parametersBuilderMap =
           'master': getParameter<DocumentReference>(data, 'master'),
         },
       ),
-  'createDebate': ParameterData.none(),
+  'createDebate': (data) async => ParameterData(
+        allParams: {
+          'recordDOc': await getDocumentParameter<RecordsRecord>(
+              data, 'recordDOc', RecordsRecord.fromSnapshot),
+          'servDoc': await getDocumentParameter<ServicesRecord>(
+              data, 'servDoc', ServicesRecord.fromSnapshot),
+          'masrterDoc': await getDocumentParameter<MastersRecord>(
+              data, 'masrterDoc', MastersRecord.fromSnapshot),
+        },
+      ),
   'servicePageZ': (data) async => ParameterData(
         allParams: {
           'servRef': getParameter<DocumentReference>(data, 'servRef'),
@@ -246,6 +255,7 @@ final parametersBuilderMap =
   'politic': ParameterData.none(),
   'userAgreevment': ParameterData.none(),
   'adminMoney': ParameterData.none(),
+  'adminCChats': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

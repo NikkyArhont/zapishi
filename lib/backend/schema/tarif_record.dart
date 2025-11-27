@@ -41,6 +41,11 @@ class TarifRecord extends FirestoreRecord {
   List<DocumentReference> get whoUsed => _whoUsed ?? const [];
   bool hasWhoUsed() => _whoUsed != null;
 
+  // "duration" field.
+  int? _duration;
+  int get duration => _duration ?? 0;
+  bool hasDuration() => _duration != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _forWho = snapshotData['forWho'] is UserStatus
@@ -49,6 +54,7 @@ class TarifRecord extends FirestoreRecord {
     _cost = castToType<int>(snapshotData['cost']);
     _description = snapshotData['description'] as String?;
     _whoUsed = getDataList(snapshotData['whoUsed']);
+    _duration = castToType<int>(snapshotData['duration']);
   }
 
   static CollectionReference get collection =>
@@ -89,6 +95,7 @@ Map<String, dynamic> createTarifRecordData({
   UserStatus? forWho,
   int? cost,
   String? description,
+  int? duration,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -96,6 +103,7 @@ Map<String, dynamic> createTarifRecordData({
       'forWho': forWho,
       'cost': cost,
       'description': description,
+      'duration': duration,
     }.withoutNulls,
   );
 
@@ -112,12 +120,13 @@ class TarifRecordDocumentEquality implements Equality<TarifRecord> {
         e1?.forWho == e2?.forWho &&
         e1?.cost == e2?.cost &&
         e1?.description == e2?.description &&
-        listEquality.equals(e1?.whoUsed, e2?.whoUsed);
+        listEquality.equals(e1?.whoUsed, e2?.whoUsed) &&
+        e1?.duration == e2?.duration;
   }
 
   @override
-  int hash(TarifRecord? e) => const ListEquality()
-      .hash([e?.title, e?.forWho, e?.cost, e?.description, e?.whoUsed]);
+  int hash(TarifRecord? e) => const ListEquality().hash(
+      [e?.title, e?.forWho, e?.cost, e?.description, e?.whoUsed, e?.duration]);
 
   @override
   bool isValidKey(Object? o) => o is TarifRecord;

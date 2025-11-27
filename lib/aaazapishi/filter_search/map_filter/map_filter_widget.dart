@@ -94,274 +94,307 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
               key: scaffoldKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              body: Stack(
-                children: [
-                  FlutterFlowGoogleMap(
-                    controller: _model.googleMapsController,
-                    onCameraIdle: (latLng) =>
-                        safeSetState(() => _model.googleMapsCenter = latLng),
-                    initialLocation: _model.googleMapsCenter ??=
-                        _model.userlocation!,
-                    markers: mapFilterServicesRecordList
-                        .map(
-                          (marker) => FlutterFlowMarker(
-                            marker.reference.path,
-                            marker.locationMaster!,
-                            () async {
-                              _model.choosenServ = marker;
-                              safeSetState(() {});
-                            },
-                          ),
-                        )
-                        .toList(),
-                    markerColor: GoogleMarkerColor.green,
-                    mapType: MapType.normal,
-                    style: GoogleMapStyle.standard,
-                    initialZoom: 14.0,
-                    allowInteraction: true,
-                    allowZoom: true,
-                    showZoomControls: false,
-                    showLocation: true,
-                    showCompass: false,
-                    showMapToolbar: false,
-                    showTraffic: false,
-                    centerMapOnMarkerTap: true,
-                  ),
-                  Opacity(
-                    opacity: 0.4,
-                    child: PointerInterceptor(
-                      intercepting: isWeb,
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 160.0,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              FlutterFlowTheme.of(context).primaryText,
-                              FlutterFlowTheme.of(context).primaryBackground
-                            ],
-                            stops: [0.5, 1.0],
-                            begin: AlignmentDirectional(0.0, -1.0),
-                            end: AlignmentDirectional(0, 1.0),
+              body: SafeArea(
+                top: true,
+                child: Stack(
+                  children: [
+                    FlutterFlowGoogleMap(
+                      controller: _model.googleMapsController,
+                      onCameraIdle: (latLng) =>
+                          safeSetState(() => _model.googleMapsCenter = latLng),
+                      initialLocation: _model.googleMapsCenter ??=
+                          _model.userlocation!,
+                      markers: mapFilterServicesRecordList
+                          .map(
+                            (marker) => FlutterFlowMarker(
+                              marker.reference.path,
+                              marker.locationMaster!,
+                              () async {
+                                _model.choosenServ = marker;
+                                safeSetState(() {});
+                              },
+                            ),
+                          )
+                          .toList(),
+                      markerColor: GoogleMarkerColor.green,
+                      mapType: MapType.normal,
+                      style: GoogleMapStyle.standard,
+                      initialZoom: 14.0,
+                      allowInteraction: true,
+                      allowZoom: true,
+                      showZoomControls: false,
+                      showLocation: true,
+                      showCompass: false,
+                      showMapToolbar: false,
+                      showTraffic: false,
+                      centerMapOnMarkerTap: true,
+                    ),
+                    Opacity(
+                      opacity: 0.4,
+                      child: PointerInterceptor(
+                        intercepting: isWeb,
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 160.0,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primaryText,
+                                FlutterFlowTheme.of(context).primaryBackground
+                              ],
+                              stops: [0.5, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, -1.0),
-                    child: PointerInterceptor(
-                      intercepting: isWeb,
-                      child: Padding(
-                        padding: EdgeInsets.all(24.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            wrapWithModel(
-                              model: _model.backbuttonModel,
-                              updateCallback: () => safeSetState(() {}),
-                              child: BackbuttonWidget(),
-                            ),
-                            Expanded(
-                              child: wrapWithModel(
-                                model: _model.mainSearchModel,
+                    Align(
+                      alignment: AlignmentDirectional(0.0, -1.0),
+                      child: PointerInterceptor(
+                        intercepting: isWeb,
+                        child: Padding(
+                          padding: EdgeInsets.all(24.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              wrapWithModel(
+                                model: _model.backbuttonModel,
                                 updateCallback: () => safeSetState(() {}),
-                                child: MainSearchWidget(),
+                                child: BackbuttonWidget(),
                               ),
-                            ),
-                          ].divide(SizedBox(width: 12.0)),
+                              Expanded(
+                                child: wrapWithModel(
+                                  model: _model.mainSearchModel,
+                                  updateCallback: () => safeSetState(() {}),
+                                  child: MainSearchWidget(),
+                                ),
+                              ),
+                            ].divide(SizedBox(width: 12.0)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: PointerInterceptor(
-                      intercepting: isWeb,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (_model.choosenServ != null)
-                            Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed(
-                                    ServicePageZWidget.routeName,
-                                    queryParameters: {
-                                      'servRef': serializeParam(
-                                        _model.choosenServ?.reference,
-                                        ParamType.DocumentReference,
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 1.0),
+                      child: PointerInterceptor(
+                        intercepting: isWeb,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_model.choosenServ != null)
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      ServicePageZWidget.routeName,
+                                      queryParameters: {
+                                        'servRef': serializeParam(
+                                          _model.choosenServ?.reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    child: Container(
+                                      width: 380.0,
+                                      constraints: BoxConstraints(
+                                        maxWidth: 840.0,
                                       ),
-                                    }.withoutNulls,
-                                  );
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  child: Container(
-                                    width: 380.0,
-                                    constraints: BoxConstraints(
-                                      maxWidth: 840.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF5F5F5),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(16.0),
-                                            child: Image.network(
-                                              _model.choosenServ!.photo
-                                                  .firstOrNull!,
-                                              width: 85.0,
-                                              height: 85.0,
-                                              fit: BoxFit.cover,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF5F5F5),
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              child: Image.network(
+                                                _model.choosenServ!.photo
+                                                    .firstOrNull!,
+                                                width: 85.0,
+                                                height: 85.0,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    _model.choosenServ?.title,
-                                                    'noTitle',
-                                                  ),
-                                                  maxLines: 3,
-                                                  style:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumFamily,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumIsCustom,
-                                                          ),
-                                                ),
-                                                StreamBuilder<MastersRecord>(
-                                                  stream:
-                                                      MastersRecord.getDocument(
-                                                          _model.choosenServ!
-                                                              .organisation!),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      _model.choosenServ?.title,
+                                                      'noTitle',
+                                                    ),
+                                                    maxLines: 3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .primary,
+                                                                  .titleMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts:
+                                                              !FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleMediumIsCustom,
+                                                        ),
+                                                  ),
+                                                  StreamBuilder<MastersRecord>(
+                                                    stream: MastersRecord
+                                                        .getDocument(_model
+                                                            .choosenServ!
+                                                            .organisation!),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
+                                                        );
+                                                      }
+
+                                                      final rowMastersRecord =
+                                                          snapshot.data!;
+
+                                                      return Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            rowMastersRecord
+                                                                .title,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
+                                                          ),
+                                                          Icon(
+                                                            FFIcons.kstar2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customer,
+                                                            size: 24.0,
+                                                          ),
+                                                          Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              formatNumber(
+                                                                rowMastersRecord
+                                                                    .raiting,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .custom,
+                                                                format: '#.#',
+                                                                locale: '',
+                                                              ),
+                                                              '0.0',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 12.0)),
                                                       );
-                                                    }
-
-                                                    final rowMastersRecord =
-                                                        snapshot.data!;
-
-                                                    return Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          rowMastersRecord
-                                                              .title,
+                                                    },
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      if (!_model.choosenServ!
+                                                          .fixedPrice)
+                                                        AutoSizeText(
+                                                          'от',
+                                                          maxLines: 1,
+                                                          minFontSize: 10.0,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMediumFamily,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMediumIsCustom,
-                                                              ),
-                                                        ),
-                                                        Icon(
-                                                          FFIcons.kstar2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customer,
-                                                          size: 24.0,
-                                                        ),
-                                                        Text(
-                                                          valueOrDefault<
-                                                              String>(
-                                                            formatNumber(
-                                                              rowMastersRecord
-                                                                  .raiting,
-                                                              formatType:
-                                                                  FormatType
-                                                                      .custom,
-                                                              format: '#.#',
-                                                              locale: '',
-                                                            ),
-                                                            '0.0',
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
+                                                                    .titleMediumFamily,
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMediumFamily,
+                                                                    .primaryText,
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
                                                                 useGoogleFonts:
                                                                     !FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyMediumIsCustom,
+                                                                        .titleMediumIsCustom,
                                                               ),
                                                         ),
-                                                      ].divide(SizedBox(
-                                                          width: 12.0)),
-                                                    );
-                                                  },
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    if (!_model.choosenServ!
-                                                        .fixedPrice)
                                                       AutoSizeText(
-                                                        'от',
+                                                        valueOrDefault<String>(
+                                                          _model.choosenServ
+                                                              ?.price
+                                                              .toString(),
+                                                          'noPrice',
+                                                        ),
                                                         maxLines: 1,
                                                         minFontSize: 10.0,
                                                         style:
@@ -386,258 +419,236 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                                           .titleMediumIsCustom,
                                                                 ),
                                                       ),
-                                                    AutoSizeText(
-                                                      valueOrDefault<String>(
-                                                        _model
-                                                            .choosenServ?.price
-                                                            .toString(),
-                                                        'noPrice',
+                                                      AutoSizeText(
+                                                        ' ${FFAppConstants.currency}',
+                                                        maxLines: 1,
+                                                        minFontSize: 10.0,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMediumIsCustom,
+                                                                ),
                                                       ),
-                                                      maxLines: 1,
-                                                      minFontSize: 10.0,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumFamily,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumIsCustom,
-                                                          ),
-                                                    ),
-                                                    AutoSizeText(
-                                                      ' ${FFAppConstants.currency}',
-                                                      maxLines: 1,
-                                                      minFontSize: 10.0,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumFamily,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumIsCustom,
-                                                          ),
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(width: 4.0)),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    StreamBuilder<
-                                                        CategoryRecord>(
-                                                      stream: CategoryRecord
-                                                          .getDocument(_model
-                                                              .choosenServ!
-                                                              .category
-                                                              .firstOrNull!),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
+                                                    ].divide(
+                                                        SizedBox(width: 4.0)),
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      StreamBuilder<
+                                                          CategoryRecord>(
+                                                        stream: CategoryRecord
+                                                            .getDocument(_model
+                                                                .choosenServ!
+                                                                .category
+                                                                .firstOrNull!),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        }
+                                                            );
+                                                          }
 
-                                                        final textCategoryRecord =
-                                                            snapshot.data!;
+                                                          final textCategoryRecord =
+                                                              snapshot.data!;
 
-                                                        return Text(
-                                                          textCategoryRecord
-                                                              .title,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMediumIsCustom,
-                                                              ),
-                                                        );
-                                                      },
-                                                    ),
-                                                    Text(
-                                                      '-',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                            letterSpacing: 0.0,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumIsCustom,
-                                                          ),
-                                                    ),
-                                                    StreamBuilder<
-                                                        CategoryRecord>(
-                                                      stream: CategoryRecord
-                                                          .getDocument(_model
-                                                              .choosenServ!
-                                                              .category
-                                                              .elementAtOrNull(
-                                                                  1)!),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
+                                                          return Text(
+                                                            textCategoryRecord
+                                                                .title,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
+                                                          );
+                                                        },
+                                                      ),
+                                                      Text(
+                                                        '-',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
+                                                      ),
+                                                      StreamBuilder<
+                                                          CategoryRecord>(
+                                                        stream: CategoryRecord
+                                                            .getDocument(_model
+                                                                .choosenServ!
+                                                                .category
+                                                                .elementAtOrNull(
+                                                                    1)!),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                            );
+                                                          }
+
+                                                          final textCategoryRecord =
+                                                              snapshot.data!;
+
+                                                          return Text(
+                                                            textCategoryRecord
+                                                                .title,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
                                                           );
-                                                        }
-
-                                                        final textCategoryRecord =
-                                                            snapshot.data!;
-
-                                                        return Text(
-                                                          textCategoryRecord
-                                                              .title,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMediumIsCustom,
-                                                              ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(width: 4.0)),
-                                                ),
-                                              ].divide(SizedBox(height: 4.0)),
+                                                        },
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(width: 4.0)),
+                                                  ),
+                                                ].divide(SizedBox(height: 4.0)),
+                                              ),
                                             ),
-                                          ),
-                                        ].divide(SizedBox(width: 24.0)),
+                                          ].divide(SizedBox(width: 24.0)),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: FlutterFlowIconButton(
-                                    borderRadius: 16.0,
-                                    buttonSize: 56.0,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    icon: Icon(
-                                      Icons.navigation_sharp,
-                                      color: FlutterFlowTheme.of(context).info,
-                                      size: 24.0,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: FlutterFlowIconButton(
+                                      borderRadius: 16.0,
+                                      buttonSize: 56.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: Icon(
+                                        Icons.navigation_sharp,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        currentUserLocationValue =
+                                            await getCurrentUserLocation(
+                                                defaultLocation:
+                                                    LatLng(0.0, 0.0));
+                                        await requestPermission(
+                                            locationPermission);
+                                        _model.userlocation =
+                                            currentUserLocationValue;
+                                        safeSetState(() {});
+                                        await _model.googleMapsController.future
+                                            .then(
+                                          (c) => c.animateCamera(
+                                            CameraUpdate.newLatLng(
+                                                currentUserLocationValue!
+                                                    .toGoogleMaps()),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                    onPressed: () async {
-                                      currentUserLocationValue =
-                                          await getCurrentUserLocation(
-                                              defaultLocation:
-                                                  LatLng(0.0, 0.0));
-                                      await requestPermission(
-                                          locationPermission);
-                                      _model.userlocation =
-                                          currentUserLocationValue;
-                                      safeSetState(() {});
-                                      await _model.googleMapsController.future
-                                          .then(
-                                        (c) => c.animateCamera(
-                                          CameraUpdate.newLatLng(
-                                              currentUserLocationValue!
-                                                  .toGoogleMaps()),
-                                        ),
-                                      );
-                                    },
                                   ),
                                 ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
-                                child: wrapWithModel(
-                                  model: _model.searchJobModel,
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: SearchJobWidget(),
+                                Align(
+                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  child: wrapWithModel(
+                                    model: _model.searchJobModel,
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: SearchJobWidget(),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

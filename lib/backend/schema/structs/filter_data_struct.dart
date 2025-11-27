@@ -10,20 +10,20 @@ import '/flutter_flow/flutter_flow_util.dart';
 class FilterDataStruct extends FFFirebaseStruct {
   FilterDataStruct({
     LatLng? userPoint,
-    int? minPrice,
-    int? maxPrice,
     double? locationRadius,
-    DocumentReference? childCategory,
-    DocumentReference? parentCategory,
-    SearchPlaceStruct? placeServ,
+    List<DocumentReference>? category,
+    bool? atHome,
+    DateTime? dateServ,
+    bool? onRadius,
+    SearchPlaceStruct? place,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _userPoint = userPoint,
-        _minPrice = minPrice,
-        _maxPrice = maxPrice,
         _locationRadius = locationRadius,
-        _childCategory = childCategory,
-        _parentCategory = parentCategory,
-        _placeServ = placeServ,
+        _category = category,
+        _atHome = atHome,
+        _dateServ = dateServ,
+        _onRadius = onRadius,
+        _place = place,
         super(firestoreUtilData);
 
   // "userPoint" field.
@@ -32,24 +32,6 @@ class FilterDataStruct extends FFFirebaseStruct {
   set userPoint(LatLng? val) => _userPoint = val;
 
   bool hasUserPoint() => _userPoint != null;
-
-  // "minPrice" field.
-  int? _minPrice;
-  int get minPrice => _minPrice ?? 0;
-  set minPrice(int? val) => _minPrice = val;
-
-  void incrementMinPrice(int amount) => minPrice = minPrice + amount;
-
-  bool hasMinPrice() => _minPrice != null;
-
-  // "maxPrice" field.
-  int? _maxPrice;
-  int get maxPrice => _maxPrice ?? 1000000;
-  set maxPrice(int? val) => _maxPrice = val;
-
-  void incrementMaxPrice(int amount) => maxPrice = maxPrice + amount;
-
-  bool hasMaxPrice() => _maxPrice != null;
 
   // "locationRadius" field.
   double? _locationRadius;
@@ -61,42 +43,60 @@ class FilterDataStruct extends FFFirebaseStruct {
 
   bool hasLocationRadius() => _locationRadius != null;
 
-  // "childCategory" field.
-  DocumentReference? _childCategory;
-  DocumentReference? get childCategory => _childCategory;
-  set childCategory(DocumentReference? val) => _childCategory = val;
+  // "Category" field.
+  List<DocumentReference>? _category;
+  List<DocumentReference> get category => _category ?? const [];
+  set category(List<DocumentReference>? val) => _category = val;
 
-  bool hasChildCategory() => _childCategory != null;
-
-  // "parentCategory" field.
-  DocumentReference? _parentCategory;
-  DocumentReference? get parentCategory => _parentCategory;
-  set parentCategory(DocumentReference? val) => _parentCategory = val;
-
-  bool hasParentCategory() => _parentCategory != null;
-
-  // "placeServ" field.
-  SearchPlaceStruct? _placeServ;
-  SearchPlaceStruct get placeServ => _placeServ ?? SearchPlaceStruct();
-  set placeServ(SearchPlaceStruct? val) => _placeServ = val;
-
-  void updatePlaceServ(Function(SearchPlaceStruct) updateFn) {
-    updateFn(_placeServ ??= SearchPlaceStruct());
+  void updateCategory(Function(List<DocumentReference>) updateFn) {
+    updateFn(_category ??= []);
   }
 
-  bool hasPlaceServ() => _placeServ != null;
+  bool hasCategory() => _category != null;
+
+  // "atHome" field.
+  bool? _atHome;
+  bool get atHome => _atHome ?? false;
+  set atHome(bool? val) => _atHome = val;
+
+  bool hasAtHome() => _atHome != null;
+
+  // "dateServ" field.
+  DateTime? _dateServ;
+  DateTime? get dateServ => _dateServ;
+  set dateServ(DateTime? val) => _dateServ = val;
+
+  bool hasDateServ() => _dateServ != null;
+
+  // "onRadius" field.
+  bool? _onRadius;
+  bool get onRadius => _onRadius ?? false;
+  set onRadius(bool? val) => _onRadius = val;
+
+  bool hasOnRadius() => _onRadius != null;
+
+  // "place" field.
+  SearchPlaceStruct? _place;
+  SearchPlaceStruct get place => _place ?? SearchPlaceStruct();
+  set place(SearchPlaceStruct? val) => _place = val;
+
+  void updatePlace(Function(SearchPlaceStruct) updateFn) {
+    updateFn(_place ??= SearchPlaceStruct());
+  }
+
+  bool hasPlace() => _place != null;
 
   static FilterDataStruct fromMap(Map<String, dynamic> data) =>
       FilterDataStruct(
         userPoint: data['userPoint'] as LatLng?,
-        minPrice: castToType<int>(data['minPrice']),
-        maxPrice: castToType<int>(data['maxPrice']),
         locationRadius: castToType<double>(data['locationRadius']),
-        childCategory: data['childCategory'] as DocumentReference?,
-        parentCategory: data['parentCategory'] as DocumentReference?,
-        placeServ: data['placeServ'] is SearchPlaceStruct
-            ? data['placeServ']
-            : SearchPlaceStruct.maybeFromMap(data['placeServ']),
+        category: getDataList(data['Category']),
+        atHome: data['atHome'] as bool?,
+        dateServ: data['dateServ'] as DateTime?,
+        onRadius: data['onRadius'] as bool?,
+        place: data['place'] is SearchPlaceStruct
+            ? data['place']
+            : SearchPlaceStruct.maybeFromMap(data['place']),
       );
 
   static FilterDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -105,12 +105,12 @@ class FilterDataStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'userPoint': _userPoint,
-        'minPrice': _minPrice,
-        'maxPrice': _maxPrice,
         'locationRadius': _locationRadius,
-        'childCategory': _childCategory,
-        'parentCategory': _parentCategory,
-        'placeServ': _placeServ?.toMap(),
+        'Category': _category,
+        'atHome': _atHome,
+        'dateServ': _dateServ,
+        'onRadius': _onRadius,
+        'place': _place?.toMap(),
       }.withoutNulls;
 
   @override
@@ -119,28 +119,29 @@ class FilterDataStruct extends FFFirebaseStruct {
           _userPoint,
           ParamType.LatLng,
         ),
-        'minPrice': serializeParam(
-          _minPrice,
-          ParamType.int,
-        ),
-        'maxPrice': serializeParam(
-          _maxPrice,
-          ParamType.int,
-        ),
         'locationRadius': serializeParam(
           _locationRadius,
           ParamType.double,
         ),
-        'childCategory': serializeParam(
-          _childCategory,
+        'Category': serializeParam(
+          _category,
           ParamType.DocumentReference,
+          isList: true,
         ),
-        'parentCategory': serializeParam(
-          _parentCategory,
-          ParamType.DocumentReference,
+        'atHome': serializeParam(
+          _atHome,
+          ParamType.bool,
         ),
-        'placeServ': serializeParam(
-          _placeServ,
+        'dateServ': serializeParam(
+          _dateServ,
+          ParamType.DateTime,
+        ),
+        'onRadius': serializeParam(
+          _onRadius,
+          ParamType.bool,
+        ),
+        'place': serializeParam(
+          _place,
           ParamType.DataStruct,
         ),
       }.withoutNulls;
@@ -152,35 +153,34 @@ class FilterDataStruct extends FFFirebaseStruct {
           ParamType.LatLng,
           false,
         ),
-        minPrice: deserializeParam(
-          data['minPrice'],
-          ParamType.int,
-          false,
-        ),
-        maxPrice: deserializeParam(
-          data['maxPrice'],
-          ParamType.int,
-          false,
-        ),
         locationRadius: deserializeParam(
           data['locationRadius'],
           ParamType.double,
           false,
         ),
-        childCategory: deserializeParam(
-          data['childCategory'],
+        category: deserializeParam<DocumentReference>(
+          data['Category'],
           ParamType.DocumentReference,
-          false,
+          true,
           collectionNamePath: ['category'],
         ),
-        parentCategory: deserializeParam(
-          data['parentCategory'],
-          ParamType.DocumentReference,
+        atHome: deserializeParam(
+          data['atHome'],
+          ParamType.bool,
           false,
-          collectionNamePath: ['category'],
         ),
-        placeServ: deserializeStructParam(
-          data['placeServ'],
+        dateServ: deserializeParam(
+          data['dateServ'],
+          ParamType.DateTime,
+          false,
+        ),
+        onRadius: deserializeParam(
+          data['onRadius'],
+          ParamType.bool,
+          false,
+        ),
+        place: deserializeStructParam(
+          data['place'],
           ParamType.DataStruct,
           false,
           structBuilder: SearchPlaceStruct.fromSerializableMap,
@@ -192,36 +192,29 @@ class FilterDataStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is FilterDataStruct &&
         userPoint == other.userPoint &&
-        minPrice == other.minPrice &&
-        maxPrice == other.maxPrice &&
         locationRadius == other.locationRadius &&
-        childCategory == other.childCategory &&
-        parentCategory == other.parentCategory &&
-        placeServ == other.placeServ;
+        listEquality.equals(category, other.category) &&
+        atHome == other.atHome &&
+        dateServ == other.dateServ &&
+        onRadius == other.onRadius &&
+        place == other.place;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([
-        userPoint,
-        minPrice,
-        maxPrice,
-        locationRadius,
-        childCategory,
-        parentCategory,
-        placeServ
-      ]);
+  int get hashCode => const ListEquality().hash(
+      [userPoint, locationRadius, category, atHome, dateServ, onRadius, place]);
 }
 
 FilterDataStruct createFilterDataStruct({
   LatLng? userPoint,
-  int? minPrice,
-  int? maxPrice,
   double? locationRadius,
-  DocumentReference? childCategory,
-  DocumentReference? parentCategory,
-  SearchPlaceStruct? placeServ,
+  bool? atHome,
+  DateTime? dateServ,
+  bool? onRadius,
+  SearchPlaceStruct? place,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -229,12 +222,11 @@ FilterDataStruct createFilterDataStruct({
 }) =>
     FilterDataStruct(
       userPoint: userPoint,
-      minPrice: minPrice,
-      maxPrice: maxPrice,
       locationRadius: locationRadius,
-      childCategory: childCategory,
-      parentCategory: parentCategory,
-      placeServ: placeServ ?? (clearUnsetFields ? SearchPlaceStruct() : null),
+      atHome: atHome,
+      dateServ: dateServ,
+      onRadius: onRadius,
+      place: place ?? (clearUnsetFields ? SearchPlaceStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -290,11 +282,11 @@ Map<String, dynamic> getFilterDataFirestoreData(
   }
   final firestoreData = mapToFirestore(filterData.toMap());
 
-  // Handle nested data for "placeServ" field.
+  // Handle nested data for "place" field.
   addSearchPlaceStructData(
     firestoreData,
-    filterData.hasPlaceServ() ? filterData.placeServ : null,
-    'placeServ',
+    filterData.hasPlace() ? filterData.place : null,
+    'place',
     forFieldValue,
   );
 

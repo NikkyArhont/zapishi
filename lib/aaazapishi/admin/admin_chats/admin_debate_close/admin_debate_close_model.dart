@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AdminDebateCloseModel extends FlutterFlowModel<AdminDebateCloseWidget> {
   ///  Local state fields for this component.
 
-  DebateStatus? debateResult;
+  ReportStatus? debateResult;
 
   @override
   void initState(BuildContext context) {}

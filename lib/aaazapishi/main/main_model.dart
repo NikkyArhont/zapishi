@@ -29,12 +29,10 @@ class MainModel extends FlutterFlowModel<MainWidget> {
 
   bool showMap = false;
 
+  String? mainsort = '1';
+
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -51,9 +49,6 @@ class MainModel extends FlutterFlowModel<MainWidget> {
 
   @override
   void dispose() {
-    textFieldFocusNode?.dispose();
-    textController?.dispose();
-
     mapButtonModel.dispose();
     menuModel.dispose();
   }

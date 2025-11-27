@@ -212,7 +212,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: CreateDebateWidget.routeName,
           path: CreateDebateWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => CreateDebateWidget(),
+          asyncParams: {
+            'recordDOc': getDoc(['records'], RecordsRecord.fromSnapshot),
+            'servDoc': getDoc(['services'], ServicesRecord.fromSnapshot),
+            'masrterDoc': getDoc(['masters'], MastersRecord.fromSnapshot),
+          },
+          builder: (context, params) => CreateDebateWidget(
+            recordDOc: params.getParam(
+              'recordDOc',
+              ParamType.Document,
+            ),
+            servDoc: params.getParam(
+              'servDoc',
+              ParamType.Document,
+            ),
+            masrterDoc: params.getParam(
+              'masrterDoc',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
           name: ServicePageZWidget.routeName,
@@ -488,6 +506,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: AdminMoneyWidget.routePath,
           requireAuth: true,
           builder: (context, params) => AdminMoneyWidget(),
+        ),
+        FFRoute(
+          name: AdminCChatsWidget.routeName,
+          path: AdminCChatsWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AdminCChatsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

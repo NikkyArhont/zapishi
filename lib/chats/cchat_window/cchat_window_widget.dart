@@ -373,7 +373,6 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                             AlignmentDirectional(-1.0, 0.0),
                                         child: Container(
                                           constraints: BoxConstraints(
-                                            minWidth: 100.0,
                                             maxWidth: 250.0,
                                           ),
                                           decoration: BoxDecoration(

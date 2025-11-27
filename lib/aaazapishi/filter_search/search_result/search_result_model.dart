@@ -1,4 +1,3 @@
-import '/aaazapishi/components/job_card_main/job_card_main_widget.dart';
 import '/aaazapishi/components/map_button/map_button_widget.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,17 +19,11 @@ class SearchResultModel extends FlutterFlowModel<SearchResultWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   List<ServicesRecord> simpleSearchResults = [];
-  // Models for jobCardMain dynamic component.
-  late FlutterFlowDynamicModels<JobCardMainModel> jobCardMainModels1;
-  // Models for jobCardMain dynamic component.
-  late FlutterFlowDynamicModels<JobCardMainModel> jobCardMainModels2;
   // Model for mapButton component.
   late MapButtonModel mapButtonModel;
 
   @override
   void initState(BuildContext context) {
-    jobCardMainModels1 = FlutterFlowDynamicModels(() => JobCardMainModel());
-    jobCardMainModels2 = FlutterFlowDynamicModels(() => JobCardMainModel());
     mapButtonModel = createModel(context, () => MapButtonModel());
   }
 
@@ -39,8 +32,6 @@ class SearchResultModel extends FlutterFlowModel<SearchResultWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    jobCardMainModels1.dispose();
-    jobCardMainModels2.dispose();
     mapButtonModel.dispose();
   }
 }

@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'calendar_model.dart';
 export 'calendar_model.dart';
@@ -33,6 +34,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CalendarModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.dateForCalendar = getCurrentTimestamp;
+      safeSetState(() {});
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -72,17 +79,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             !FlutterFlowTheme.of(context).labelLargeIsCustom,
                       ),
                 ),
-                Text(
-                  'График работы ',
-                  style: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).labelLargeFamily,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        letterSpacing: 0.0,
-                        useGoogleFonts:
-                            !FlutterFlowTheme.of(context).labelLargeIsCustom,
-                      ),
-                ),
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional(1.0, 0.0),
@@ -96,8 +92,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         color: FlutterFlowTheme.of(context).primaryText,
                         size: 16.0,
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
+                      onPressed: () async {
+                        Navigator.pop(context);
                       },
                     ),
                   ),
@@ -114,7 +110,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                     children: [
                       Expanded(
                         child: Text(
-                          '',
+                          dateTimeFormat(
+                            "LLLL",
+                            _model.dateForCalendar,
+                            locale: FFLocalizations.of(context).languageCode,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -138,8 +138,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                             size: 16.0,
                           ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
+                          onPressed: () async {
+                            _model.dateForCalendar =
+                                functions.mathCalendarMonth(
+                                    _model.dateForCalendar, false);
+                            safeSetState(() {});
                           },
                         ),
                       ),
@@ -155,8 +158,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                             size: 16.0,
                           ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
+                          onPressed: () async {
+                            _model.dateForCalendar =
+                                functions.mathCalendarMonth(
+                                    _model.dateForCalendar, true);
+                            safeSetState(() {});
                           },
                         ),
                       ),
@@ -263,63 +269,72 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ?.toList() ??
                           [];
 
-                      return InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          _model.dateForCalendar = getCurrentTimestamp;
-                          safeSetState(() {});
-                        },
-                        child: GridView.builder(
-                          padding: EdgeInsets.zero,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 7,
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
-                            childAspectRatio: 1.0,
-                          ),
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: updateCalendar.length,
-                          itemBuilder: (context, updateCalendarIndex) {
-                            final updateCalendarItem =
-                                updateCalendar[updateCalendarIndex];
-                            return Container(
-                              width: 100.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  dateTimeFormat(
-                                    "d",
-                                    updateCalendarItem,
-                                    locale: FFLocalizations.of(context)
-                                        .languageCode,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
-                                      ),
-                                ),
-                              ),
-                            );
-                          },
+                      return GridView.builder(
+                        padding: EdgeInsets.zero,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 7,
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          childAspectRatio: 1.0,
                         ),
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: updateCalendar.length,
+                        itemBuilder: (context, updateCalendarIndex) {
+                          final updateCalendarItem =
+                              updateCalendar[updateCalendarIndex];
+                          return Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: functions.checkWorkDay(updateCalendarItem,
+                                      widget.loadSchedulle?.toList())!
+                                  ? Color(0x45679249)
+                                  : Color(0x00000000),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: dateTimeFormat(
+                                          "yMd",
+                                          updateCalendarItem,
+                                          locale: FFLocalizations.of(context)
+                                              .languageCode,
+                                        ) ==
+                                        dateTimeFormat(
+                                          "yMd",
+                                          getCurrentTimestamp,
+                                          locale: FFLocalizations.of(context)
+                                              .languageCode,
+                                        )
+                                    ? Color(0x00000000)
+                                    : Color(0x00000000),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                dateTimeFormat(
+                                  "d",
+                                  updateCalendarItem,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),

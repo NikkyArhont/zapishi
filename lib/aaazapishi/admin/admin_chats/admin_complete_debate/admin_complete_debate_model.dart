@@ -7,7 +7,7 @@ class AdminCompleteDebateModel
     extends FlutterFlowModel<AdminCompleteDebateWidget> {
   ///  Local state fields for this component.
 
-  DebateStatus? debateStatus;
+  ReportStatus? debateStatus;
 
   @override
   void initState(BuildContext context) {}

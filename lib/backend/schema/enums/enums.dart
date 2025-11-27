@@ -16,14 +16,6 @@ enum UserStatus {
   organization,
 }
 
-enum DebateStatus {
-  open,
-  client,
-  worker,
-  separate,
-  notStart,
-}
-
 enum AdminMenu {
   profile,
   category,
@@ -51,6 +43,13 @@ enum ServiceStatus {
   denied,
 }
 
+enum ReportStatus {
+  open,
+  client,
+  master,
+  separete,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -66,8 +65,6 @@ T? deserializeEnum<T>(String? value) {
       return CurrentPage.values.deserialize(value) as T?;
     case (UserStatus):
       return UserStatus.values.deserialize(value) as T?;
-    case (DebateStatus):
-      return DebateStatus.values.deserialize(value) as T?;
     case (AdminMenu):
       return AdminMenu.values.deserialize(value) as T?;
     case (RecordStatus):
@@ -76,6 +73,8 @@ T? deserializeEnum<T>(String? value) {
       return JobStatus.values.deserialize(value) as T?;
     case (ServiceStatus):
       return ServiceStatus.values.deserialize(value) as T?;
+    case (ReportStatus):
+      return ReportStatus.values.deserialize(value) as T?;
     default:
       return null;
   }

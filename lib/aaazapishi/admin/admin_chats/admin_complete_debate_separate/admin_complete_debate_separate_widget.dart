@@ -1,4 +1,3 @@
-import '/aaazapishi/admin/admin_chats/admin_complete_debate/admin_complete_debate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -342,40 +341,16 @@ class _AdminCompleteDebateSeparateWidgetState
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Builder(
-                  builder: (context) => InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      Navigator.pop(context);
-                      await showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          return Dialog(
-                            elevation: 0,
-                            insetPadding: EdgeInsets.zero,
-                            backgroundColor: Colors.transparent,
-                            alignment: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            child: AdminCompleteDebateWidget(),
-                          );
-                        },
-                      );
-                    },
-                    child: Text(
-                      'Назад',
-                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleMediumFamily,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: !FlutterFlowTheme.of(context)
-                                .titleMediumIsCustom,
-                          ),
-                    ),
-                  ),
+                Text(
+                  'Назад',
+                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleMediumFamily,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                      ),
                 ),
                 Align(
                   alignment: AlignmentDirectional(1.0, 0.0),

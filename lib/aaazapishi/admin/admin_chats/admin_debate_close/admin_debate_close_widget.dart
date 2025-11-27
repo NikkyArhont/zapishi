@@ -14,7 +14,7 @@ class AdminDebateCloseWidget extends StatefulWidget {
     required this.debateResult,
   });
 
-  final DebateStatus? debateResult;
+  final ReportStatus? debateResult;
 
   @override
   State<AdminDebateCloseWidget> createState() => _AdminDebateCloseWidgetState();
@@ -48,7 +48,6 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 430.0,
-      height: 400.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.circular(16.0),
@@ -56,7 +55,7 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
       child: Padding(
         padding: EdgeInsets.all(24.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
@@ -131,7 +130,7 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
                     ),
               ),
             ),
-            if (widget.debateResult == DebateStatus.worker)
+            if (widget.debateResult == ReportStatus.master)
               Align(
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Text(
@@ -146,7 +145,7 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
                       ),
                 ),
               ),
-            if (widget.debateResult == DebateStatus.client)
+            if (widget.debateResult == ReportStatus.client)
               Align(
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Text(
@@ -161,45 +160,10 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
                       ),
                 ),
               ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                if (widget.debateResult == DebateStatus.separate)
-                  Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
-                    child: Text(
-                      'исполнителя /',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                            useGoogleFonts: !FlutterFlowTheme.of(context)
-                                .bodyMediumIsCustom,
-                          ),
-                    ),
-                  ),
-                if (widget.debateResult == DebateStatus.separate)
-                  Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
-                    child: Text(
-                      'заказчика',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                            useGoogleFonts: !FlutterFlowTheme.of(context)
-                                .bodyMediumIsCustom,
-                          ),
-                    ),
-                  ),
-              ].divide(SizedBox(width: 8.0)),
-            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
-                'assets/images/modalDialogAccountSucces.png',
+                'assets/images/Group_(3).png',
                 width: 150.0,
                 height: 150.0,
                 fit: BoxFit.contain,

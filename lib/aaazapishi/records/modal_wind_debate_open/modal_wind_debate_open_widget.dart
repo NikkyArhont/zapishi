@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -8,7 +9,16 @@ import 'modal_wind_debate_open_model.dart';
 export 'modal_wind_debate_open_model.dart';
 
 class ModalWindDebateOpenWidget extends StatefulWidget {
-  const ModalWindDebateOpenWidget({super.key});
+  const ModalWindDebateOpenWidget({
+    super.key,
+    required this.rec,
+    required this.master,
+    required this.serv,
+  });
+
+  final RecordsRecord? rec;
+  final MastersRecord? master;
+  final ServicesRecord? serv;
 
   @override
   State<ModalWindDebateOpenWidget> createState() =>
@@ -97,7 +107,28 @@ class _ModalWindDebateOpenWidgetState extends State<ModalWindDebateOpenWidget> {
               onPressed: () async {
                 Navigator.pop(context);
 
-                context.goNamed(CreateDebateWidget.routeName);
+                context.goNamed(
+                  CreateDebateWidget.routeName,
+                  queryParameters: {
+                    'recordDOc': serializeParam(
+                      widget.rec,
+                      ParamType.Document,
+                    ),
+                    'servDoc': serializeParam(
+                      widget.serv,
+                      ParamType.Document,
+                    ),
+                    'masrterDoc': serializeParam(
+                      widget.master,
+                      ParamType.Document,
+                    ),
+                  }.withoutNulls,
+                  extra: <String, dynamic>{
+                    'recordDOc': widget.rec,
+                    'servDoc': widget.serv,
+                    'masrterDoc': widget.master,
+                  },
+                );
               },
               text: 'Открыть спор',
               options: FFButtonOptions(

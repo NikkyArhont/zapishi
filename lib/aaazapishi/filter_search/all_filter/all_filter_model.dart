@@ -2,52 +2,47 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'all_filter_widget.dart' show AllFilterWidget;
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class AllFilterModel extends FlutterFlowModel<AllFilterWidget> {
   ///  Local state fields for this page.
 
-  DocumentReference? choosenCats;
+  List<DocumentReference> choosenCats = [];
+  void addToChoosenCats(DocumentReference item) => choosenCats.add(item);
+  void removeFromChoosenCats(DocumentReference item) =>
+      choosenCats.remove(item);
+  void removeAtIndexFromChoosenCats(int index) => choosenCats.removeAt(index);
+  void insertAtIndexInChoosenCats(int index, DocumentReference item) =>
+      choosenCats.insert(index, item);
+  void updateChoosenCatsAtIndex(
+          int index, Function(DocumentReference) updateFn) =>
+      choosenCats[index] = updateFn(choosenCats[index]);
 
-  LatLng? searchLatLng;
+  SearchPlaceStruct? place;
+  void updatePlaceStruct(Function(SearchPlaceStruct) updateFn) {
+    updateFn(place ??= SearchPlaceStruct());
+  }
 
-  String? placeID;
+  bool radius = false;
 
-  List<CategoryRecord> loadCats = [];
-  void addToLoadCats(CategoryRecord item) => loadCats.add(item);
-  void removeFromLoadCats(CategoryRecord item) => loadCats.remove(item);
-  void removeAtIndexFromLoadCats(int index) => loadCats.removeAt(index);
-  void insertAtIndexInLoadCats(int index, CategoryRecord item) =>
-      loadCats.insert(index, item);
-  void updateLoadCatsAtIndex(int index, Function(CategoryRecord) updateFn) =>
-      loadCats[index] = updateFn(loadCats[index]);
+  LatLng? userLoc;
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in allFilter widget.
-  List<CategoryRecord>? loadcat;
-  // State field(s) for location widget.
-  final locationKey1 = GlobalKey();
-  FocusNode? locationFocusNode1;
-  TextEditingController? locationTextController1;
-  String? locationSelectedOption1;
-  String? Function(BuildContext, String?)? locationTextController1Validator;
-  // Stores action output result for [Backend Call - API (address)] action in location widget.
-  ApiCallResponse? apiResultFilterCity;
-  // State field(s) for Switch widget.
-  bool? switchValue;
+  // Stores action output result for [Bottom Sheet - enterLocationFilter] action in Container widget.
+  SearchPlaceStruct? setLoc;
+  // State field(s) for userLoc widget.
+  bool? userLocValue;
   // State field(s) for Slider widget.
   double? sliderValue;
-  // State field(s) for location widget.
-  final locationKey2 = GlobalKey();
-  FocusNode? locationFocusNode2;
-  TextEditingController? locationTextController2;
-  String? locationSelectedOption2;
-  String? Function(BuildContext, String?)? locationTextController2Validator;
-  // State field(s) for Expandable widget.
-  late ExpandableController expandableExpandableController;
-
+  // State field(s) for date widget.
+  final dateKey = GlobalKey();
+  FocusNode? dateFocusNode;
+  TextEditingController? dateTextController;
+  String? dateSelectedOption;
+  String? Function(BuildContext, String?)? dateTextControllerValidator;
+  // State field(s) for Switch widget.
+  bool? switchValue;
   // Stores action output result for [Backend Call - API (getPlaceLatLng)] action in Button widget.
   ApiCallResponse? apiResultPlaceLatLon;
 
@@ -56,10 +51,6 @@ class AllFilterModel extends FlutterFlowModel<AllFilterWidget> {
 
   @override
   void dispose() {
-    locationFocusNode1?.dispose();
-
-    locationFocusNode2?.dispose();
-
-    expandableExpandableController.dispose();
+    dateFocusNode?.dispose();
   }
 }

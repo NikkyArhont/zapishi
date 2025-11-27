@@ -1,3 +1,5 @@
+import '/aaazapishi/admin/admin_chats/admin_debate_close/admin_debate_close_widget.dart';
+import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,7 +11,12 @@ import 'admin_complete_debate_model.dart';
 export 'admin_complete_debate_model.dart';
 
 class AdminCompleteDebateWidget extends StatefulWidget {
-  const AdminCompleteDebateWidget({super.key});
+  const AdminCompleteDebateWidget({
+    super.key,
+    required this.record,
+  });
+
+  final DocumentReference? record;
 
   @override
   State<AdminCompleteDebateWidget> createState() =>
@@ -150,20 +157,20 @@ class _AdminCompleteDebateWidgetState extends State<AdminCompleteDebateWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                _model.debateStatus = DebateStatus.worker;
+                _model.debateStatus = ReportStatus.master;
                 safeSetState(() {});
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if ((_model.debateStatus != DebateStatus.worker) ||
+                  if ((_model.debateStatus != ReportStatus.master) ||
                       (_model.debateStatus == null))
                     FaIcon(
                       FontAwesomeIcons.circle,
                       color: FlutterFlowTheme.of(context).primary,
                       size: 24.0,
                     ),
-                  if (_model.debateStatus == DebateStatus.worker)
+                  if (_model.debateStatus == ReportStatus.master)
                     FaIcon(
                       FontAwesomeIcons.dotCircle,
                       color: FlutterFlowTheme.of(context).primary,
@@ -190,20 +197,20 @@ class _AdminCompleteDebateWidgetState extends State<AdminCompleteDebateWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                _model.debateStatus = DebateStatus.client;
+                _model.debateStatus = ReportStatus.client;
                 safeSetState(() {});
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if ((_model.debateStatus != DebateStatus.client) ||
+                  if ((_model.debateStatus != ReportStatus.client) ||
                       (_model.debateStatus == null))
                     FaIcon(
                       FontAwesomeIcons.circle,
                       color: FlutterFlowTheme.of(context).primary,
                       size: 24.0,
                     ),
-                  if (_model.debateStatus == DebateStatus.client)
+                  if (_model.debateStatus == ReportStatus.client)
                     FaIcon(
                       FontAwesomeIcons.dotCircle,
                       color: FlutterFlowTheme.of(context).primary,
@@ -224,66 +231,55 @@ class _AdminCompleteDebateWidgetState extends State<AdminCompleteDebateWidget> {
                 ].divide(SizedBox(width: 8.0)),
               ),
             ),
-            InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                _model.debateStatus = DebateStatus.separate;
-                safeSetState(() {});
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  if ((_model.debateStatus != DebateStatus.separate) ||
-                      (_model.debateStatus == null))
-                    FaIcon(
-                      FontAwesomeIcons.circle,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
-                    ),
-                  if (_model.debateStatus == DebateStatus.separate)
-                    FaIcon(
-                      FontAwesomeIcons.dotCircle,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
-                    ),
-                  Text(
-                    'Разделить сумму',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
-                          useGoogleFonts:
-                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                        ),
-                  ),
-                ].divide(SizedBox(width: 8.0)),
-              ),
-            ),
             Align(
               alignment: AlignmentDirectional(1.0, 0.0),
-              child: FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                text: 'Далее',
-                options: FFButtonOptions(
-                  width: 160.0,
-                  height: 48.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'involve',
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(16.0),
+              child: Builder(
+                builder: (context) => FFButtonWidget(
+                  onPressed: (_model.debateStatus == null)
+                      ? null
+                      : () async {
+                          await widget.record!.update(createRecordsRecordData(
+                            report: updateReportStruct(
+                              ReportStruct(
+                                status: _model.debateStatus,
+                              ),
+                              clearUnsetFields: false,
+                            ),
+                          ));
+                          Navigator.pop(context);
+                          await showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: AdminDebateCloseWidget(
+                                  debateResult: _model.debateStatus!,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                  text: 'Далее',
+                  options: FFButtonOptions(
+                    width: 160.0,
+                    height: 48.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                          fontFamily: 'involve',
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 0.0,
+                    borderRadius: BorderRadius.circular(16.0),
+                    disabledColor: FlutterFlowTheme.of(context).secondary,
+                  ),
                 ),
               ),
             ),
