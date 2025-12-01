@@ -332,8 +332,12 @@ class _CalendarForFilterWidgetState extends State<CalendarForFilterWidget> {
                                                 _model.choosenDate
                                             ? FlutterFlowTheme.of(context)
                                                 .secondaryBackground
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            : (functions.sameMonth(
+                                                    updateCalendarItem,
+                                                    _model.dateForCalendar)!
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryText
+                                                : Color(0xFF9E9D9D)),
                                         letterSpacing: 0.0,
                                         useGoogleFonts:
                                             !FlutterFlowTheme.of(context)

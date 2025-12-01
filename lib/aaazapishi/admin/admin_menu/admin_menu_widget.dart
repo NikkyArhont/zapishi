@@ -105,91 +105,100 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                     ),
               ),
             ),
-            FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.profile)
-                  ? null
-                  : () async {
-                      context.pushNamed(AdminMainProfileWidget.routeName);
-                    },
-              text: 'Профиль',
-              icon: Icon(
-                FFIcons.kprofile2,
-                size: 24.0,
-              ),
-              options: FFButtonOptions(
-                width: MediaQuery.sizeOf(context).width * 2.8,
-                height: 46.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
-                elevation: 0.0,
-                disabledColor: FlutterFlowTheme.of(context).accent4,
-                disabledTextColor: FlutterFlowTheme.of(context).primary,
-              ),
-            ),
-            FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.orders)
-                  ? null
-                  : () {
-                      print('Button pressed ...');
-                    },
-              text: 'Объявления',
-              icon: Icon(
-                FFIcons.kpaperUpload,
-                size: 24.0,
-              ),
-              options: FFButtonOptions(
-                width: MediaQuery.sizeOf(context).width * 2.8,
-                height: 46.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
-                elevation: 0.0,
-                disabledColor: FlutterFlowTheme.of(context).accent4,
-                disabledTextColor: FlutterFlowTheme.of(context).primary,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: (widget.currentAdminPage == AdminMenu.profile)
+                    ? null
+                    : () async {
+                        context.pushNamed(AdminMainProfileWidget.routeName);
+                      },
+                text: 'Профиль',
+                icon: Icon(
+                  FFIcons.kprofile2,
+                  size: 24.0,
+                ),
+                options: FFButtonOptions(
+                  height: 46.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleSmallFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleSmallIsCustom,
+                      ),
+                  elevation: 0.0,
+                  disabledTextColor: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
-            FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.money)
-                  ? null
-                  : () {
-                      print('Button pressed ...');
-                    },
-              text: 'Монитизация',
-              icon: FaIcon(
-                FontAwesomeIcons.wallet,
-                size: 24.0,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: (widget.currentAdminPage == AdminMenu.orders)
+                    ? null
+                    : () async {
+                        context.pushNamed(AdminOrdersWidget.routeName);
+                      },
+                text: 'Объявления',
+                icon: Icon(
+                  FFIcons.kpaperUpload,
+                  size: 24.0,
+                ),
+                options: FFButtonOptions(
+                  height: 46.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleSmallFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleSmallIsCustom,
+                      ),
+                  elevation: 0.0,
+                  disabledTextColor: FlutterFlowTheme.of(context).primary,
+                ),
               ),
-              options: FFButtonOptions(
-                width: MediaQuery.sizeOf(context).width * 2.8,
-                height: 46.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
-                elevation: 0.0,
-                disabledColor: FlutterFlowTheme.of(context).accent4,
-                disabledTextColor: FlutterFlowTheme.of(context).primary,
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: (widget.currentAdminPage == AdminMenu.money)
+                    ? null
+                    : () async {
+                        context.pushNamed(AdminMoneyWidget.routeName);
+                      },
+                text: 'Монитизация',
+                icon: FaIcon(
+                  FontAwesomeIcons.wallet,
+                  size: 24.0,
+                ),
+                options: FFButtonOptions(
+                  height: 46.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleSmallFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleSmallIsCustom,
+                      ),
+                  elevation: 0.0,
+                  disabledTextColor: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
             Padding(
@@ -206,34 +215,37 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                     ),
               ),
             ),
-            FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.category)
-                  ? null
-                  : () async {
-                      context.pushNamed(AdminCategoryWidget.routeName);
-                    },
-              text: 'Категории',
-              icon: FaIcon(
-                FontAwesomeIcons.borderAll,
-                size: 24.0,
-              ),
-              options: FFButtonOptions(
-                width: MediaQuery.sizeOf(context).width * 2.8,
-                height: 46.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconColor: FlutterFlowTheme.of(context).secondaryText,
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
-                elevation: 0.0,
-                disabledColor: FlutterFlowTheme.of(context).accent4,
-                disabledTextColor: FlutterFlowTheme.of(context).primary,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: (widget.currentAdminPage == AdminMenu.category)
+                    ? null
+                    : () async {
+                        context.pushNamed(AdminCategoryWidget.routeName);
+                      },
+                text: 'Категории',
+                icon: FaIcon(
+                  FontAwesomeIcons.borderAll,
+                  size: 24.0,
+                ),
+                options: FFButtonOptions(
+                  height: 46.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconColor: FlutterFlowTheme.of(context).secondaryText,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleSmallFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleSmallIsCustom,
+                      ),
+                  elevation: 0.0,
+                  disabledTextColor: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
             Padding(
@@ -250,33 +262,36 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                     ),
               ),
             ),
-            FFButtonWidget(
-              onPressed: (widget.currentAdminPage == AdminMenu.chats)
-                  ? null
-                  : () {
-                      print('Button pressed ...');
-                    },
-              text: 'Чаты',
-              icon: Icon(
-                FFIcons.kchat,
-                size: 24.0,
-              ),
-              options: FFButtonOptions(
-                width: MediaQuery.sizeOf(context).width * 2.8,
-                height: 46.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
-                elevation: 0.0,
-                disabledColor: FlutterFlowTheme.of(context).accent4,
-                disabledTextColor: FlutterFlowTheme.of(context).primary,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: (widget.currentAdminPage == AdminMenu.chats)
+                    ? null
+                    : () async {
+                        context.pushNamed(AdminCChatsWidget.routeName);
+                      },
+                text: 'Чаты',
+                icon: Icon(
+                  FFIcons.kchat,
+                  size: 24.0,
+                ),
+                options: FFButtonOptions(
+                  height: 46.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleSmallFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts:
+                            !FlutterFlowTheme.of(context).titleSmallIsCustom,
+                      ),
+                  elevation: 0.0,
+                  disabledTextColor: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           ].divide(SizedBox(height: 12.0)),

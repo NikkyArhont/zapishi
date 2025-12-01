@@ -1,5 +1,6 @@
 import '/aaazapishi/cabinet/cabenet_master_del_serv/cabenet_master_del_serv_widget.dart';
 import '/aaazapishi/cabinet/cabenet_master_delete/cabenet_master_delete_widget.dart';
+import '/aaazapishi/cabinet/cabenet_master_delete_p_r_o_f_i_l_e/cabenet_master_delete_p_r_o_f_i_l_e_widget.dart';
 import '/aaazapishi/components/empty_widjet/empty_widjet_widget.dart';
 import '/aaazapishi/components/menu/menu_widget.dart';
 import '/aaazapishi/records/choose_record_date/choose_record_date_widget.dart';
@@ -1670,8 +1671,8 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                               mainAxisSize: MainAxisSize.max,
                                                                                                               children: List.generate(recInTime.length, (recInTimeIndex) {
                                                                                                                 final recInTimeItem = recInTime[recInTimeIndex];
-                                                                                                                return StreamBuilder<ServicesRecord>(
-                                                                                                                  stream: ServicesRecord.getDocument(tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)!.services.firstOrNull!),
+                                                                                                                return StreamBuilder<RecordsRecord>(
+                                                                                                                  stream: RecordsRecord.getDocument(recInTimeItem),
                                                                                                                   builder: (context, snapshot) {
                                                                                                                     // Customize what your widget looks like when it's loading.
                                                                                                                     if (!snapshot.hasData) {
@@ -1688,114 +1689,140 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                       );
                                                                                                                     }
 
-                                                                                                                    final containerServicesRecord = snapshot.data!;
+                                                                                                                    final containerRecordsRecord = snapshot.data!;
 
-                                                                                                                    return InkWell(
-                                                                                                                      splashColor: Colors.transparent,
-                                                                                                                      focusColor: Colors.transparent,
-                                                                                                                      hoverColor: Colors.transparent,
-                                                                                                                      highlightColor: Colors.transparent,
-                                                                                                                      onTap: () async {
-                                                                                                                        context.pushNamed(
-                                                                                                                          ReservePageWidget.routeName,
-                                                                                                                          queryParameters: {
-                                                                                                                            'recordRef': serializeParam(
-                                                                                                                              recInTimeItem,
-                                                                                                                              ParamType.DocumentReference,
-                                                                                                                            ),
-                                                                                                                          }.withoutNulls,
-                                                                                                                        );
-                                                                                                                      },
-                                                                                                                      child: Container(
-                                                                                                                        width: 100.0,
-                                                                                                                        height: 130.0,
-                                                                                                                        decoration: BoxDecoration(
-                                                                                                                          color: tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)?.status == RecordStatus.newREc ? Color(0xFFFF8B1F) : (tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)?.status == RecordStatus.confirmed ? Color(0x67679249) : Color(0xFFA5A6A8)),
-                                                                                                                          borderRadius: BorderRadius.circular(12.0),
-                                                                                                                        ),
-                                                                                                                        child: Padding(
-                                                                                                                          padding: EdgeInsets.all(8.0),
-                                                                                                                          child: StreamBuilder<MastersRecord>(
-                                                                                                                            stream: MastersRecord.getDocument(tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)!.master!),
-                                                                                                                            builder: (context, snapshot) {
-                                                                                                                              // Customize what your widget looks like when it's loading.
-                                                                                                                              if (!snapshot.hasData) {
-                                                                                                                                return Center(
-                                                                                                                                  child: SizedBox(
-                                                                                                                                    width: 50.0,
-                                                                                                                                    height: 50.0,
-                                                                                                                                    child: CircularProgressIndicator(
-                                                                                                                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                                        FlutterFlowTheme.of(context).primary,
-                                                                                                                                      ),
-                                                                                                                                    ),
+                                                                                                                    return Container(
+                                                                                                                      decoration: BoxDecoration(),
+                                                                                                                      child: StreamBuilder<ServicesRecord>(
+                                                                                                                        stream: ServicesRecord.getDocument(containerRecordsRecord.services.firstOrNull!),
+                                                                                                                        builder: (context, snapshot) {
+                                                                                                                          // Customize what your widget looks like when it's loading.
+                                                                                                                          if (!snapshot.hasData) {
+                                                                                                                            return Center(
+                                                                                                                              child: SizedBox(
+                                                                                                                                width: 50.0,
+                                                                                                                                height: 50.0,
+                                                                                                                                child: CircularProgressIndicator(
+                                                                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                                                    FlutterFlowTheme.of(context).primary,
                                                                                                                                   ),
-                                                                                                                                );
-                                                                                                                              }
+                                                                                                                                ),
+                                                                                                                              ),
+                                                                                                                            );
+                                                                                                                          }
 
-                                                                                                                              final columnMastersRecord = snapshot.data!;
+                                                                                                                          final containerServicesRecord = snapshot.data!;
 
-                                                                                                                              return Column(
-                                                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                                                children: [
-                                                                                                                                  Expanded(
-                                                                                                                                    child: Text(
-                                                                                                                                      containerServicesRecord.title,
-                                                                                                                                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                                                                            fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                                                                                            letterSpacing: 0.0,
-                                                                                                                                            useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                                                                                          ),
-                                                                                                                                    ),
+                                                                                                                          return InkWell(
+                                                                                                                            splashColor: Colors.transparent,
+                                                                                                                            focusColor: Colors.transparent,
+                                                                                                                            hoverColor: Colors.transparent,
+                                                                                                                            highlightColor: Colors.transparent,
+                                                                                                                            onTap: () async {
+                                                                                                                              context.pushNamed(
+                                                                                                                                ReservePageWidget.routeName,
+                                                                                                                                queryParameters: {
+                                                                                                                                  'recordRef': serializeParam(
+                                                                                                                                    recInTimeItem,
+                                                                                                                                    ParamType.DocumentReference,
                                                                                                                                   ),
-                                                                                                                                  Text(
-                                                                                                                                    valueOrDefault<String>(
-                                                                                                                                      columnMastersRecord.title,
-                                                                                                                                      'sxdfghsdfghdsfghdsfgh',
-                                                                                                                                    ),
-                                                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                                                                          letterSpacing: 0.0,
-                                                                                                                                          useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                                                                                        ),
-                                                                                                                                  ),
-                                                                                                                                  Row(
-                                                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                                                    children: [
-                                                                                                                                      Text(
-                                                                                                                                        dateTimeFormat(
-                                                                                                                                          "Hm",
-                                                                                                                                          tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)!.date!,
-                                                                                                                                          locale: FFLocalizations.of(context).languageCode,
-                                                                                                                                        ),
-                                                                                                                                        style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                                                                              fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                                                                                              letterSpacing: 0.0,
-                                                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                                                                                            ),
-                                                                                                                                      ),
-                                                                                                                                      if (tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)?.status == RecordStatus.newREc)
-                                                                                                                                        FaIcon(
-                                                                                                                                          FontAwesomeIcons.solidClock,
-                                                                                                                                          color: Color(0xFFE7872F),
-                                                                                                                                          size: 20.0,
-                                                                                                                                        ),
-                                                                                                                                      if (tabBarRecordsRecordList.elementAtOrNull(organisationCalendarItem.recordIndex.elementAtOrNull(organisationCalendarIndex)!)?.status == RecordStatus.confirmed)
-                                                                                                                                        Icon(
-                                                                                                                                          Icons.check_box,
-                                                                                                                                          color: FlutterFlowTheme.of(context).primary,
-                                                                                                                                          size: 20.0,
-                                                                                                                                        ),
-                                                                                                                                    ].divide(SizedBox(width: 8.0)),
-                                                                                                                                  ),
-                                                                                                                                ].divide(SizedBox(height: 4.0)),
+                                                                                                                                }.withoutNulls,
                                                                                                                               );
                                                                                                                             },
-                                                                                                                          ),
-                                                                                                                        ),
+                                                                                                                            child: Container(
+                                                                                                                              width: 100.0,
+                                                                                                                              height: 130.0,
+                                                                                                                              decoration: BoxDecoration(
+                                                                                                                                color: containerRecordsRecord.status == RecordStatus.newREc ? Color(0xFFFF8B1F) : (containerRecordsRecord.status == RecordStatus.confirmed ? Color(0x67679249) : Color(0xFFA5A6A8)),
+                                                                                                                                borderRadius: BorderRadius.circular(12.0),
+                                                                                                                              ),
+                                                                                                                              child: Padding(
+                                                                                                                                padding: EdgeInsets.all(8.0),
+                                                                                                                                child: StreamBuilder<MastersRecord>(
+                                                                                                                                  stream: MastersRecord.getDocument(containerRecordsRecord.master!),
+                                                                                                                                  builder: (context, snapshot) {
+                                                                                                                                    // Customize what your widget looks like when it's loading.
+                                                                                                                                    if (!snapshot.hasData) {
+                                                                                                                                      return Center(
+                                                                                                                                        child: SizedBox(
+                                                                                                                                          width: 50.0,
+                                                                                                                                          height: 50.0,
+                                                                                                                                          child: CircularProgressIndicator(
+                                                                                                                                            valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                                                              FlutterFlowTheme.of(context).primary,
+                                                                                                                                            ),
+                                                                                                                                          ),
+                                                                                                                                        ),
+                                                                                                                                      );
+                                                                                                                                    }
+
+                                                                                                                                    final columnMastersRecord = snapshot.data!;
+
+                                                                                                                                    return Column(
+                                                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                                                      children: [
+                                                                                                                                        Expanded(
+                                                                                                                                          child: Text(
+                                                                                                                                            containerServicesRecord.title,
+                                                                                                                                            style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                                                                  fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                                                                                  letterSpacing: 0.0,
+                                                                                                                                                  useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                                                                                                ),
+                                                                                                                                            overflow: TextOverflow.fade,
+                                                                                                                                          ),
+                                                                                                                                        ),
+                                                                                                                                        Text(
+                                                                                                                                          valueOrDefault<String>(
+                                                                                                                                            columnMastersRecord.title,
+                                                                                                                                            'sxdfghsdfghdsfghdsfgh',
+                                                                                                                                          ),
+                                                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                                                                letterSpacing: 0.0,
+                                                                                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                                                                              ),
+                                                                                                                                        ),
+                                                                                                                                        Row(
+                                                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                                                          children: [
+                                                                                                                                            Text(
+                                                                                                                                              dateTimeFormat(
+                                                                                                                                                "HH:mm",
+                                                                                                                                                containerRecordsRecord.date!,
+                                                                                                                                                locale: FFLocalizations.of(context).languageCode,
+                                                                                                                                              ),
+                                                                                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                                                                    fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                                                                                    letterSpacing: 0.0,
+                                                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                                                    useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                                                                                                  ),
+                                                                                                                                            ),
+                                                                                                                                            if (containerRecordsRecord.status == RecordStatus.newREc)
+                                                                                                                                              FaIcon(
+                                                                                                                                                FontAwesomeIcons.solidClock,
+                                                                                                                                                color: Color(0xFFE7872F),
+                                                                                                                                                size: 20.0,
+                                                                                                                                              ),
+                                                                                                                                            if (containerRecordsRecord.status == RecordStatus.confirmed)
+                                                                                                                                              Icon(
+                                                                                                                                                Icons.check_box,
+                                                                                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                                                                                size: 20.0,
+                                                                                                                                              ),
+                                                                                                                                          ].divide(SizedBox(width: 8.0)),
+                                                                                                                                        ),
+                                                                                                                                      ].divide(SizedBox(height: 4.0)),
+                                                                                                                                    );
+                                                                                                                                  },
+                                                                                                                                ),
+                                                                                                                              ),
+                                                                                                                            ),
+                                                                                                                          );
+                                                                                                                        },
                                                                                                                       ),
                                                                                                                     );
                                                                                                                   },
@@ -3019,6 +3046,75 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                               AlignmentDirectional(
                                                                   -1.0, 0.0),
                                                           child: Text(
+                                                            'Телефон',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMediumIsCustom,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  -1.0, 0.0),
+                                                          child: Text(
+                                                            cabinetMastersRecord
+                                                                .phone,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMediumIsCustom,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  -1.0, 0.0),
+                                                          child: Text(
                                                             'Локация',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -4108,6 +4204,176 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                             },
                                                           );
                                                         },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Builder(
+                                                                builder:
+                                                                    (context) =>
+                                                                        FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (dialogContext) {
+                                                                        return Dialog(
+                                                                          elevation:
+                                                                              0,
+                                                                          insetPadding:
+                                                                              EdgeInsets.zero,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          alignment:
+                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              FocusScope.of(dialogContext).unfocus();
+                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                            },
+                                                                            child:
+                                                                                CabenetMasterDeletePROFILEWidget(
+                                                                              organisation: cabinetMastersRecord,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                  text:
+                                                                      'Удалить',
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    height:
+                                                                        48.0,
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelLarge
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'involve',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                    elevation:
+                                                                        0.0,
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            16.0),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  context
+                                                                      .pushNamed(
+                                                                    CcabinetMasterEDITWidget
+                                                                        .routeName,
+                                                                    queryParameters:
+                                                                        {
+                                                                      'masterDOCC':
+                                                                          serializeParam(
+                                                                        cabinetMastersRecord,
+                                                                        ParamType
+                                                                            .Document,
+                                                                      ),
+                                                                    }.withoutNulls,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      'masterDOCC':
+                                                                          cabinetMastersRecord,
+                                                                    },
+                                                                  );
+                                                                },
+                                                                text:
+                                                                    'Редактировать',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  height: 48.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          16.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLarge
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'involve',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                  elevation:
+                                                                      0.0,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              16.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ].divide(SizedBox(
+                                                              width: 12.0)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

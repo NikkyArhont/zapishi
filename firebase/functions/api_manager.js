@@ -36,6 +36,60 @@ async function _addressCall(context, ffVariables) {
     isStreamingApi: false,
   });
 }
+async function _getCodeCall(context, ffVariables) {
+  var phone = ffVariables["phone"];
+
+  var url = `https://us-central1-zapishi-backend-482da.cloudfunctions.net/sendCode`;
+  var headers = { "Content-type": `application/json` };
+  var params = {};
+  var ffApiRequestBody = `
+{
+  "phone": "${escapeStringForJson(phone)}"
+}`;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    params,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "JSON",
+    }),
+    returnBody: true,
+    isStreamingApi: false,
+  });
+}
+async function _verifyCodeCall(context, ffVariables) {
+  var number = ffVariables["number"];
+  var verifyCode = ffVariables["verifyCode"];
+
+  var url = `https://us-central1-zapishi-backend-482da.cloudfunctions.net/verifyCode`;
+  var headers = { "Content-type": `application/json` };
+  var params = {};
+  var ffApiRequestBody = `
+{
+  "phone": "${escapeStringForJson(number)}",
+  "code": "${escapeStringForJson(verifyCode)}"
+}`;
+
+  return makeApiRequest({
+    method: "post",
+    url,
+    headers,
+    params,
+    body: createBody({
+      headers,
+      params,
+      body: ffApiRequestBody,
+      bodyType: "JSON",
+    }),
+    returnBody: true,
+    isStreamingApi: false,
+  });
+}
 
 /// Helper functions to route to the appropriate API Call.
 
@@ -45,6 +99,8 @@ async function makeApiCall(context, data) {
 
   const callMap = {
     AddressCall: _addressCall,
+    GetCodeCall: _getCodeCall,
+    VerifyCodeCall: _verifyCodeCall,
   };
 
   if (!(callName in callMap)) {

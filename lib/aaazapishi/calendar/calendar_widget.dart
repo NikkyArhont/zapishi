@@ -324,8 +324,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: functions.sameMonth(
+                                              updateCalendarItem,
+                                              _model.dateForCalendar)!
+                                          ? FlutterFlowTheme.of(context)
+                                              .primaryText
+                                          : Color(0xFFADADAD),
                                       letterSpacing: 0.0,
                                       useGoogleFonts:
                                           !FlutterFlowTheme.of(context)

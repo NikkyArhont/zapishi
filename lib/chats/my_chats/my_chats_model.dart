@@ -6,6 +6,17 @@ import 'my_chats_widget.dart' show MyChatsWidget;
 import 'package:flutter/material.dart';
 
 class MyChatsModel extends FlutterFlowModel<MyChatsWidget> {
+  ///  Local state fields for this page.
+
+  List<UserRecord> searchAdmins = [];
+  void addToSearchAdmins(UserRecord item) => searchAdmins.add(item);
+  void removeFromSearchAdmins(UserRecord item) => searchAdmins.remove(item);
+  void removeAtIndexFromSearchAdmins(int index) => searchAdmins.removeAt(index);
+  void insertAtIndexInSearchAdmins(int index, UserRecord item) =>
+      searchAdmins.insert(index, item);
+  void updateSearchAdminsAtIndex(int index, Function(UserRecord) updateFn) =>
+      searchAdmins[index] = updateFn(searchAdmins[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Create Document] action in Row widget.
@@ -13,7 +24,7 @@ class MyChatsModel extends FlutterFlowModel<MyChatsWidget> {
   // Stores action output result for [Backend Call - Create Document] action in Row widget.
   MessagesRecord? firstMessSupport;
   // Stores action output result for [Firestore Query - Query a collection] action in Row widget.
-  UserRecord? searchAdmin;
+  List<UserRecord>? searchAdmin;
   // Model for menu component.
   late MenuModel menuModel;
 

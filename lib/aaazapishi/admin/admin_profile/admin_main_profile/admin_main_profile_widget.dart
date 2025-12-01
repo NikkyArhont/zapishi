@@ -101,230 +101,237 @@ class _AdminMainProfileWidgetState extends State<AdminMainProfileWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Material(
-                                  color: Colors.transparent,
-                                  elevation: 2.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child: Container(
-                                    width: 430.0,
-                                    height: 600.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(24.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            width: 160.0,
-                                            height: 160.0,
-                                            decoration: BoxDecoration(),
-                                            child: Stack(
-                                              children: [
-                                                if (currentUserPhoto == '')
-                                                  AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        Container(
-                                                      width: 160.0,
-                                                      height: 160.0,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Material(
+                                      color: Colors.transparent,
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Container(
+                                        width: 430.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(24.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 160.0,
+                                                height: 160.0,
+                                                decoration: BoxDecoration(),
+                                                child: Stack(
+                                                  children: [
+                                                    if (currentUserPhoto == '')
+                                                      AuthUserStreamWidget(
+                                                        builder: (context) =>
+                                                            Container(
+                                                          width: 160.0,
+                                                          height: 160.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Image.asset(
+                                                            'assets/images/4abef4301b412a0f733bb324072f04b363dba422.png',
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
                                                       ),
-                                                      child: Image.asset(
-                                                        'assets/images/4abef4301b412a0f733bb324072f04b363dba422.png',
-                                                        fit: BoxFit.cover,
+                                                    if (currentUserPhoto != '')
+                                                      AuthUserStreamWidget(
+                                                        builder: (context) =>
+                                                            Container(
+                                                          width: 160.0,
+                                                          height: 160.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Image.network(
+                                                            currentUserPhoto,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                if (currentUserPhoto != '')
-                                                  AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        Container(
-                                                      width: 160.0,
-                                                      height: 160.0,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Image.network(
-                                                        currentUserPhoto,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1.0, 1.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                4.0, 4.0),
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderRadius: 8.0,
-                                                      buttonSize: 32.0,
-                                                      fillColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      icon: Icon(
-                                                        FFIcons.kedit,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              1.0, 1.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    4.0,
+                                                                    4.0),
+                                                        child:
+                                                            FlutterFlowIconButton(
+                                                          borderRadius: 8.0,
+                                                          buttonSize: 32.0,
+                                                          fillColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                          icon: Icon(
+                                                            FFIcons.kedit,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .info,
-                                                        size: 20.0,
-                                                      ),
-                                                      onPressed: () async {
-                                                        final selectedMedia =
-                                                            await selectMedia(
-                                                          maxWidth: 1920.00,
-                                                          maxHeight: 1080.00,
-                                                          imageQuality: 60,
-                                                          includeDimensions:
-                                                              true,
-                                                          mediaSource:
-                                                              MediaSource
-                                                                  .photoGallery,
-                                                          multiImage: false,
-                                                        );
-                                                        if (selectedMedia !=
-                                                                null &&
-                                                            selectedMedia.every((m) =>
-                                                                validateFileFormat(
-                                                                    m.storagePath,
-                                                                    context))) {
-                                                          safeSetState(() =>
-                                                              _model.isDataUploading_uploadDataUz9 =
-                                                                  true);
-                                                          var selectedUploadedFiles =
-                                                              <FFUploadedFile>[];
-
-                                                          var downloadUrls =
-                                                              <String>[];
-                                                          try {
-                                                            selectedUploadedFiles =
-                                                                selectedMedia
-                                                                    .map((m) =>
-                                                                        FFUploadedFile(
-                                                                          name: m
-                                                                              .storagePath
-                                                                              .split('/')
-                                                                              .last,
-                                                                          bytes:
-                                                                              m.bytes,
-                                                                          height: m
-                                                                              .dimensions
-                                                                              ?.height,
-                                                                          width: m
-                                                                              .dimensions
-                                                                              ?.width,
-                                                                          blurHash:
-                                                                              m.blurHash,
-                                                                          originalFilename:
-                                                                              m.originalFilename,
-                                                                        ))
-                                                                    .toList();
-
-                                                            downloadUrls =
-                                                                (await Future
-                                                                        .wait(
-                                                              selectedMedia.map(
-                                                                (m) async =>
-                                                                    await uploadData(
+                                                            size: 20.0,
+                                                          ),
+                                                          onPressed: () async {
+                                                            final selectedMedia =
+                                                                await selectMedia(
+                                                              maxWidth: 1920.00,
+                                                              maxHeight:
+                                                                  1080.00,
+                                                              imageQuality: 60,
+                                                              includeDimensions:
+                                                                  true,
+                                                              mediaSource:
+                                                                  MediaSource
+                                                                      .photoGallery,
+                                                              multiImage: false,
+                                                            );
+                                                            if (selectedMedia !=
+                                                                    null &&
+                                                                selectedMedia.every((m) =>
+                                                                    validateFileFormat(
                                                                         m.storagePath,
-                                                                        m.bytes),
-                                                              ),
-                                                            ))
+                                                                        context))) {
+                                                              safeSetState(() =>
+                                                                  _model.isDataUploading_uploadDataUz9 =
+                                                                      true);
+                                                              var selectedUploadedFiles =
+                                                                  <FFUploadedFile>[];
+
+                                                              var downloadUrls =
+                                                                  <String>[];
+                                                              try {
+                                                                selectedUploadedFiles =
+                                                                    selectedMedia
+                                                                        .map((m) =>
+                                                                            FFUploadedFile(
+                                                                              name: m.storagePath.split('/').last,
+                                                                              bytes: m.bytes,
+                                                                              height: m.dimensions?.height,
+                                                                              width: m.dimensions?.width,
+                                                                              blurHash: m.blurHash,
+                                                                              originalFilename: m.originalFilename,
+                                                                            ))
+                                                                        .toList();
+
+                                                                downloadUrls = (await Future
+                                                                        .wait(
+                                                                  selectedMedia
+                                                                      .map(
+                                                                    (m) async =>
+                                                                        await uploadData(
+                                                                            m.storagePath,
+                                                                            m.bytes),
+                                                                  ),
+                                                                ))
                                                                     .where((u) =>
                                                                         u !=
                                                                         null)
                                                                     .map((u) =>
                                                                         u!)
                                                                     .toList();
-                                                          } finally {
-                                                            _model.isDataUploading_uploadDataUz9 =
-                                                                false;
-                                                          }
-                                                          if (selectedUploadedFiles
-                                                                      .length ==
-                                                                  selectedMedia
-                                                                      .length &&
-                                                              downloadUrls
-                                                                      .length ==
-                                                                  selectedMedia
-                                                                      .length) {
-                                                            safeSetState(() {
-                                                              _model.uploadedLocalFile_uploadDataUz9 =
-                                                                  selectedUploadedFiles
-                                                                      .first;
-                                                              _model.uploadedFileUrl_uploadDataUz9 =
+                                                              } finally {
+                                                                _model.isDataUploading_uploadDataUz9 =
+                                                                    false;
+                                                              }
+                                                              if (selectedUploadedFiles
+                                                                          .length ==
+                                                                      selectedMedia
+                                                                          .length &&
                                                                   downloadUrls
-                                                                      .first;
-                                                            });
-                                                          } else {
-                                                            safeSetState(() {});
-                                                            return;
-                                                          }
-                                                        }
+                                                                          .length ==
+                                                                      selectedMedia
+                                                                          .length) {
+                                                                safeSetState(
+                                                                    () {
+                                                                  _model.uploadedLocalFile_uploadDataUz9 =
+                                                                      selectedUploadedFiles
+                                                                          .first;
+                                                                  _model.uploadedFileUrl_uploadDataUz9 =
+                                                                      downloadUrls
+                                                                          .first;
+                                                                });
+                                                              } else {
+                                                                safeSetState(
+                                                                    () {});
+                                                                return;
+                                                              }
+                                                            }
 
-                                                        await currentUserReference!
-                                                            .update(
-                                                                createUserRecordData(
-                                                          photoUrl: _model
-                                                              .uploadedFileUrl_uploadDataUz9,
-                                                        ));
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
-                                            child: Text(
-                                              'Имя',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts:
-                                                            !FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMediumIsCustom,
+                                                            await currentUserReference!
+                                                                .update(
+                                                                    createUserRecordData(
+                                                              photoUrl: _model
+                                                                  .uploadedFileUrl_uploadDataUz9,
+                                                            ));
+                                                          },
+                                                        ),
                                                       ),
-                                            ),
-                                          ),
-                                          AuthUserStreamWidget(
-                                            builder: (context) => TextFormField(
-                                              controller: _model.textController,
-                                              focusNode:
-                                                  _model.textFieldFocusNode,
-                                              autofocus: false,
-                                              obscureText: false,
-                                              decoration: InputDecoration(
-                                                isDense: false,
-                                                labelStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    -1.0, 0.0),
+                                                child: Text(
+                                                  'Имя',
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts:
+                                                                !FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumIsCustom,
+                                                          ),
+                                                ),
+                                              ),
+                                              AuthUserStreamWidget(
+                                                builder: (context) =>
+                                                    TextFormField(
+                                                  controller:
+                                                      _model.textController,
+                                                  focusNode:
+                                                      _model.textFieldFocusNode,
+                                                  autofocus: false,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    isDense: false,
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .titleSmall
                                                         .override(
                                                           fontFamily:
@@ -339,9 +346,9 @@ class _AdminMainProfileWidgetState extends State<AdminMainProfileWidget> {
                                                                       .of(context)
                                                                   .titleSmallIsCustom,
                                                         ),
-                                                hintText: 'Введите',
-                                                hintStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    hintText: 'Введите',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .bodyLarge
                                                         .override(
                                                           fontFamily: 'involve',
@@ -350,57 +357,64 @@ class _AdminMainProfileWidgetState extends State<AdminMainProfileWidget> {
                                                               .secondaryText,
                                                           letterSpacing: 0.0,
                                                         ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: Color(0x00000000),
-                                                    width: 1.0,
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    errorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    focusedErrorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0xFFF5F5F5),
+                                                    hoverColor:
+                                                        Color(0x1B0D7A5F),
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                errorBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                filled: true,
-                                                fillColor: Color(0xFFF5F5F5),
-                                                hoverColor: Color(0x1B0D7A5F),
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyLarge
                                                       .override(
                                                         fontFamily: 'involve',
@@ -408,146 +422,143 @@ class _AdminMainProfileWidgetState extends State<AdminMainProfileWidget> {
                                                         fontWeight:
                                                             FontWeight.w600,
                                                       ),
-                                              cursorColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              validator: _model
-                                                  .textControllerValidator
-                                                  .asValidator(context),
-                                            ),
-                                          ),
-                                          Divider(
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await currentUserReference!
-                                                    .update(
-                                                        createUserRecordData(
-                                                  displayName: _model
-                                                      .textController.text,
-                                                ));
-                                              },
-                                              text: 'Сохранить',
-                                              options: FFButtonOptions(
-                                                width: 180.0,
-                                                height: 48.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                  cursorColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  validator: _model
+                                                      .textControllerValidator
+                                                      .asValidator(context),
+                                                ),
+                                              ),
+                                              Divider(
+                                                thickness: 2.0,
                                                 color:
                                                     FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.0, 0.0),
+                                                child: FFButtonWidget(
+                                                  onPressed: () async {
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUserRecordData(
+                                                      displayName: _model
+                                                          .textController.text,
+                                                    ));
+                                                  },
+                                                  text: 'Сохранить',
+                                                  options: FFButtonOptions(
+                                                    width: 180.0,
+                                                    height: 48.0,
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                                16.0, 0.0),
+                                                    iconPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .primary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .labelLarge
                                                         .override(
                                                           fontFamily: 'involve',
                                                           letterSpacing: 0.0,
                                                         ),
-                                                elevation: 0.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(16.0),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
-                                            child: Builder(
-                                              builder: (context) =>
-                                                  FFButtonWidget(
-                                                onPressed: () async {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            FocusScope.of(
-                                                                    dialogContext)
-                                                                .unfocus();
-                                                            FocusManager
-                                                                .instance
-                                                                .primaryFocus
-                                                                ?.unfocus();
-                                                          },
-                                                          child:
-                                                              AdminLogoutWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                text: 'Выйти из аккаунта',
-                                                icon: Icon(
-                                                  Icons.logout_sharp,
-                                                  size: 15.0,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          16.0, 0.0, 16.0, 0.0),
-                                                  iconPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 18.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallIsCustom,
-                                                          ),
-                                                  elevation: 0.0,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
+                                            ].divide(SizedBox(height: 12.0)),
                                           ),
-                                        ].divide(SizedBox(height: 12.0)),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      child: Builder(
+                                        builder: (context) => FFButtonWidget(
+                                          onPressed: () async {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      FocusScope.of(
+                                                              dialogContext)
+                                                          .unfocus();
+                                                      FocusManager
+                                                          .instance.primaryFocus
+                                                          ?.unfocus();
+                                                    },
+                                                    child: AdminLogoutWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          text: 'Выйти из аккаунта',
+                                          icon: Icon(
+                                            Icons.logout_sharp,
+                                            size: 15.0,
+                                          ),
+                                          options: FFButtonOptions(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            textStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  fontSize: 18.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  useGoogleFonts:
+                                                      !FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallIsCustom,
+                                                ),
+                                            elevation: 0.0,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(height: 12.0)),
                                 ),
                               ],
                             ),

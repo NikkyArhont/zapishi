@@ -41,7 +41,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.sizeOf(context).width * 1.0,
+      width: 590.1,
       height: 300.0,
       constraints: BoxConstraints(
         maxWidth: 500.0,

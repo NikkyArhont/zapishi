@@ -58,7 +58,7 @@ class _ModalWindVerificWOrkerWidgetState
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
-                'assets/images/Group.png',
+                'assets/images/Group_(4).png',
                 width: 180.0,
                 height: 180.0,
                 fit: BoxFit.contain,

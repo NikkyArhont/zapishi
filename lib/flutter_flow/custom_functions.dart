@@ -913,31 +913,25 @@ bool? mainFilter(
 ) {
   if (filter == null || service == null || master == null) return false;
 
-  // --- Вспомогательная функция расстояния ---
   double calcDistanceKm(LatLng a, LatLng b) {
     double _degToRad(double deg) => deg * math.pi / 180;
+    const R = 6371.0;
+    final dLat = _degToRad(b.latitude - a.latitude);
+    final dLon = _degToRad(b.longitude - a.longitude);
+    final lat1 = _degToRad(a.latitude);
+    final lat2 = _degToRad(b.latitude);
 
-    const R = 6371.0; // км
-    double dLat = _degToRad(b.latitude - a.latitude);
-    double dLon = _degToRad(b.longitude - a.longitude);
-
-    double lat1 = _degToRad(a.latitude);
-    double lat2 = _degToRad(b.latitude);
-
-    double h = math.sin(dLat / 2) * math.sin(dLat / 2) +
+    final h = math.sin(dLat / 2) * math.sin(dLat / 2) +
         math.cos(lat1) *
             math.cos(lat2) *
             math.sin(dLon / 2) *
             math.sin(dLon / 2);
 
-    double c = 2 * math.atan2(math.sqrt(h), math.sqrt(1 - h));
-
+    final c = 2 * math.atan2(math.sqrt(h), math.sqrt(1 - h));
     return R * c;
   }
 
-  // ------------------------
-  // 1. ФИЛЬТР: Категории
-  // ------------------------
+  // --- категории ---
   final filterCats = filter.category ?? [];
   final serviceCats = service.category ?? [];
 
@@ -946,68 +940,60 @@ bool? mainFilter(
     if (!hasCatMatch) return false;
   }
 
-  // ------------------------
-  // 2. ФИЛЬТР: Дата (dateServ)
-  // ------------------------
+  // --- дата ---
   if (filter.dateServ != null) {
     final workTime = master.workTime ?? [];
-
     final matchDay = workTime.any((item) {
       final d = item.data;
       if (d == null) return false;
-
       return d.year == filter.dateServ!.year &&
           d.month == filter.dateServ!.month &&
           d.day == filter.dateServ!.day;
     });
-
     if (!matchDay) return false;
   }
 
-  // ------------------------
-  // 3. ФИЛЬТР: Местоположение (atHome + onRadius)
-  // ------------------------
+  // --- гео ---
+  final atHome = filter.atHome ?? false;
+  final onRadius = filter.onRadius ?? false;
+  final userPoint = filter.userPoint;
+  final radius = (filter.locationRadius ?? 0).toDouble();
 
-  LatLng? userPoint = filter.userPoint;
-
-  // CASE 1: atHome = false, onRadius = false → сравнение placeId
-  if (filter.atHome == false && filter.onRadius == false) {
-    if (filter.place == null || master.adres == null) return false;
-
-    if (filter.place!.placeId == null || master.adres!.placeId == null) {
-      return false;
+  // CASE 1: atHome = false, onRadius = false → только placeId (если задан)
+  if (!atHome && !onRadius) {
+    final filterPlaceId = filter.place?.placeId;
+    // если placeId не задан → не фильтруем по месту
+    if (filterPlaceId != null && filterPlaceId.isNotEmpty) {
+      final masterPlaceId = master.adres?.placeId;
+      if (masterPlaceId == null || masterPlaceId != filterPlaceId) {
+        return false;
+      }
     }
-
-    if (filter.place!.placeId != master.adres!.placeId) return false;
   }
 
-  // CASE 2: atHome = true, onRadius = true → удалённый адрес + радиус
-  if (filter.atHome == true && filter.onRadius == true) {
-    if (master.remoteAdres?.location == null || userPoint == null) {
-      return false;
+  // CASE 2: atHome = true, onRadius = true → remoteAdres + радиус
+  if (atHome && onRadius) {
+    final target = master.remoteAdres?.location;
+    if (userPoint == null || target == null) return false;
+    if (radius > 0) {
+      final dist = calcDistanceKm(userPoint, target);
+      if (dist > radius) return false;
     }
-
-    final dist = calcDistanceKm(userPoint, master.remoteAdres!.location!);
-    final radius = filter.locationRadius ?? 0;
-
-    if (dist > radius) return false;
   }
 
-  // CASE 3: atHome = true, onRadius = false → мастер выезжает
-  if (filter.atHome == true && filter.onRadius == false) {
+  // CASE 3: atHome = true, onRadius = false → просто проверяем, что выезд есть
+  if (atHome && !onRadius) {
     if (master.remoteAdres == null) return false;
   }
 
-  // CASE 4: atHome = false, onRadius = true → обычный адрес + радиус
-  if (filter.atHome == false && filter.onRadius == true) {
-    if (master.adres?.location == null || userPoint == null) {
-      return false;
+  // CASE 4: atHome = false, onRadius = true → адрес мастера + радиус
+  if (!atHome && onRadius) {
+    final target = master.adres?.location;
+    if (userPoint == null || target == null) return false;
+    if (radius > 0) {
+      final dist = calcDistanceKm(userPoint, target);
+      if (dist > radius) return false;
     }
-
-    final dist = calcDistanceKm(userPoint, master.adres!.location!);
-    final radius = filter.locationRadius ?? 0;
-
-    if (dist > radius) return false;
   }
 
   return true;

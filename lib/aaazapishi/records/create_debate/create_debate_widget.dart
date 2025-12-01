@@ -650,7 +650,7 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                   child: Builder(
                                     builder: (context) => FFButtonWidget(
                                       onPressed: ((_model.noteTextController
-                                                          .text !=
+                                                          .text ==
                                                       '') ||
                                               (_model.uploadedMedia.isNotEmpty))
                                           ? null

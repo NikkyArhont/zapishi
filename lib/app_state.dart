@@ -266,6 +266,46 @@ class FFAppState extends ChangeNotifier {
     _workBanner = value;
     prefs.setBool('ff_workBanner', value);
   }
+
+  List<String> _testPhones = [
+    '+79181010101',
+    '+79092222222',
+    '+79184444444',
+    '+79186666666',
+    '+79183333333',
+    '+79181234567',
+    '+79181111111',
+    '+79185555555',
+    '+79182323232',
+    '+79182222222'
+  ];
+  List<String> get testPhones => _testPhones;
+  set testPhones(List<String> value) {
+    _testPhones = value;
+  }
+
+  void addToTestPhones(String value) {
+    testPhones.add(value);
+  }
+
+  void removeFromTestPhones(String value) {
+    testPhones.remove(value);
+  }
+
+  void removeAtIndexFromTestPhones(int index) {
+    testPhones.removeAt(index);
+  }
+
+  void updateTestPhonesAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    testPhones[index] = updateFn(_testPhones[index]);
+  }
+
+  void insertAtIndexInTestPhones(int index, String value) {
+    testPhones.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -110,7 +110,7 @@ class _RecordCanselClientWidgetState extends State<RecordCanselClientWidget> {
             ),
             Text(
               dateTimeFormat(
-                "dd LLLL, H:m",
+                "dd LLLL, HH:mm",
                 widget.recordCard!.date!,
                 locale: FFLocalizations.of(context).languageCode,
               ),

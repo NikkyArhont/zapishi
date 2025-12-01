@@ -404,7 +404,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                 maxWidth: 840.0,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFDFDFDF),
+                                                color: Color(0xFFF3F3F3),
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                               ),
@@ -483,8 +483,12 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                containerVarItem
-                                                                    .title,
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  containerVarItem
+                                                                      .title,
+                                                                  'o;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouh',
+                                                                ),
                                                                 maxLines: 3,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
@@ -541,16 +545,22 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
-                                                                      Text(
-                                                                        rowMastersRecord
-                                                                            .title,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
+                                                                      Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            rowMastersRecord.title,
+                                                                            'o;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouh',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
                                                                       ),
                                                                       Icon(
                                                                         FFIcons
@@ -996,16 +1006,19 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
-                                                                      Text(
-                                                                        rowMastersRecord
-                                                                            .title,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
+                                                                      Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                          rowMastersRecord
+                                                                              .title,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
                                                                       ),
                                                                       Icon(
                                                                         FFIcons
@@ -1257,7 +1270,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                               ),
                             ),
                         ]
-                            .addToStart(SizedBox(height: 80.0))
+                            .addToStart(SizedBox(height: 40.0))
                             .addToEnd(SizedBox(height: 40.0)),
                       ),
                     ),

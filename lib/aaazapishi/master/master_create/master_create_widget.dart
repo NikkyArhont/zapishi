@@ -287,33 +287,44 @@ class _MasterCreateWidgetState extends State<MasterCreateWidget> {
                     child: Stack(
                       alignment: AlignmentDirectional(0.85, 0.85),
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
+                        if (_model.banner != null && _model.banner != '')
+                          Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              child: Visibility(
-                                visible: _model.banner != null &&
-                                    _model.banner != '',
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  child: Image.network(
-                                    _model.banner!,
-                                    width: 380.0,
-                                    height: 240.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.network(
+                                _model.banner!,
+                                width: 380.0,
+                                height: 240.0,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset(
+                                  'assets/images/error_image.png',
+                                  width: 380.0,
+                                  height: 240.0,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                        if (_model.banner == null || _model.banner == '')
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              child: Container(
+                                width: 380.0,
+                                height: 240.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                              ),
+                            ),
+                          ),
                         Align(
                           alignment: AlignmentDirectional(0.85, 0.85),
                           child: FlutterFlowIconButton(

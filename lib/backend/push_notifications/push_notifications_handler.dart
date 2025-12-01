@@ -121,6 +121,7 @@ final parametersBuilderMap =
   'smsverification': (data) async => ParameterData(
         allParams: {
           'phone': getParameter<String>(data, 'phone'),
+          'test': getParameter<bool>(data, 'test'),
         },
       ),
   'enterEditProfile': ParameterData.none(),
@@ -133,10 +134,10 @@ final parametersBuilderMap =
   'adminPageLogin': ParameterData.none(),
   'createRecord': (data) async => ParameterData(
         allParams: {
-          'initialServ': await getDocumentParameter<ServicesRecord>(
-              data, 'initialServ', ServicesRecord.fromSnapshot),
           'organisationCard': await getDocumentParameter<MastersRecord>(
               data, 'organisationCard', MastersRecord.fromSnapshot),
+          'initialServ': await getDocumentParameter<ServicesRecord>(
+              data, 'initialServ', ServicesRecord.fromSnapshot),
         },
       ),
   'adminMainProfile': ParameterData.none(),
@@ -256,6 +257,18 @@ final parametersBuilderMap =
   'userAgreevment': ParameterData.none(),
   'adminMoney': ParameterData.none(),
   'adminCChats': ParameterData.none(),
+  'ccabinetMasterEDIT': (data) async => ParameterData(
+        allParams: {
+          'masterDOCC': await getDocumentParameter<MastersRecord>(
+              data, 'masterDOCC', MastersRecord.fromSnapshot),
+        },
+      ),
+  'masterWorkScheduleEDIT': (data) async => ParameterData(
+        allParams: {
+          'masterDoc': await getDocumentParameter<MastersRecord>(
+              data, 'masterDoc', MastersRecord.fromSnapshot),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

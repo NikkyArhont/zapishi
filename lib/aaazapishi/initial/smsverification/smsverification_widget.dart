@@ -1,6 +1,8 @@
 import '/aaazapishi/components/backbutton/backbutton_widget.dart';
 import '/aaazapishi/initial/new_code_sent/new_code_sent_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,9 +23,11 @@ class SmsverificationWidget extends StatefulWidget {
   const SmsverificationWidget({
     super.key,
     required this.phone,
-  });
+    bool? test,
+  }) : this.test = test ?? false;
 
   final String? phone;
+  final bool test;
 
   static String routeName = 'smsverification';
   static String routePath = '/smsverification';
@@ -332,6 +336,11 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                                 safeSetState(() {
                                   _model.pinCodeController?.clear();
                                 });
+                                _model.apiResultbam = await GetCodeCall.call(
+                                  phone: widget.phone,
+                                );
+
+                                safeSetState(() {});
                               },
                         text: 'Выслать код ещё раз',
                         options: FFButtonOptions(
@@ -368,24 +377,51 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                       onPressed: !_model.pinSet
                           ? null
                           : () async {
-                              GoRouter.of(context).prepareAuthEvent();
-                              final smsCodeVal = _model.pinCodeController!.text;
-                              if (smsCodeVal.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content:
-                                        Text('Enter SMS verification code.'),
-                                  ),
+                              if (widget.test) {
+                                GoRouter.of(context).prepareAuthEvent();
+                                final smsCodeVal =
+                                    _model.pinCodeController!.text;
+                                if (smsCodeVal.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Enter SMS verification code.'),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                final phoneVerifiedUser =
+                                    await authManager.verifySmsCode(
+                                  context: context,
+                                  smsCode: smsCodeVal,
                                 );
-                                return;
-                              }
-                              final phoneVerifiedUser =
-                                  await authManager.verifySmsCode(
-                                context: context,
-                                smsCode: smsCodeVal,
-                              );
-                              if (phoneVerifiedUser == null) {
-                                return;
+                                if (phoneVerifiedUser == null) {
+                                  return;
+                                }
+                              } else {
+                                _model.apiResult2yx = await VerifyCodeCall.call(
+                                  number: widget.phone,
+                                  verifyCode: _model.pinCodeController!.text,
+                                );
+
+                                if ((_model.apiResult2yx?.succeeded ?? true)) {
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  final user =
+                                      await authManager.signInWithJwtToken(
+                                    context,
+                                    VerifyCodeCall.token(
+                                      (_model.apiResult2yx?.jsonBody ?? ''),
+                                    )!,
+                                  );
+                                  if (user == null) {
+                                    return;
+                                  }
+
+                                  await currentUserReference!
+                                      .update(createUserRecordData(
+                                    phoneNumber: widget.phone,
+                                  ));
+                                }
                               }
 
                               if (currentUserDisplayName != '') {
@@ -400,6 +436,8 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                                     EnterEditProfileWidget.routeName,
                                     context.mounted);
                               }
+
+                              safeSetState(() {});
                             },
                       text: 'Применить',
                       options: FFButtonOptions(

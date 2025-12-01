@@ -12,12 +12,11 @@ export '/aaazapishi/initial/enter_edit_profile/enter_edit_profile_widget.dart'
 export '/aaazapishi/main/main_widget.dart' show MainWidget;
 export '/aaazapishi/filter_search/map_filter/map_filter_widget.dart'
     show MapFilterWidget;
-export '/aaazapishi/filter_search/search_result/search_result_widget.dart'
+export '/aaazapishi/search_result/search_result_widget.dart'
     show SearchResultWidget;
 export '/aaazapishi/filter_search/all_filter/all_filter_widget.dart'
     show AllFilterWidget;
-export '/aaazapishi/profile/my_profile/my_profile_widget.dart'
-    show MyProfileWidget;
+export '/aaazapishi/my_profile/my_profile_widget.dart' show MyProfileWidget;
 export '/aaazapishi/profile/edit_profile/edit_profile_widget.dart'
     show EditProfileWidget;
 export '/aaazapishi/admin/admin_singup/admin_page_login/admin_page_login_widget.dart'
@@ -89,3 +88,7 @@ export '/aaazapishi/admin/admin_money/admin_money/admin_money_widget.dart'
     show AdminMoneyWidget;
 export '/aaazapishi/admin/admin_chats/admin_c_chats/admin_c_chats_widget.dart'
     show AdminCChatsWidget;
+export '/aaazapishi/cabinet/ccabinet_master_e_d_i_t/ccabinet_master_e_d_i_t_widget.dart'
+    show CcabinetMasterEDITWidget;
+export '/aaazapishi/cabinet/master_work_schedule_e_d_i_t/master_work_schedule_e_d_i_t_widget.dart'
+    show MasterWorkScheduleEDITWidget;

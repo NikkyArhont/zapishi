@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 import 'enter_phone_model.dart';
 export 'enter_phone_model.dart';
 
@@ -50,6 +52,8 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -211,30 +215,6 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                     inputFormatters: [_model.textFieldMask],
                   ),
                 ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    context.pushNamed(AdminPageLoginWidget.routeName);
-                  },
-                  text: 'admin',
-                  options: FFButtonOptions(
-                    height: 32.6,
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).titleSmallFamily,
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                          useGoogleFonts:
-                              !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                        ),
-                    elevation: 0.0,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
                 Expanded(
                   child: Align(
                     alignment: AlignmentDirectional(0.0, 1.0),
@@ -387,34 +367,64 @@ class _EnterPhoneWidgetState extends State<EnterPhoneWidget> {
                             !_model.checkboxValue!)
                         ? null
                         : () async {
-                            final phoneNumberVal = _model.textController.text;
-                            if (phoneNumberVal.isEmpty ||
-                                !phoneNumberVal.startsWith('+')) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'Phone Number is required and has to start with +.'),
-                                ),
+                            if (FFAppState()
+                                .testPhones
+                                .contains(_model.textController.text)) {
+                              final phoneNumberVal = _model.textController.text;
+                              if (phoneNumberVal.isEmpty ||
+                                  !phoneNumberVal.startsWith('+')) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Phone Number is required and has to start with +.'),
+                                  ),
+                                );
+                                return;
+                              }
+                              await authManager.beginPhoneAuth(
+                                context: context,
+                                phoneNumber: phoneNumberVal,
+                                onCodeSent: (context) async {
+                                  context.goNamedAuth(
+                                    SmsverificationWidget.routeName,
+                                    context.mounted,
+                                    queryParameters: {
+                                      'phone': serializeParam(
+                                        _model.textController.text,
+                                        ParamType.String,
+                                      ),
+                                      'test': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
+                                    ignoreRedirect: true,
+                                  );
+                                },
                               );
-                              return;
-                            }
-                            await authManager.beginPhoneAuth(
-                              context: context,
-                              phoneNumber: phoneNumberVal,
-                              onCodeSent: (context) async {
-                                context.goNamedAuth(
+                            } else {
+                              _model.apiResulty26 = await GetCodeCall.call(
+                                phone: _model.textController.text,
+                              );
+
+                              if ((_model.apiResulty26?.succeeded ?? true)) {
+                                context.pushNamed(
                                   SmsverificationWidget.routeName,
-                                  context.mounted,
                                   queryParameters: {
                                     'phone': serializeParam(
                                       _model.textController.text,
                                       ParamType.String,
                                     ),
+                                    'test': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
                                   }.withoutNulls,
-                                  ignoreRedirect: true,
                                 );
-                              },
-                            );
+                              }
+                            }
+
+                            safeSetState(() {});
                           },
                     text: 'Далее',
                     options: FFButtonOptions(

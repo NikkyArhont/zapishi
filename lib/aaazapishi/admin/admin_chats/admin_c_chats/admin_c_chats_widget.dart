@@ -176,54 +176,273 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                       final loadChatsItem =
                                                           loadChats[
                                                               loadChatsIndex];
-                                                      return StreamBuilder<
-                                                          RecordsRecord>(
-                                                        stream: RecordsRecord
-                                                            .getDocument(
-                                                                loadChatsItem
-                                                                    .record!),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-
-                                                          final containerRecordsRecord =
-                                                              snapshot.data!;
-
-                                                          return Container(
-                                                            width: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width *
-                                                                1.0,
-                                                            height: 74.0,
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            child:
-                                                                StreamBuilder<
-                                                                    UserRecord>(
-                                                              stream: UserRecord
+                                                      return Builder(
+                                                        builder: (context) {
+                                                          if (loadChatsItem
+                                                                  .record !=
+                                                              null) {
+                                                            return StreamBuilder<
+                                                                RecordsRecord>(
+                                                              stream: RecordsRecord
                                                                   .getDocument(
-                                                                      containerRecordsRecord
-                                                                          .client!),
+                                                                      loadChatsItem
+                                                                          .record!),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+
+                                                                final containerRecordsRecord =
+                                                                    snapshot
+                                                                        .data!;
+
+                                                                return Container(
+                                                                  width: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width *
+                                                                      1.0,
+                                                                  height: 74.0,
+                                                                  decoration:
+                                                                      BoxDecoration(),
+                                                                  child: StreamBuilder<
+                                                                      UserRecord>(
+                                                                    stream: UserRecord.getDocument(
+                                                                        containerRecordsRecord
+                                                                            .client!),
+                                                                    builder:
+                                                                        (context,
+                                                                            snapshot) {
+                                                                      // Customize what your widget looks like when it's loading.
+                                                                      if (!snapshot
+                                                                          .hasData) {
+                                                                        return Center(
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                50.0,
+                                                                            height:
+                                                                                50.0,
+                                                                            child:
+                                                                                CircularProgressIndicator(
+                                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+
+                                                                      final containerUserRecord =
+                                                                          snapshot
+                                                                              .data!;
+
+                                                                      return Container(
+                                                                        decoration:
+                                                                            BoxDecoration(),
+                                                                        child: StreamBuilder<
+                                                                            MastersRecord>(
+                                                                          stream:
+                                                                              MastersRecord.getDocument(containerRecordsRecord.organisation!),
+                                                                          builder:
+                                                                              (context, snapshot) {
+                                                                            // Customize what your widget looks like when it's loading.
+                                                                            if (!snapshot.hasData) {
+                                                                              return Center(
+                                                                                child: SizedBox(
+                                                                                  width: 50.0,
+                                                                                  height: 50.0,
+                                                                                  child: CircularProgressIndicator(
+                                                                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                      FlutterFlowTheme.of(context).primary,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            }
+
+                                                                            final containerMastersRecord =
+                                                                                snapshot.data!;
+
+                                                                            return Container(
+                                                                              decoration: BoxDecoration(),
+                                                                              child: InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
+                                                                                onTap: () async {
+                                                                                  _model.choosenChat = loadChatsItem;
+                                                                                  safeSetState(() {});
+                                                                                  _model.readRecord = await RecordsRecord.getDocumentOnce(loadChatsItem.record!);
+                                                                                  _model.loadRecord = _model.readRecord;
+                                                                                  safeSetState(() {});
+
+                                                                                  safeSetState(() {});
+                                                                                },
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: 60.0,
+                                                                                      height: 60.0,
+                                                                                      clipBehavior: Clip.antiAlias,
+                                                                                      decoration: BoxDecoration(
+                                                                                        shape: BoxShape.circle,
+                                                                                      ),
+                                                                                      child: Image.network(
+                                                                                        currentUserReference == containerRecordsRecord.client ? containerMastersRecord.banner : containerUserRecord.photoUrl,
+                                                                                        fit: BoxFit.cover,
+                                                                                        errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                          'assets/images/error_image.png',
+                                                                                          fit: BoxFit.cover,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Flexible(
+                                                                                      child: Align(
+                                                                                        alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                        child: Column(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              currentUserReference == containerRecordsRecord.client
+                                                                                                  ? containerMastersRecord.title
+                                                                                                  : containerUserRecord.displayName.maybeHandleOverflow(
+                                                                                                      maxChars: 30,
+                                                                                                      replacement: '…',
+                                                                                                    ),
+                                                                                              maxLines: 1,
+                                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                    fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                    useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            Text(
+                                                                                              containerRecordsRecord.title,
+                                                                                              maxLines: 1,
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                    fontSize: 16.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            Text(
+                                                                                              loadChatsItem.lastMessageText.maybeHandleOverflow(
+                                                                                                maxChars: 40,
+                                                                                                replacement: '…',
+                                                                                              ),
+                                                                                              maxLines: 1,
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    fontSize: 16.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                                  ),
+                                                                                              overflow: TextOverflow.ellipsis,
+                                                                                            ),
+                                                                                          ].divide(SizedBox(height: 4.0)),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                      children: [
+                                                                                        Text(
+                                                                                          dateTimeFormat(
+                                                                                                    "yMd",
+                                                                                                    loadChatsItem.lastMessageTime,
+                                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                                  ) ==
+                                                                                                  dateTimeFormat(
+                                                                                                    "yMd",
+                                                                                                    getCurrentTimestamp,
+                                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                                  )
+                                                                                              ? dateTimeFormat(
+                                                                                                  "Hm",
+                                                                                                  loadChatsItem.lastMessageTime!,
+                                                                                                  locale: FFLocalizations.of(context).languageCode,
+                                                                                                )
+                                                                                              : dateTimeFormat(
+                                                                                                  "dd.MM.yy",
+                                                                                                  loadChatsItem.lastMessageTime!,
+                                                                                                  locale: FFLocalizations.of(context).languageCode,
+                                                                                                ),
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                letterSpacing: 0.0,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                              ),
+                                                                                        ),
+                                                                                        if (!loadChatsItem.lastMessageSeenBy.contains(currentUserReference))
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                            child: Container(
+                                                                                              width: 25.0,
+                                                                                              height: 25.0,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: FlutterFlowTheme.of(context).tertiary,
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ].divide(SizedBox(width: 8.0)),
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          } else {
+                                                            return StreamBuilder<
+                                                                UserRecord>(
+                                                              stream: UserRecord
+                                                                  .getDocument(loadChatsItem
+                                                                      .members
+                                                                      .where((e) =>
+                                                                          e !=
+                                                                          currentUserReference)
+                                                                      .toList()
+                                                                      .firstOrNull!),
                                                               builder: (context,
                                                                   snapshot) {
                                                                 // Customize what your widget looks like when it's loading.
@@ -255,200 +474,172 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                 return Container(
                                                                   decoration:
                                                                       BoxDecoration(),
-                                                                  child: StreamBuilder<
-                                                                      MastersRecord>(
-                                                                    stream: MastersRecord.getDocument(
-                                                                        containerRecordsRecord
-                                                                            .organisation!),
-                                                                    builder:
-                                                                        (context,
-                                                                            snapshot) {
-                                                                      // Customize what your widget looks like when it's loading.
-                                                                      if (!snapshot
-                                                                          .hasData) {
-                                                                        return Center(
-                                                                          child:
-                                                                              SizedBox(
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child:
+                                                                        InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        _model.choosenChat =
+                                                                            loadChatsItem;
+                                                                        safeSetState(
+                                                                            () {});
+                                                                      },
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children:
+                                                                            [
+                                                                          Container(
                                                                             width:
-                                                                                50.0,
+                                                                                60.0,
                                                                             height:
-                                                                                50.0,
+                                                                                60.0,
+                                                                            clipBehavior:
+                                                                                Clip.antiAlias,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              shape: BoxShape.circle,
+                                                                            ),
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
+                                                                                Image.network(
+                                                                              containerUserRecord.photoUrl,
+                                                                              fit: BoxFit.cover,
+                                                                              errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                'assets/images/error_image.png',
+                                                                                fit: BoxFit.cover,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        );
-                                                                      }
-
-                                                                      final containerMastersRecord =
-                                                                          snapshot
-                                                                              .data!;
-
-                                                                      return Container(
-                                                                        decoration:
-                                                                            BoxDecoration(),
-                                                                        child:
-                                                                            InkWell(
-                                                                          splashColor:
-                                                                              Colors.transparent,
-                                                                          focusColor:
-                                                                              Colors.transparent,
-                                                                          hoverColor:
-                                                                              Colors.transparent,
-                                                                          highlightColor:
-                                                                              Colors.transparent,
-                                                                          onTap:
-                                                                              () async {
-                                                                            _model.choosenChat =
-                                                                                loadChatsItem;
-                                                                            safeSetState(() {});
-                                                                            _model.readRecord =
-                                                                                await RecordsRecord.getDocumentOnce(loadChatsItem.record!);
-                                                                            _model.loadRecord =
-                                                                                _model.readRecord;
-                                                                            safeSetState(() {});
-
-                                                                            safeSetState(() {});
-                                                                          },
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.min,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            children:
-                                                                                [
-                                                                              Container(
-                                                                                width: 60.0,
-                                                                                height: 60.0,
-                                                                                clipBehavior: Clip.antiAlias,
-                                                                                decoration: BoxDecoration(
-                                                                                  shape: BoxShape.circle,
-                                                                                ),
-                                                                                child: Image.network(
-                                                                                  currentUserReference == containerRecordsRecord.client ? containerMastersRecord.banner : containerUserRecord.photoUrl,
-                                                                                  fit: BoxFit.cover,
-                                                                                  errorBuilder: (context, error, stackTrace) => Image.asset(
-                                                                                    'assets/images/error_image.png',
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              Flexible(
-                                                                                child: Align(
-                                                                                  alignment: AlignmentDirectional(-1.0, 0.0),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        currentUserReference == containerRecordsRecord.client
-                                                                                            ? containerMastersRecord.title
-                                                                                            : containerUserRecord.displayName.maybeHandleOverflow(
-                                                                                                maxChars: 30,
-                                                                                                replacement: '…',
-                                                                                              ),
-                                                                                        maxLines: 1,
-                                                                                        style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                              fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                                            ),
-                                                                                      ),
-                                                                                      Text(
-                                                                                        containerRecordsRecord.title,
-                                                                                        maxLines: 1,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                              fontSize: 16.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                                            ),
-                                                                                      ),
-                                                                                      Text(
-                                                                                        loadChatsItem.lastMessageText.maybeHandleOverflow(
-                                                                                          maxChars: 40,
-                                                                                          replacement: '…',
-                                                                                        ),
-                                                                                        maxLines: 1,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                              fontSize: 16.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                                            ),
-                                                                                        overflow: TextOverflow.ellipsis,
-                                                                                      ),
-                                                                                    ].divide(SizedBox(height: 4.0)),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              Column(
+                                                                          Flexible(
+                                                                            child:
+                                                                                Align(
+                                                                              alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                              child: Column(
                                                                                 mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: [
                                                                                   Text(
-                                                                                    dateTimeFormat(
-                                                                                              "yMd",
-                                                                                              loadChatsItem.lastMessageTime,
-                                                                                              locale: FFLocalizations.of(context).languageCode,
-                                                                                            ) ==
-                                                                                            dateTimeFormat(
-                                                                                              "yMd",
-                                                                                              getCurrentTimestamp,
-                                                                                              locale: FFLocalizations.of(context).languageCode,
-                                                                                            )
-                                                                                        ? dateTimeFormat(
-                                                                                            "Hm",
-                                                                                            loadChatsItem.lastMessageTime!,
-                                                                                            locale: FFLocalizations.of(context).languageCode,
-                                                                                          )
-                                                                                        : dateTimeFormat(
-                                                                                            "dd.MM.yy",
-                                                                                            loadChatsItem.lastMessageTime!,
-                                                                                            locale: FFLocalizations.of(context).languageCode,
-                                                                                          ),
+                                                                                    containerUserRecord.displayName.maybeHandleOverflow(
+                                                                                      maxChars: 30,
+                                                                                      replacement: '…',
+                                                                                    ),
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                          useGoogleFonts: !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    'Обращение в поддержку',
+                                                                                    maxLines: 1,
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 16.0,
                                                                                           letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.w500,
                                                                                           useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                                         ),
                                                                                   ),
-                                                                                  if (!loadChatsItem.lastMessageSeenBy.contains(currentUserReference))
-                                                                                    Align(
-                                                                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                      child: Container(
-                                                                                        width: 25.0,
-                                                                                        height: 25.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).tertiary,
-                                                                                          shape: BoxShape.circle,
-                                                                                        ),
-                                                                                      ),
+                                                                                  Text(
+                                                                                    loadChatsItem.lastMessageText.maybeHandleOverflow(
+                                                                                      maxChars: 40,
+                                                                                      replacement: '…',
                                                                                     ),
-                                                                                ],
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                        ),
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                  ),
+                                                                                ].divide(SizedBox(height: 4.0)),
                                                                               ),
-                                                                            ].divide(SizedBox(width: 8.0)),
+                                                                            ),
                                                                           ),
-                                                                        ),
-                                                                      );
-                                                                    },
+                                                                          Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.end,
+                                                                            children: [
+                                                                              Text(
+                                                                                dateTimeFormat(
+                                                                                          "yMd",
+                                                                                          loadChatsItem.lastMessageTime,
+                                                                                          locale: FFLocalizations.of(context).languageCode,
+                                                                                        ) ==
+                                                                                        dateTimeFormat(
+                                                                                          "yMd",
+                                                                                          getCurrentTimestamp,
+                                                                                          locale: FFLocalizations.of(context).languageCode,
+                                                                                        )
+                                                                                    ? dateTimeFormat(
+                                                                                        "Hm",
+                                                                                        loadChatsItem.lastMessageTime!,
+                                                                                        locale: FFLocalizations.of(context).languageCode,
+                                                                                      )
+                                                                                    : dateTimeFormat(
+                                                                                        "dd.MM.yy",
+                                                                                        loadChatsItem.lastMessageTime!,
+                                                                                        locale: FFLocalizations.of(context).languageCode,
+                                                                                      ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                    ),
+                                                                              ),
+                                                                              if (!loadChatsItem.lastMessageSeenBy.contains(currentUserReference))
+                                                                                Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Container(
+                                                                                    width: 25.0,
+                                                                                    height: 25.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).tertiary,
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                            ],
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 );
                                                               },
-                                                            ),
-                                                          );
+                                                            );
+                                                          }
                                                         },
                                                       );
                                                     },
@@ -1423,284 +1614,261 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                         .circular(
                                                                             16.0),
                                                               ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      FlutterFlowIconButton(
-                                                                        borderRadius:
-                                                                            100.0,
-                                                                        buttonSize:
-                                                                            72.0,
-                                                                        fillColor:
-                                                                            Color(0x33A7C4FE),
-                                                                        icon:
-                                                                            Icon(
-                                                                          FFIcons
-                                                                              .kdocument2,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          size:
-                                                                              32.0,
-                                                                        ),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          final selectedFiles =
-                                                                              await selectFiles(
-                                                                            multiFile:
-                                                                                false,
-                                                                          );
-                                                                          if (selectedFiles !=
-                                                                              null) {
-                                                                            safeSetState(() =>
-                                                                                _model.isDataUploading_uploadDataDOCWebWeb = true);
-                                                                            var selectedUploadedFiles =
-                                                                                <FFUploadedFile>[];
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children:
+                                                                          [
+                                                                        FlutterFlowIconButton(
+                                                                          borderRadius:
+                                                                              100.0,
+                                                                          buttonSize:
+                                                                              72.0,
+                                                                          fillColor:
+                                                                              Color(0x33A7C4FE),
+                                                                          icon:
+                                                                              Icon(
+                                                                            FFIcons.kdocument2,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            size:
+                                                                                32.0,
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            final selectedFiles =
+                                                                                await selectFiles(
+                                                                              multiFile: false,
+                                                                            );
+                                                                            if (selectedFiles !=
+                                                                                null) {
+                                                                              safeSetState(() => _model.isDataUploading_uploadDataDOCWebWeb = true);
+                                                                              var selectedUploadedFiles = <FFUploadedFile>[];
 
-                                                                            var downloadUrls =
-                                                                                <String>[];
-                                                                            try {
-                                                                              selectedUploadedFiles = selectedFiles
-                                                                                  .map((m) => FFUploadedFile(
-                                                                                        name: m.storagePath.split('/').last,
-                                                                                        bytes: m.bytes,
-                                                                                        originalFilename: m.originalFilename,
-                                                                                      ))
-                                                                                  .toList();
+                                                                              var downloadUrls = <String>[];
+                                                                              try {
+                                                                                selectedUploadedFiles = selectedFiles
+                                                                                    .map((m) => FFUploadedFile(
+                                                                                          name: m.storagePath.split('/').last,
+                                                                                          bytes: m.bytes,
+                                                                                          originalFilename: m.originalFilename,
+                                                                                        ))
+                                                                                    .toList();
 
-                                                                              downloadUrls = (await Future.wait(
-                                                                                selectedFiles.map(
-                                                                                  (f) async => await uploadData(f.storagePath, f.bytes),
-                                                                                ),
-                                                                              ))
-                                                                                  .where((u) => u != null)
-                                                                                  .map((u) => u!)
-                                                                                  .toList();
-                                                                            } finally {
-                                                                              _model.isDataUploading_uploadDataDOCWebWeb = false;
-                                                                            }
-                                                                            if (selectedUploadedFiles.length == selectedFiles.length &&
-                                                                                downloadUrls.length == selectedFiles.length) {
-                                                                              safeSetState(() {
-                                                                                _model.uploadedLocalFile_uploadDataDOCWebWeb = selectedUploadedFiles.first;
-                                                                                _model.uploadedFileUrl_uploadDataDOCWebWeb = downloadUrls.first;
-                                                                              });
-                                                                            } else {
-                                                                              safeSetState(() {});
-                                                                              return;
-                                                                            }
-                                                                          }
-
-                                                                          var messagesRecordReference = MessagesRecord
-                                                                              .collection
-                                                                              .doc();
-                                                                          await messagesRecordReference
-                                                                              .set(createMessagesRecordData(
-                                                                            chat:
-                                                                                _model.choosenChat?.reference,
-                                                                            document:
-                                                                                _model.uploadedFileUrl_uploadDataDOCWebWeb,
-                                                                            sender:
-                                                                                currentUserReference,
-                                                                            dateTime:
-                                                                                getCurrentTimestamp,
-                                                                            text: _model.textController.text != ''
-                                                                                ? _model.textController.text
-                                                                                : 'Документ',
-                                                                          ));
-                                                                          _model.newMessDoc = MessagesRecord.getDocumentFromData(
-                                                                              createMessagesRecordData(
-                                                                                chat: _model.choosenChat?.reference,
-                                                                                document: _model.uploadedFileUrl_uploadDataDOCWebWeb,
-                                                                                sender: currentUserReference,
-                                                                                dateTime: getCurrentTimestamp,
-                                                                                text: _model.textController.text != '' ? _model.textController.text : 'Документ',
-                                                                              ),
-                                                                              messagesRecordReference);
-
-                                                                          await _model
-                                                                              .choosenChat!
-                                                                              .reference
-                                                                              .update({
-                                                                            ...createChatRecordData(
-                                                                              lastMessageTime: getCurrentTimestamp,
-                                                                              lastMessage: _model.newMessDoc?.reference,
-                                                                              lastMessageSender: currentUserReference,
-                                                                              lastMessageText: _model.newMessDoc?.text,
-                                                                            ),
-                                                                            ...mapToFirestore(
-                                                                              {
-                                                                                'messages': FieldValue.arrayUnion([
-                                                                                  _model.newMessDoc?.reference
-                                                                                ]),
-                                                                                'lastMessageSeenBy': FieldValue.delete(),
-                                                                              },
-                                                                            ),
-                                                                          });
-
-                                                                          await _model
-                                                                              .choosenChat!
-                                                                              .reference
-                                                                              .update({
-                                                                            ...mapToFirestore(
-                                                                              {
-                                                                                'lastMessageSeenBy': FieldValue.arrayUnion([
-                                                                                  currentUserReference
-                                                                                ]),
-                                                                              },
-                                                                            ),
-                                                                          });
-                                                                          safeSetState(
-                                                                              () {
-                                                                            _model.isDataUploading_uploadDataDOCWebWeb =
-                                                                                false;
-                                                                            _model.uploadedLocalFile_uploadDataDOCWebWeb =
-                                                                                FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
-                                                                            _model.uploadedFileUrl_uploadDataDOCWebWeb =
-                                                                                '';
-                                                                          });
-
-                                                                          triggerPushNotification(
-                                                                            notificationTitle:
-                                                                                'Новое сообщение',
-                                                                            notificationText:
-                                                                                _model.newMessDoc!.text,
-                                                                            notificationSound:
-                                                                                'default',
-                                                                            userRefs:
-                                                                                _model.choosenChat!.members.toList(),
-                                                                            initialPageName:
-                                                                                'cchatWindow',
-                                                                            parameterData: {
-                                                                              'chatDocument': _model.choosenChat,
-                                                                            },
-                                                                          );
-
-                                                                          safeSetState(
-                                                                              () {});
-                                                                        },
-                                                                      ),
-                                                                      Text(
-                                                                        'Документ',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                    ].divide(SizedBox(
-                                                                        height:
-                                                                            12.0)),
-                                                                  ),
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      FlutterFlowIconButton(
-                                                                        borderRadius:
-                                                                            100.0,
-                                                                        buttonSize:
-                                                                            72.0,
-                                                                        fillColor:
-                                                                            Color(0x33A7C4FE),
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .image_rounded,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          size:
-                                                                              32.0,
-                                                                        ),
-                                                                        onPressed: (_model.uploadedPhoto.length >=
-                                                                                5)
-                                                                            ? null
-                                                                            : () async {
-                                                                                final selectedMedia = await selectMedia(
-                                                                                  maxWidth: 1920.00,
-                                                                                  maxHeight: 1920.00,
-                                                                                  mediaSource: MediaSource.photoGallery,
-                                                                                  multiImage: false,
-                                                                                );
-                                                                                if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
-                                                                                  safeSetState(() => _model.isDataUploading_uploadDataGalleryWeb = true);
-                                                                                  var selectedUploadedFiles = <FFUploadedFile>[];
-
-                                                                                  try {
-                                                                                    selectedUploadedFiles = selectedMedia
-                                                                                        .map((m) => FFUploadedFile(
-                                                                                              name: m.storagePath.split('/').last,
-                                                                                              bytes: m.bytes,
-                                                                                              height: m.dimensions?.height,
-                                                                                              width: m.dimensions?.width,
-                                                                                              blurHash: m.blurHash,
-                                                                                              originalFilename: m.originalFilename,
-                                                                                            ))
-                                                                                        .toList();
-                                                                                  } finally {
-                                                                                    _model.isDataUploading_uploadDataGalleryWeb = false;
-                                                                                  }
-                                                                                  if (selectedUploadedFiles.length == selectedMedia.length) {
-                                                                                    safeSetState(() {
-                                                                                      _model.uploadedLocalFile_uploadDataGalleryWeb = selectedUploadedFiles.first;
-                                                                                    });
-                                                                                  } else {
-                                                                                    safeSetState(() {});
-                                                                                    return;
-                                                                                  }
-                                                                                }
-
-                                                                                _model.addToUploadedPhoto(_model.uploadedLocalFile_uploadDataGalleryWeb);
+                                                                                downloadUrls = (await Future.wait(
+                                                                                  selectedFiles.map(
+                                                                                    (f) async => await uploadData(f.storagePath, f.bytes),
+                                                                                  ),
+                                                                                ))
+                                                                                    .where((u) => u != null)
+                                                                                    .map((u) => u!)
+                                                                                    .toList();
+                                                                              } finally {
+                                                                                _model.isDataUploading_uploadDataDOCWebWeb = false;
+                                                                              }
+                                                                              if (selectedUploadedFiles.length == selectedFiles.length && downloadUrls.length == selectedFiles.length) {
+                                                                                safeSetState(() {
+                                                                                  _model.uploadedLocalFile_uploadDataDOCWebWeb = selectedUploadedFiles.first;
+                                                                                  _model.uploadedFileUrl_uploadDataDOCWebWeb = downloadUrls.first;
+                                                                                });
+                                                                              } else {
                                                                                 safeSetState(() {});
-                                                                                safeSetState(() {
-                                                                                  _model.isDataUploading_uploadDataGalleryWeb = false;
-                                                                                  _model.uploadedLocalFile_uploadDataGalleryWeb = FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
-                                                                                });
+                                                                                return;
+                                                                              }
+                                                                            }
 
-                                                                                safeSetState(() {
-                                                                                  _model.textController?.clear();
-                                                                                });
+                                                                            var messagesRecordReference =
+                                                                                MessagesRecord.collection.doc();
+                                                                            await messagesRecordReference.set(createMessagesRecordData(
+                                                                              chat: _model.choosenChat?.reference,
+                                                                              document: _model.uploadedFileUrl_uploadDataDOCWebWeb,
+                                                                              sender: currentUserReference,
+                                                                              dateTime: getCurrentTimestamp,
+                                                                              text: _model.textController.text != '' ? _model.textController.text : 'Документ',
+                                                                            ));
+                                                                            _model.newMessDoc = MessagesRecord.getDocumentFromData(
+                                                                                createMessagesRecordData(
+                                                                                  chat: _model.choosenChat?.reference,
+                                                                                  document: _model.uploadedFileUrl_uploadDataDOCWebWeb,
+                                                                                  sender: currentUserReference,
+                                                                                  dateTime: getCurrentTimestamp,
+                                                                                  text: _model.textController.text != '' ? _model.textController.text : 'Документ',
+                                                                                ),
+                                                                                messagesRecordReference);
+
+                                                                            await _model.choosenChat!.reference.update({
+                                                                              ...createChatRecordData(
+                                                                                lastMessageTime: getCurrentTimestamp,
+                                                                                lastMessage: _model.newMessDoc?.reference,
+                                                                                lastMessageSender: currentUserReference,
+                                                                                lastMessageText: _model.newMessDoc?.text,
+                                                                              ),
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'messages': FieldValue.arrayUnion([
+                                                                                    _model.newMessDoc?.reference
+                                                                                  ]),
+                                                                                  'lastMessageSeenBy': FieldValue.delete(),
+                                                                                },
+                                                                              ),
+                                                                            });
+
+                                                                            await _model.choosenChat!.reference.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'lastMessageSeenBy': FieldValue.arrayUnion([
+                                                                                    currentUserReference
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+                                                                            safeSetState(() {
+                                                                              _model.isDataUploading_uploadDataDOCWebWeb = false;
+                                                                              _model.uploadedLocalFile_uploadDataDOCWebWeb = FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+                                                                              _model.uploadedFileUrl_uploadDataDOCWebWeb = '';
+                                                                            });
+
+                                                                            triggerPushNotification(
+                                                                              notificationTitle: 'Новое сообщение',
+                                                                              notificationText: _model.newMessDoc!.text,
+                                                                              notificationSound: 'default',
+                                                                              userRefs: _model.choosenChat!.members.toList(),
+                                                                              initialPageName: 'cchatWindow',
+                                                                              parameterData: {
+                                                                                'chatDocument': _model.choosenChat,
                                                                               },
-                                                                      ),
-                                                                      Text(
-                                                                        'Галерея',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                    ].divide(SizedBox(
-                                                                        height:
-                                                                            12.0)),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        24.0)),
+                                                                            );
+
+                                                                            safeSetState(() {});
+                                                                          },
+                                                                        ),
+                                                                        Text(
+                                                                          'Документ',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                fontSize: 16.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                              height: 12.0)),
+                                                                    ),
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children:
+                                                                          [
+                                                                        FlutterFlowIconButton(
+                                                                          borderRadius:
+                                                                              100.0,
+                                                                          buttonSize:
+                                                                              72.0,
+                                                                          fillColor:
+                                                                              Color(0x33A7C4FE),
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.image_rounded,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            size:
+                                                                                32.0,
+                                                                          ),
+                                                                          onPressed: (_model.uploadedPhoto.length >= 5)
+                                                                              ? null
+                                                                              : () async {
+                                                                                  final selectedMedia = await selectMedia(
+                                                                                    maxWidth: 1920.00,
+                                                                                    maxHeight: 1920.00,
+                                                                                    mediaSource: MediaSource.photoGallery,
+                                                                                    multiImage: false,
+                                                                                  );
+                                                                                  if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+                                                                                    safeSetState(() => _model.isDataUploading_uploadDataGalleryWeb = true);
+                                                                                    var selectedUploadedFiles = <FFUploadedFile>[];
+
+                                                                                    try {
+                                                                                      selectedUploadedFiles = selectedMedia
+                                                                                          .map((m) => FFUploadedFile(
+                                                                                                name: m.storagePath.split('/').last,
+                                                                                                bytes: m.bytes,
+                                                                                                height: m.dimensions?.height,
+                                                                                                width: m.dimensions?.width,
+                                                                                                blurHash: m.blurHash,
+                                                                                                originalFilename: m.originalFilename,
+                                                                                              ))
+                                                                                          .toList();
+                                                                                    } finally {
+                                                                                      _model.isDataUploading_uploadDataGalleryWeb = false;
+                                                                                    }
+                                                                                    if (selectedUploadedFiles.length == selectedMedia.length) {
+                                                                                      safeSetState(() {
+                                                                                        _model.uploadedLocalFile_uploadDataGalleryWeb = selectedUploadedFiles.first;
+                                                                                      });
+                                                                                    } else {
+                                                                                      safeSetState(() {});
+                                                                                      return;
+                                                                                    }
+                                                                                  }
+
+                                                                                  _model.addToUploadedPhoto(_model.uploadedLocalFile_uploadDataGalleryWeb);
+                                                                                  safeSetState(() {});
+                                                                                  safeSetState(() {
+                                                                                    _model.isDataUploading_uploadDataGalleryWeb = false;
+                                                                                    _model.uploadedLocalFile_uploadDataGalleryWeb = FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+                                                                                  });
+
+                                                                                  safeSetState(() {
+                                                                                    _model.textController?.clear();
+                                                                                  });
+                                                                                },
+                                                                        ),
+                                                                        Text(
+                                                                          'Галерея',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                fontSize: 16.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                              height: 12.0)),
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          24.0)),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),

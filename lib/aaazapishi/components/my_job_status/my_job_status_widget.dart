@@ -49,9 +49,9 @@ class _MyJobStatusWidgetState extends State<MyJobStatusWidget> {
           if (widget.jobStatus == RecordStatus.confirmed) {
             return FlutterFlowTheme.of(context).lightGreen;
           } else if (widget.jobStatus == RecordStatus.newREc) {
-            return Color(0x6FFFD300);
+            return Color(0xFFFFE893);
           } else if (widget.jobStatus == RecordStatus.denied) {
-            return Color(0x78F75555);
+            return Color(0xFFFF8D8D);
           } else {
             return FlutterFlowTheme.of(context).primaryBackground;
           }

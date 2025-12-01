@@ -24,14 +24,14 @@ export 'create_record_model.dart';
 class CreateRecordWidget extends StatefulWidget {
   const CreateRecordWidget({
     super.key,
-    this.initialServ,
     required this.organisationCard,
     required this.records,
+    this.initialServ,
   });
 
-  final ServicesRecord? initialServ;
   final MastersRecord? organisationCard;
   final List<RecordsRecord>? records;
+  final ServicesRecord? initialServ;
 
   static String routeName = 'createRecord';
   static String routePath = '/createRecord';
@@ -73,6 +73,11 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
         _model.addToChoosenServices(widget.initialServ!.reference);
         _model.totalPrice = widget.initialServ?.price;
         _model.duration = widget.initialServ?.duration;
+        safeSetState(() {});
+      } else {
+        _model.addToChoosenServices(widget.initialServ!.reference);
+        _model.totalPrice = 0;
+        _model.duration = 0;
         safeSetState(() {});
       }
     });
@@ -3005,6 +3010,56 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                     ),
                                   ),
                                 ),
+                              Container(
+                                height: 58.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        FFIcons.kinfoSquare,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          'Итооговая стоимость может отличаться',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.mulish(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                    ].divide(SizedBox(width: 12.0)),
+                                  ),
+                                ),
+                              ),
                               if (!_model.masterPlace)
                                 Container(
                                   decoration: BoxDecoration(
@@ -3382,7 +3437,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                         duration:
                                                             _model.duration,
                                                         comment: _model
-                                                            .clientNameTextController
+                                                            .commentTextController
                                                             .text,
                                                         location:
                                                             updateSearchPlaceStruct(
@@ -3420,7 +3475,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                         duration:
                                                             _model.duration,
                                                         comment: _model
-                                                            .clientNameTextController
+                                                            .commentTextController
                                                             .text,
                                                         location:
                                                             updateSearchPlaceStruct(
@@ -3447,20 +3502,6 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                       ),
                                                     }, recordsRecordReference);
 
-                                                    await currentUserReference!
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'myRecords':
-                                                              FieldValue
-                                                                  .arrayUnion([
-                                                            _model.newRecord
-                                                                ?.reference
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-
                                                     await widget
                                                         .organisationCard!
                                                         .reference
@@ -3475,27 +3516,28 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                         },
                                                       ),
                                                     });
-                                                    if (!((currentUserDocument
+                                                    if ((currentUserDocument
                                                                 ?.mainMaster !=
                                                             widget
                                                                 .organisationCard
                                                                 ?.reference) ||
                                                         (currentUserDocument
-                                                                ?.mainMaster !=
-                                                            _model
-                                                                .choosenMaster))) {
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        clientName: _model
-                                                            .clientNameTextController
-                                                            .text,
-                                                        clientPhone: _model
-                                                            .clientPhoneTextController
-                                                            .text,
-                                                      ));
-                                                    } else {
+                                                                ?.mainMaster ==
+                                                            null)) {
+                                                      await currentUserReference!
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'myRecords':
+                                                                FieldValue
+                                                                    .arrayUnion([
+                                                              _model.newRecord
+                                                                  ?.reference
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+
                                                       await _model
                                                           .newRecord!.reference
                                                           .update(
@@ -3640,6 +3682,18 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                             'cabinet',
                                                         parameterData: {},
                                                       );
+                                                    } else {
+                                                      await _model
+                                                          .newRecord!.reference
+                                                          .update(
+                                                              createRecordsRecordData(
+                                                        clientName: _model
+                                                            .clientNameTextController
+                                                            .text,
+                                                        clientPhone: _model
+                                                            .clientPhoneTextController
+                                                            .text,
+                                                      ));
                                                     }
 
                                                     if (_model.choosenMaster !=

@@ -25,7 +25,9 @@ class CchatWindowModel extends FlutterFlowModel<CchatWindowWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for backbutton component.
-  late BackbuttonModel backbuttonModel;
+  late BackbuttonModel backbuttonModel1;
+  // Model for backbutton component.
+  late BackbuttonModel backbuttonModel2;
   bool isDataUploading_uploadDataDOC = false;
   FFUploadedFile uploadedLocalFile_uploadDataDOC =
       FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
@@ -54,12 +56,14 @@ class CchatWindowModel extends FlutterFlowModel<CchatWindowWidget> {
 
   @override
   void initState(BuildContext context) {
-    backbuttonModel = createModel(context, () => BackbuttonModel());
+    backbuttonModel1 = createModel(context, () => BackbuttonModel());
+    backbuttonModel2 = createModel(context, () => BackbuttonModel());
   }
 
   @override
   void dispose() {
-    backbuttonModel.dispose();
+    backbuttonModel1.dispose();
+    backbuttonModel2.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

@@ -5,7 +5,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/search_error_widget.dart';
-import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -43,16 +42,8 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.userLocValue = false;
-    _model.dateTextController ??= TextEditingController();
-
     _model.switchValue = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
-          _model.dateTextController?.text = dateTimeFormat(
-            "dd.MM.yyyy",
-            FFAppState().mainFilter.dateServ,
-            locale: FFLocalizations.of(context).languageCode,
-          );
-        }));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -248,7 +239,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                     Expanded(
                                       child: FFButtonWidget(
                                         onPressed:
-                                            !FFAppState().mainFilter.atHome
+                                            FFAppState().mainFilter.atHome
                                                 ? null
                                                 : () async {
                                                     FFAppState()
@@ -302,87 +293,91 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                     ),
                                   ],
                                 ),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(context).unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: EnterLocationFilterWidget(
-                                              oldCity: '',
+                                if (!_model.userLocValue!)
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: EnterLocationFilterWidget(
+                                                oldCity: '',
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(
-                                        () => _model.setLoc = value));
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.setLoc = value));
 
-                                    _model.place = _model.setLoc;
-                                    safeSetState(() {});
+                                      _model.place = _model.setLoc;
+                                      safeSetState(() {});
 
-                                    safeSetState(() {});
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(16.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Icon(
-                                            Icons.location_on,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              _model.place != null
-                                                  ? _model.place?.placeTitle
-                                                  : 'Введите...',
-                                              'Введите...',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent2,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .secondaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumIsCustom,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 12.0)),
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              valueOrDefault<String>(
+                                                _model.place != null
+                                                    ? _model.place?.placeTitle
+                                                    : 'Введите...',
+                                                'Введите...',
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        !FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumIsCustom,
+                                                  ),
+                                            ),
+                                          ].divide(SizedBox(width: 12.0)),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -539,7 +534,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                             BorderRadius.circular(10.0),
                                       ),
                                     ),
-                                    if (currentUserLocationValue != null)
+                                    if (_model.userLocValue ?? true)
                                       Slider(
                                         activeColor:
                                             FlutterFlowTheme.of(context)
@@ -557,7 +552,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                               _model.sliderValue = newValue);
                                         },
                                       ),
-                                    if (currentUserLocationValue != null)
+                                    if (_model.userLocValue ?? true)
                                       Padding(
                                         padding: EdgeInsets.all(8.0),
                                         child: Row(
@@ -669,173 +664,81 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                           ),
                         ),
                         Builder(
-                          builder: (context) => Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            child: Autocomplete<String>(
-                              initialValue: TextEditingValue(
-                                  text: dateTimeFormat(
-                                "dd.MM.yyyy",
-                                FFAppState().mainFilter.dateServ!,
-                                locale:
-                                    FFLocalizations.of(context).languageCode,
-                              )),
-                              optionsBuilder: (textEditingValue) {
-                                if (textEditingValue.text == '') {
-                                  return const Iterable<String>.empty();
-                                }
-                                return ['Option 1'].where((option) {
-                                  final lowercaseOption = option.toLowerCase();
-                                  return lowercaseOption.contains(
-                                      textEditingValue.text.toLowerCase());
-                                });
-                              },
-                              optionsViewBuilder:
-                                  (context, onSelected, options) {
-                                return AutocompleteOptionsList(
-                                  textFieldKey: _model.dateKey,
-                                  textController: _model.dateTextController!,
-                                  options: options.toList(),
-                                  onSelected: onSelected,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
-                                      ),
-                                  textHighlightStyle: TextStyle(),
-                                  elevation: 4.0,
-                                  optionBackgroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  optionHighlightColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  maxHeight: 200.0,
-                                );
-                              },
-                              onSelected: (String selection) {
-                                safeSetState(() =>
-                                    _model.dateSelectedOption = selection);
-                                FocusScope.of(context).unfocus();
-                              },
-                              fieldViewBuilder: (
-                                context,
-                                textEditingController,
-                                focusNode,
-                                onEditingComplete,
-                              ) {
-                                _model.dateFocusNode = focusNode;
-
-                                _model.dateTextController =
-                                    textEditingController;
-                                return TextFormField(
-                                  key: _model.dateKey,
-                                  controller: textEditingController,
-                                  focusNode: focusNode,
-                                  onEditingComplete: onEditingComplete,
-                                  onFieldSubmitted: (_) async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              FocusScope.of(dialogContext)
-                                                  .unfocus();
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                            },
-                                            child: CalendarForFilterWidget(),
-                                          ),
-                                        );
+                          builder: (context) => InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        FocusScope.of(dialogContext).unfocus();
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
                                       },
-                                    );
-                                  },
-                                  autofocus: false,
-                                  readOnly: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: false,
-                                    hintText: 'Дата',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily,
-                                          color: Color(0xFF9E9E9E),
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          useGoogleFonts:
-                                              !FlutterFlowTheme.of(context)
-                                                  .labelMediumIsCustom,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
+                                      child: CalendarForFilterWidget(),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    prefixIcon: Icon(
-                                      Icons.calendar_month,
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).accent2,
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today,
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                          .secondaryText,
+                                      size: 24.0,
                                     ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
+                                    Text(
+                                      valueOrDefault<String>(
+                                        FFAppState().mainFilter.dateServ != null
+                                            ? dateTimeFormat(
+                                                "dd.MM.yy",
+                                                FFAppState()
+                                                    .mainFilter
+                                                    .dateServ,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
+                                              )
+                                            : 'Выберите дату',
+                                        'Введите...',
                                       ),
-                                  cursorColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  validator: _model.dateTextControllerValidator
-                                      .asValidator(context),
-                                );
-                              },
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts:
+                                                !FlutterFlowTheme.of(context)
+                                                    .bodyMediumIsCustom,
+                                          ),
+                                    ),
+                                  ].divide(SizedBox(width: 12.0)),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -1347,7 +1250,8 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                               FFAppState().updateMainFilterStruct(
                                 (e) => e
                                   ..locationRadius = _model.sliderValue
-                                  ..userPoint = _model.userLoc,
+                                  ..userPoint = _model.userLoc
+                                  ..place = _model.place,
                               );
                               safeSetState(() {});
                             } else {
@@ -1364,7 +1268,8 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                         GetPlaceLatLngCall.placeLatLon(
                                       (_model.apiResultPlaceLatLon?.jsonBody ??
                                           ''),
-                                    )),
+                                    ))
+                                    ..place = _model.place,
                                 );
                                 safeSetState(() {});
                               } else {

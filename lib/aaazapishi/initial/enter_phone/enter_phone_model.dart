@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'enter_phone_widget.dart' show EnterPhoneWidget;
@@ -14,6 +15,8 @@ class EnterPhoneModel extends FlutterFlowModel<EnterPhoneWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
+  // Stores action output result for [Backend Call - API (getCode)] action in Button widget.
+  ApiCallResponse? apiResulty26;
 
   @override
   void initState(BuildContext context) {}

@@ -119,37 +119,60 @@ class _AdminCompleteDebateWidgetState extends State<AdminCompleteDebateWidget> {
                 ),
               ].divide(SizedBox(width: 12.0)),
             ),
-            RichText(
-              textScaler: MediaQuery.of(context).textScaler,
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Сумма по заказу (',
-                    style: TextStyle(),
-                  ),
-                  TextSpan(
-                    text: 'Hello World ',
-                    style: TextStyle(),
-                  ),
-                  TextSpan(
-                    text: FFAppConstants.currency,
-                    style: TextStyle(),
-                  ),
-                  TextSpan(
-                    text:
-                        ') будет перечислена лицу, в чью пользу был решён спор',
-                    style: TextStyle(),
-                  )
-                ],
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                      fontSize: 16.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w600,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+            StreamBuilder<RecordsRecord>(
+              stream: RecordsRecord.getDocument(widget.record!),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
                     ),
-              ),
+                  );
+                }
+
+                final richTextRecordsRecord = snapshot.data!;
+
+                return RichText(
+                  textScaler: MediaQuery.of(context).textScaler,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Сумма по заказу (',
+                        style: TextStyle(),
+                      ),
+                      TextSpan(
+                        text: richTextRecordsRecord.totalCost.toString(),
+                        style: TextStyle(),
+                      ),
+                      TextSpan(
+                        text: FFAppConstants.currency,
+                        style: TextStyle(),
+                      ),
+                      TextSpan(
+                        text:
+                            ') будет перечислена лицу, в чью пользу был решён спор',
+                        style: TextStyle(),
+                      )
+                    ],
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          useGoogleFonts:
+                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                        ),
+                  ),
+                );
+              },
             ),
             InkWell(
               splashColor: Colors.transparent,

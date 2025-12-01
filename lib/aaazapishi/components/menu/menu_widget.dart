@@ -47,10 +47,14 @@ class _MenuWidgetState extends State<MenuWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      elevation: 6.0,
-      shape: RoundedRectangleBorder(
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 4.0,
+      height: 90.0,
+      constraints: BoxConstraints(
+        maxWidth: 400.0,
+      ),
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -58,220 +62,200 @@ class _MenuWidgetState extends State<MenuWidget> {
           topRight: Radius.circular(24.0),
         ),
       ),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 4.0,
-        height: 90.0,
-        constraints: BoxConstraints(
-          maxWidth: 400.0,
-        ),
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).primaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(24.0),
-            topRight: Radius.circular(24.0),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FlutterFlowIconButton(
-                  borderRadius: 8.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  disabledIconColor: FlutterFlowTheme.of(context).primary,
-                  icon: FaIcon(
-                    FontAwesomeIcons.home,
-                    color: Color(0xFF9E9E9E),
-                    size: 24.0,
-                  ),
-                  onPressed: (widget.currentPage == CurrentPage.main)
-                      ? null
-                      : () async {
-                          context.pushNamed(MainWidget.routeName);
-                        },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                disabledIconColor: FlutterFlowTheme.of(context).primary,
+                icon: FaIcon(
+                  FontAwesomeIcons.home,
+                  color: Color(0xFF9E9E9E),
+                  size: 24.0,
                 ),
-                Text(
-                  'Главная',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                        color: widget.currentPage == CurrentPage.main
-                            ? FlutterFlowTheme.of(context).primary
-                            : Color(0xFF9E9E9E),
-                        fontSize: 10.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        useGoogleFonts:
-                            !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                      ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FlutterFlowIconButton(
-                  borderRadius: 8.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  disabledIconColor: FlutterFlowTheme.of(context).primary,
-                  icon: Icon(
-                    Icons.calendar_month,
-                    color: Color(0xFF9E9E9E),
-                    size: 24.0,
-                  ),
-                  onPressed: (widget.currentPage == CurrentPage.records)
-                      ? null
-                      : () async {
-                          context.pushNamed(MyRecordsWidget.routeName);
-                        },
-                ),
-                Text(
-                  'Записи',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                        color: widget.currentPage == CurrentPage.records
-                            ? FlutterFlowTheme.of(context).primary
-                            : Color(0xFF9E9E9E),
-                        fontSize: 10.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        useGoogleFonts:
-                            !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                      ),
-                ),
-              ],
-            ),
-            if (currentUserDocument?.essence != UserStatus.user)
-              AuthUserStreamWidget(
-                builder: (context) => Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    FlutterFlowIconButton(
-                      borderRadius: 8.0,
-                      buttonSize: 40.0,
-                      fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                      disabledIconColor: FlutterFlowTheme.of(context).primary,
-                      icon: Icon(
-                        FFIcons.kwork,
-                        color: Color(0xFF9E9E9E),
-                        size: 24.0,
-                      ),
-                      onPressed: (widget.currentPage == CurrentPage.work)
-                          ? null
-                          : () async {
-                              context.pushNamed(CabinetWidget.routeName);
-                            },
-                    ),
-                    Text(
-                      'Работа',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            color: widget.currentPage == CurrentPage.work
-                                ? FlutterFlowTheme.of(context).primary
-                                : Color(0xFF9E9E9E),
-                            fontSize: 10.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: !FlutterFlowTheme.of(context)
-                                .bodyMediumIsCustom,
-                          ),
-                    ),
-                  ],
-                ),
+                onPressed: (widget.currentPage == CurrentPage.main)
+                    ? null
+                    : () async {
+                        context.pushNamed(MainWidget.routeName);
+                      },
               ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FlutterFlowIconButton(
-                  borderRadius: 8.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  disabledIconColor: FlutterFlowTheme.of(context).primary,
-                  icon: Icon(
-                    FFIcons.kchat,
-                    color: Color(0xFF9E9E9E),
-                    size: 24.0,
+              Text(
+                'Главная',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      color: widget.currentPage == CurrentPage.main
+                          ? FlutterFlowTheme.of(context).primary
+                          : Color(0xFF9E9E9E),
+                      fontSize: 10.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                    ),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                disabledIconColor: FlutterFlowTheme.of(context).primary,
+                icon: Icon(
+                  Icons.calendar_month,
+                  color: Color(0xFF9E9E9E),
+                  size: 24.0,
+                ),
+                onPressed: (widget.currentPage == CurrentPage.records)
+                    ? null
+                    : () async {
+                        context.pushNamed(MyRecordsWidget.routeName);
+                      },
+              ),
+              Text(
+                'Записи',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      color: widget.currentPage == CurrentPage.records
+                          ? FlutterFlowTheme.of(context).primary
+                          : Color(0xFF9E9E9E),
+                      fontSize: 10.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                    ),
+              ),
+            ],
+          ),
+          if (currentUserDocument?.essence != UserStatus.user)
+            AuthUserStreamWidget(
+              builder: (context) => Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FlutterFlowIconButton(
+                    borderRadius: 8.0,
+                    buttonSize: 40.0,
+                    fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                    disabledIconColor: FlutterFlowTheme.of(context).primary,
+                    icon: Icon(
+                      FFIcons.kwork,
+                      color: Color(0xFF9E9E9E),
+                      size: 24.0,
+                    ),
+                    onPressed: (widget.currentPage == CurrentPage.work)
+                        ? null
+                        : () async {
+                            context.pushNamed(CabinetWidget.routeName);
+                          },
                   ),
-                  onPressed: (widget.currentPage == CurrentPage.chats)
-                      ? null
-                      : () async {
-                          context.pushNamed(MyChatsWidget.routeName);
-                        },
-                ),
-                Text(
-                  'Чаты',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                        color: widget.currentPage == CurrentPage.chats
-                            ? FlutterFlowTheme.of(context).primary
-                            : Color(0xFF9E9E9E),
-                        fontSize: 10.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        useGoogleFonts:
-                            !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                      ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FlutterFlowIconButton(
-                  borderRadius: 8.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  disabledIconColor: FlutterFlowTheme.of(context).primary,
-                  icon: Icon(
-                    Icons.person_outline,
-                    color: Color(0xFF9E9E9E),
-                    size: 24.0,
+                  Text(
+                    'Работа',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          color: widget.currentPage == CurrentPage.work
+                              ? FlutterFlowTheme.of(context).primary
+                              : Color(0xFF9E9E9E),
+                          fontSize: 10.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          useGoogleFonts:
+                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                        ),
                   ),
-                  onPressed: (widget.currentPage == CurrentPage.profile)
-                      ? null
-                      : () async {
-                          context.pushNamed(MyProfileWidget.routeName);
-                        },
-                ),
-                Text(
-                  'Профиль',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                        color: widget.currentPage == CurrentPage.profile
-                            ? FlutterFlowTheme.of(context).primary
-                            : Color(0xFF9E9E9E),
-                        fontSize: 10.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        useGoogleFonts:
-                            !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                      ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
-        ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                disabledIconColor: FlutterFlowTheme.of(context).primary,
+                icon: Icon(
+                  FFIcons.kchat,
+                  color: Color(0xFF9E9E9E),
+                  size: 24.0,
+                ),
+                onPressed: (widget.currentPage == CurrentPage.chats)
+                    ? null
+                    : () async {
+                        context.pushNamed(MyChatsWidget.routeName);
+                      },
+              ),
+              Text(
+                'Чаты',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      color: widget.currentPage == CurrentPage.chats
+                          ? FlutterFlowTheme.of(context).primary
+                          : Color(0xFF9E9E9E),
+                      fontSize: 10.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                    ),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                disabledIconColor: FlutterFlowTheme.of(context).primary,
+                icon: Icon(
+                  Icons.person_outline,
+                  color: Color(0xFF9E9E9E),
+                  size: 24.0,
+                ),
+                onPressed: (widget.currentPage == CurrentPage.profile)
+                    ? null
+                    : () async {
+                        context.pushNamed(MyProfileWidget.routeName);
+                      },
+              ),
+              Text(
+                'Профиль',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      color: widget.currentPage == CurrentPage.profile
+                          ? FlutterFlowTheme.of(context).primary
+                          : Color(0xFF9E9E9E),
+                      fontSize: 10.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                    ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

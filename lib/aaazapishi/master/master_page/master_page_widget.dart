@@ -1,5 +1,5 @@
+import '/aaazapishi/calendar/calendar_widget.dart';
 import '/aaazapishi/components/backbutton/backbutton_widget.dart';
-import '/aaazapishi/components/calendar/calendar_widget.dart';
 import '/aaazapishi/components/menu/menu_widget.dart';
 import '/aaazapishi/master/master_card/master_card_widget.dart';
 import '/aaazapishi/reviews/empty_r_eviews/empty_r_eviews_widget.dart';
@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -2628,29 +2627,6 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                               ),
                             );
                           },
-                        ),
-                        FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Записаться',
-                          options: FFButtonOptions(
-                            width: 360.0,
-                            height: 48.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'involve',
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
                         ),
                       ]
                           .divide(SizedBox(height: 12.0))

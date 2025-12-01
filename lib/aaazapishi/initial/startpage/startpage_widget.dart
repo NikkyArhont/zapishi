@@ -32,22 +32,36 @@ class _StartpageWidgetState extends State<StartpageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(
-        Duration(
-          milliseconds: 1000,
-        ),
-      );
-      if (FFAppState().firstTime) {
-        context.goNamed(OnboardingWidget.routeName);
-      } else {
-        if (loggedIn) {
-          if (currentUserDocument?.essence == UserStatus.admin) {
-            context.goNamed(AdminMainProfileWidget.routeName);
-          } else {
-            context.goNamed(MainWidget.routeName);
-          }
+      if (() {
+        if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+          return false;
+        } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+          return false;
+        } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+          return true;
         } else {
-          context.goNamed(EnterPhoneWidget.routeName);
+          return isWeb;
+        }
+      }()) {
+        context.pushNamed(AdminPageLoginWidget.routeName);
+      } else {
+        await Future.delayed(
+          Duration(
+            milliseconds: 1000,
+          ),
+        );
+        if (FFAppState().firstTime) {
+          context.goNamed(OnboardingWidget.routeName);
+        } else {
+          if (loggedIn) {
+            if (currentUserDocument?.essence == UserStatus.admin) {
+              context.goNamed(AdminMainProfileWidget.routeName);
+            } else {
+              context.goNamed(MainWidget.routeName);
+            }
+          } else {
+            context.goNamed(EnterPhoneWidget.routeName);
+          }
         }
       }
     });

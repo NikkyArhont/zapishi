@@ -416,10 +416,7 @@ class _MasterOfferSetServWidgetState extends State<MasterOfferSetServWidget> {
                     ),
                   ),
                 ),
-              ]
-                  .divide(SizedBox(height: 16.0))
-                  .addToStart(SizedBox(height: 40.0))
-                  .addToEnd(SizedBox(height: 80.0)),
+              ].divide(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 80.0)),
             ),
           ),
         ),

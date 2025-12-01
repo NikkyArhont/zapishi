@@ -110,7 +110,7 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                       child: Align(
                         alignment: AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
-                          padding: EdgeInsets.all(24.0),
+                          padding: EdgeInsets.all(48.0),
                           child: StreamBuilder<MastersRecord>(
                             stream: MastersRecord.getDocument(
                                 containerServicesRecord.organisation!),
@@ -1140,7 +1140,7 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Сотрудники',
+                                                  'Об услуге',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .displayMedium
@@ -1172,7 +1172,8 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  'Hello World',
+                                                  containerServicesRecord
+                                                      .description,
                                                   style:
                                                       FlutterFlowTheme.of(
                                                               context)

@@ -343,20 +343,20 @@ class _MainWidgetState extends State<MainWidget> {
                             ),
                           ),
                         ),
-                      if (FFAppState().workBanner)
+                      if (FFAppState().workBanner &&
+                          (currentUserDocument?.mainMaster != null))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          child: Container(
-                            width: 380.0,
-                            height: 165.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).secondary,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: AuthUserStreamWidget(
-                              builder: (context) =>
-                                  StreamBuilder<MastersRecord>(
+                          child: AuthUserStreamWidget(
+                            builder: (context) => Container(
+                              width: 380.0,
+                              height: 165.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).secondary,
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: StreamBuilder<MastersRecord>(
                                 stream: MastersRecord.getDocument(
                                     currentUserDocument!.mainMaster!),
                                 builder: (context, snapshot) {
@@ -896,7 +896,7 @@ class _MainWidgetState extends State<MainWidget> {
                                                   _model.dropDownValue;
                                               safeSetState(() {});
                                             },
-                                            height: 56.0,
+                                            height: 48.0,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -941,7 +941,7 @@ class _MainWidgetState extends State<MainWidget> {
                                         ),
                                         FlutterFlowIconButton(
                                           borderRadius: 16.0,
-                                          buttonSize: 56.0,
+                                          buttonSize: 48.0,
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .tertiary,
@@ -951,8 +951,9 @@ class _MainWidgetState extends State<MainWidget> {
                                                 .primaryText,
                                             size: 16.0,
                                           ),
-                                          onPressed: () {
-                                            print('IconButton pressed ...');
+                                          onPressed: () async {
+                                            context.pushNamed(
+                                                AllFilterWidget.routeName);
                                           },
                                         ),
                                       ].divide(SizedBox(width: 12.0)),
@@ -1025,7 +1026,7 @@ class _MainWidgetState extends State<MainWidget> {
                                                       maxWidth: 840.0,
                                                     ),
                                                     decoration: BoxDecoration(
-                                                      color: Color(0xFFDFDFDF),
+                                                      color: Color(0xFFF3F3F3),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               16.0),
@@ -1164,13 +1165,15 @@ class _MainWidgetState extends State<MainWidget> {
                                                                               MainAxisSize.max,
                                                                           children:
                                                                               [
-                                                                            Text(
-                                                                              rowMastersRecord.title,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                    letterSpacing: 0.0,
-                                                                                    useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                                  ),
+                                                                            Flexible(
+                                                                              child: Text(
+                                                                                rowMastersRecord.title,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                      letterSpacing: 0.0,
+                                                                                      useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                                    ),
+                                                                              ),
                                                                             ),
                                                                             Icon(
                                                                               FFIcons.kstar2,

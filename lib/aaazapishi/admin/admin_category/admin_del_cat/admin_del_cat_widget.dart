@@ -1,4 +1,6 @@
-import '/aaazapishi/admin/admin_profile/admin_del_acc_info/admin_del_acc_info_widget.dart';
+import '/aaazapishi/admin/admin_category/admin_del_cat_error/admin_del_cat_error_widget.dart';
+import '/aaazapishi/admin/admin_category/admin_del_cat_info/admin_del_cat_info_widget.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,7 +15,7 @@ class AdminDelCatWidget extends StatefulWidget {
     required this.catRef,
   });
 
-  final DocumentReference? catRef;
+  final CategoryRecord? catRef;
 
   @override
   State<AdminDelCatWidget> createState() => _AdminDelCatWidgetState();
@@ -148,21 +150,40 @@ class _AdminDelCatWidgetState extends State<AdminDelCatWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      await widget.catRef!.delete();
-                      Navigator.pop(context);
-                      await showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          return Dialog(
-                            elevation: 0,
-                            insetPadding: EdgeInsets.zero,
-                            backgroundColor: Colors.transparent,
-                            alignment: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            child: AdminDelAccInfoWidget(),
-                          );
-                        },
-                      );
+                      if (widget.catRef!.childCat.isNotEmpty) {
+                        Navigator.pop(context);
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: AdminDelCatErrorWidget(
+                                catRef: widget.catRef!.reference,
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        await widget.catRef!.reference.delete();
+                        Navigator.pop(context);
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: AdminDelCatInfoWidget(),
+                            );
+                          },
+                        );
+                      }
                     },
                     child: Text(
                       'Да, удалить',

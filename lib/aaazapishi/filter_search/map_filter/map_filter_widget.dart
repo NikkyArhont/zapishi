@@ -136,17 +136,7 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           height: 160.0,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                FlutterFlowTheme.of(context).primaryText,
-                                FlutterFlowTheme.of(context).primaryBackground
-                              ],
-                              stops: [0.5, 1.0],
-                              begin: AlignmentDirectional(0.0, -1.0),
-                              end: AlignmentDirectional(0, 1.0),
-                            ),
-                          ),
+                          decoration: BoxDecoration(),
                         ),
                       ),
                     ),
@@ -166,10 +156,20 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                 child: BackbuttonWidget(),
                               ),
                               Expanded(
-                                child: wrapWithModel(
-                                  model: _model.mainSearchModel,
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: MainSearchWidget(),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                        SearchResultWidget.routeName);
+                                  },
+                                  child: wrapWithModel(
+                                    model: _model.mainSearchModel,
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: MainSearchWidget(),
+                                  ),
                                 ),
                               ),
                             ].divide(SizedBox(width: 12.0)),

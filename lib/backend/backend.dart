@@ -9,7 +9,6 @@ import 'schema/services_record.dart';
 import 'schema/reviews_record.dart';
 import 'schema/transactions_record.dart';
 import 'schema/category_record.dart';
-import 'schema/responce_record.dart';
 import 'schema/global_data_record.dart';
 import 'schema/user_record.dart';
 import 'schema/masters_record.dart';
@@ -29,7 +28,6 @@ export 'schema/services_record.dart';
 export 'schema/reviews_record.dart';
 export 'schema/transactions_record.dart';
 export 'schema/category_record.dart';
-export 'schema/responce_record.dart';
 export 'schema/global_data_record.dart';
 export 'schema/user_record.dart';
 export 'schema/masters_record.dart';
@@ -181,43 +179,6 @@ Future<List<CategoryRecord>> queryCategoryRecordOnce({
     queryCollectionOnce(
       CategoryRecord.collection,
       CategoryRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query ResponceRecords (as a Stream and as a Future).
-Future<int> queryResponceRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      ResponceRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<ResponceRecord>> queryResponceRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      ResponceRecord.collection,
-      ResponceRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<ResponceRecord>> queryResponceRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      ResponceRecord.collection,
-      ResponceRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

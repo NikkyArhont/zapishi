@@ -295,7 +295,7 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                                                       child:
                                                                           Text(
                                                                         dateTimeFormat(
-                                                                          "dd.MM.yy H:m",
+                                                                          "dd.MM.yy HH:mm",
                                                                           futureRecordItem
                                                                               .date!,
                                                                           locale:
@@ -684,7 +684,7 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                                                       child:
                                                                           Text(
                                                                         dateTimeFormat(
-                                                                          "dd.MM.yy H:m",
+                                                                          "dd.MM.yy HH:mm",
                                                                           pastRecordItem
                                                                               .date!,
                                                                           locale:
@@ -957,6 +957,7 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                           ),
                         ]
                             .divide(SizedBox(height: 12.0))
+                            .addToStart(SizedBox(height: 40.0))
                             .addToEnd(SizedBox(height: 120.0)),
                       ),
                     ),

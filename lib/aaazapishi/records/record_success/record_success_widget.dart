@@ -128,15 +128,27 @@ class _RecordSuccessWidgetState extends State<RecordSuccessWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
-                context.goNamed(
-                  RecordPageWidget.routeName,
-                  queryParameters: {
-                    'recordRef': serializeParam(
-                      widget.recordCard?.reference,
-                      ParamType.DocumentReference,
-                    ),
-                  }.withoutNulls,
-                );
+                if (widget.recordCard?.client != null) {
+                  context.goNamed(
+                    RecordPageWidget.routeName,
+                    queryParameters: {
+                      'recordRef': serializeParam(
+                        widget.recordCard?.reference,
+                        ParamType.DocumentReference,
+                      ),
+                    }.withoutNulls,
+                  );
+                } else {
+                  context.goNamed(
+                    ReservePageWidget.routeName,
+                    queryParameters: {
+                      'recordRef': serializeParam(
+                        widget.recordCard?.reference,
+                        ParamType.DocumentReference,
+                      ),
+                    }.withoutNulls,
+                  );
+                }
               },
               text: 'К записи',
               options: FFButtonOptions(

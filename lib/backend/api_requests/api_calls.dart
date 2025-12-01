@@ -136,6 +136,51 @@ class AddressCall {
           .toList();
 }
 
+class GetCodeCall {
+  static Future<ApiCallResponse> call({
+    String? phone = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'GetCodeCall',
+        'variables': {
+          'phone': phone,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+}
+
+class VerifyCodeCall {
+  static Future<ApiCallResponse> call({
+    String? number = '',
+    String? verifyCode = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'VerifyCodeCall',
+        'variables': {
+          'number': number,
+          'verifyCode': verifyCode,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  static String? error(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.error''',
+      ));
+  static String? token(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.token''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

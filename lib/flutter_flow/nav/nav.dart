@@ -110,6 +110,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'phone',
               ParamType.String,
             ),
+            test: params.getParam(
+              'test',
+              ParamType.bool,
+            ),
           ),
         ),
         FFRoute(
@@ -159,15 +163,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: CreateRecordWidget.routePath,
           requireAuth: true,
           asyncParams: {
-            'initialServ': getDoc(['services'], ServicesRecord.fromSnapshot),
             'organisationCard': getDoc(['masters'], MastersRecord.fromSnapshot),
             'records': getDocList(['records'], RecordsRecord.fromSnapshot),
+            'initialServ': getDoc(['services'], ServicesRecord.fromSnapshot),
           },
           builder: (context, params) => CreateRecordWidget(
-            initialServ: params.getParam(
-              'initialServ',
-              ParamType.Document,
-            ),
             organisationCard: params.getParam(
               'organisationCard',
               ParamType.Document,
@@ -176,6 +176,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'records',
               ParamType.Document,
               isList: true,
+            ),
+            initialServ: params.getParam(
+              'initialServ',
+              ParamType.Document,
             ),
           ),
         ),
@@ -512,6 +516,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: AdminCChatsWidget.routePath,
           requireAuth: true,
           builder: (context, params) => AdminCChatsWidget(),
+        ),
+        FFRoute(
+          name: CcabinetMasterEDITWidget.routeName,
+          path: CcabinetMasterEDITWidget.routePath,
+          asyncParams: {
+            'masterDOCC': getDoc(['masters'], MastersRecord.fromSnapshot),
+          },
+          builder: (context, params) => CcabinetMasterEDITWidget(
+            masterDOCC: params.getParam(
+              'masterDOCC',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: MasterWorkScheduleEDITWidget.routeName,
+          path: MasterWorkScheduleEDITWidget.routePath,
+          asyncParams: {
+            'masterDoc': getDoc(['masters'], MastersRecord.fromSnapshot),
+          },
+          builder: (context, params) => MasterWorkScheduleEDITWidget(
+            masterDoc: params.getParam(
+              'masterDoc',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

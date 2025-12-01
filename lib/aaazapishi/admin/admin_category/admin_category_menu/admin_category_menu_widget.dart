@@ -1,6 +1,9 @@
 import '/aaazapishi/admin/admin_category/admin_del_cat/admin_del_cat_widget.dart';
 import '/aaazapishi/admin/admin_category/admin_del_cat_error/admin_del_cat_error_widget.dart';
 import '/aaazapishi/admin/admin_category/admin_edit_cat/admin_edit_cat_widget.dart';
+import '/aaazapishi/admin/admin_category/admin_hide_cat/admin_hide_cat_widget.dart';
+import '/aaazapishi/admin/admin_category/admin_hide_cat_error/admin_hide_cat_error_widget.dart';
+import '/aaazapishi/admin/admin_category/admin_show_cat/admin_show_cat_widget.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -116,65 +119,124 @@ class _AdminCategoryMenuWidgetState extends State<AdminCategoryMenuWidget> {
                 ),
               ),
               if (!widget.catDoc!.show)
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.eye,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 24.0,
-                      ),
-                      Text(
-                        'Опубликовать',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: !FlutterFlowTheme.of(context)
-                                  .bodyMediumIsCustom,
+                Builder(
+                  builder: (context) => InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      Navigator.pop(context);
+                      await showDialog(
+                        context: context,
+                        builder: (dialogContext) {
+                          return Dialog(
+                            elevation: 0,
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            alignment: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            child: AdminShowCatWidget(
+                              catRef: widget.catDoc!.reference,
+                              titleCat: widget.catDoc!.title,
                             ),
-                      ),
-                    ].divide(SizedBox(width: 12.0)),
+                          );
+                        },
+                      );
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.eye,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24.0,
+                        ),
+                        Text(
+                          'Опубликовать',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: !FlutterFlowTheme.of(context)
+                                    .bodyMediumIsCustom,
+                              ),
+                        ),
+                      ].divide(SizedBox(width: 12.0)),
+                    ),
                   ),
                 ),
               if (widget.catDoc?.show ?? true)
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.eyeSlash,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 24.0,
-                      ),
-                      Text(
-                        'Снять с публикации',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: !FlutterFlowTheme.of(context)
-                                  .bodyMediumIsCustom,
-                            ),
-                      ),
-                    ].divide(SizedBox(width: 12.0)),
+                Builder(
+                  builder: (context) => InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      Navigator.pop(context);
+                      if ((widget.catDoc!.childCat.isNotEmpty) ||
+                          (widget.catDoc!.services.isNotEmpty)) {
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: AdminHideCatErrorWidget(
+                                catRef: widget.catDoc!.reference,
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: AdminHideCatWidget(
+                                catRef: widget.catDoc!.reference,
+                                titleCat: widget.catDoc!.title,
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.eyeSlash,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24.0,
+                        ),
+                        Text(
+                          'Снять с публикации',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: !FlutterFlowTheme.of(context)
+                                    .bodyMediumIsCustom,
+                              ),
+                        ),
+                      ].divide(SizedBox(width: 12.0)),
+                    ),
                   ),
                 ),
               Builder(
@@ -213,7 +275,7 @@ class _AdminCategoryMenuWidgetState extends State<AdminCategoryMenuWidget> {
                             alignment: AlignmentDirectional(0.0, 0.0)
                                 .resolve(Directionality.of(context)),
                             child: AdminDelCatWidget(
-                              catRef: widget.catDoc!.reference,
+                              catRef: widget.catDoc!,
                             ),
                           );
                         },

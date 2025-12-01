@@ -35,12 +35,6 @@ class AllFilterModel extends FlutterFlowModel<AllFilterWidget> {
   bool? userLocValue;
   // State field(s) for Slider widget.
   double? sliderValue;
-  // State field(s) for date widget.
-  final dateKey = GlobalKey();
-  FocusNode? dateFocusNode;
-  TextEditingController? dateTextController;
-  String? dateSelectedOption;
-  String? Function(BuildContext, String?)? dateTextControllerValidator;
   // State field(s) for Switch widget.
   bool? switchValue;
   // Stores action output result for [Backend Call - API (getPlaceLatLng)] action in Button widget.
@@ -50,7 +44,5 @@ class AllFilterModel extends FlutterFlowModel<AllFilterWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    dateFocusNode?.dispose();
-  }
+  void dispose() {}
 }

@@ -5,21 +5,6 @@ import 'admin_money_widget.dart' show AdminMoneyWidget;
 import 'package:flutter/material.dart';
 
 class AdminMoneyModel extends FlutterFlowModel<AdminMoneyWidget> {
-  ///  Local state fields for this page.
-
-  bool? hidden = false;
-
-  List<DocumentReference> filter = [];
-  void addToFilter(DocumentReference item) => filter.add(item);
-  void removeFromFilter(DocumentReference item) => filter.remove(item);
-  void removeAtIndexFromFilter(int index) => filter.removeAt(index);
-  void insertAtIndexInFilter(int index, DocumentReference item) =>
-      filter.insert(index, item);
-  void updateFilterAtIndex(int index, Function(DocumentReference) updateFn) =>
-      filter[index] = updateFn(filter[index]);
-
-  bool setFilter = false;
-
   ///  State fields for stateful widgets in this page.
 
   // Model for adminMenu component.

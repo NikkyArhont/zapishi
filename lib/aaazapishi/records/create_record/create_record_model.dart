@@ -28,7 +28,7 @@ class CreateRecordModel extends FlutterFlowModel<CreateRecordWidget> {
           int index, Function(DocumentReference) updateFn) =>
       choosenServices[index] = updateFn(choosenServices[index]);
 
-  int? totalPrice;
+  int? totalPrice = 0;
 
   DateTime? recordDate;
 
@@ -45,7 +45,7 @@ class CreateRecordModel extends FlutterFlowModel<CreateRecordWidget> {
 
   DocumentReference? choosenMaster;
 
-  int? duration;
+  int? duration = 0;
 
   ///  State fields for stateful widgets in this page.
 

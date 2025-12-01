@@ -90,7 +90,10 @@ class _CabenetMasterDeleteWidgetState extends State<CabenetMasterDeleteWidget> {
                   ),
             ),
             Text(
-              'Удалить сотрудника:',
+              valueOrDefault<String>(
+                widget.master?.title,
+                'Noname',
+              ),
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).headlineLarge.override(
                     font: GoogleFonts.geologica(

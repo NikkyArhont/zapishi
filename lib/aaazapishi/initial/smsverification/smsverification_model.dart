@@ -1,4 +1,5 @@
 import '/aaazapishi/components/backbutton/backbutton_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -10,6 +11,8 @@ class SmsverificationModel extends FlutterFlowModel<SmsverificationWidget> {
   ///  Local state fields for this page.
 
   bool pinSet = false;
+
+  bool test = false;
 
   ///  State fields for stateful widgets in this page.
 
@@ -40,6 +43,11 @@ class SmsverificationModel extends FlutterFlowModel<SmsverificationWidget> {
   );
   FlutterFlowTimerController timerController =
       FlutterFlowTimerController(StopWatchTimer(mode: StopWatchMode.countDown));
+
+  // Stores action output result for [Backend Call - API (getCode)] action in Button widget.
+  ApiCallResponse? apiResultbam;
+  // Stores action output result for [Backend Call - API (verifyCode)] action in Button widget.
+  ApiCallResponse? apiResult2yx;
 
   @override
   void initState(BuildContext context) {

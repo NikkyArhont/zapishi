@@ -145,6 +145,7 @@ class _MasterChooseCatWidgetState extends State<MasterChooseCatWidget> {
 
                           return ListView.builder(
                             padding: EdgeInsets.zero,
+                            primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: firstCategoryRecordList.length,
@@ -330,6 +331,7 @@ class _MasterChooseCatWidgetState extends State<MasterChooseCatWidget> {
                                                                 padding:
                                                                     EdgeInsets
                                                                         .zero,
+                                                                primary: false,
                                                                 shrinkWrap:
                                                                     true,
                                                                 scrollDirection:

@@ -6,6 +6,7 @@ import '/chats/empty_chats/empty_chats_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -138,8 +139,10 @@ class _MyChatsWidgetState extends State<MyChatsWidget> {
                                 'essence',
                                 isEqualTo: UserStatus.admin.serialize(),
                               ),
-                              singleRecord: true,
-                            ).then((s) => s.firstOrNull);
+                            );
+                            _model.searchAdmins =
+                                _model.searchAdmin!.toList().cast<UserRecord>();
+                            safeSetState(() {});
 
                             await _model.createChat!.reference.update({
                               ...createChatRecordData(
@@ -156,8 +159,13 @@ class _MyChatsWidgetState extends State<MyChatsWidget> {
                                       [_model.firstMessSupport?.reference]),
                                   'lastMessageSeenBy': FieldValue.arrayUnion(
                                       [currentUserReference]),
-                                  'members': FieldValue.arrayUnion(
-                                      [_model.searchAdmin?.reference]),
+                                  'members': FieldValue.arrayUnion([
+                                    _model.searchAdmins
+                                        .elementAtOrNull(
+                                            random_data.randomInteger(
+                                                0, _model.searchAdmins.length))
+                                        ?.reference
+                                  ]),
                                 },
                               ),
                             });

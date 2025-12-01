@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'master_create_service_model.dart';
 export 'master_create_service_model.dart';
 
@@ -67,6 +68,8 @@ class _MasterCreateServiceWidgetState extends State<MasterCreateServiceWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -328,61 +331,64 @@ class _MasterCreateServiceWidgetState extends State<MasterCreateServiceWidget> {
                     }
                   },
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(14.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(1.0, 0.0),
-                            child: Icon(
-                              Icons.info,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Text(
-                              'Нет нужной услуги?',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelLargeFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts:
-                                        !FlutterFlowTheme.of(context)
-                                            .labelLargeIsCustom,
-                                  ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Align(
+                if (FFAppState().firstTime)
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(14.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
                               alignment: AlignmentDirectional(1.0, 0.0),
-                              child: FaIcon(
-                                FontAwesomeIcons.angleRight,
+                              child: Icon(
+                                Icons.info,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 size: 24.0,
                               ),
                             ),
-                          ),
-                        ].divide(SizedBox(width: 12.0)),
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: Text(
+                                'Нет нужной услуги?',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .labelLargeFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .labelLargeIsCustom,
+                                    ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(1.0, 0.0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.angleRight,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ),
+                          ].divide(SizedBox(width: 12.0)),
+                        ),
                       ),
                     ),
                   ),
-                ),
                 Align(
                   alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(

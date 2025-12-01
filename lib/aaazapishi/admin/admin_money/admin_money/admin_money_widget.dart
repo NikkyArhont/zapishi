@@ -72,7 +72,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                   model: _model.adminMenuModel,
                   updateCallback: () => safeSetState(() {}),
                   child: AdminMenuWidget(
-                    currentAdminPage: AdminMenu.category,
+                    currentAdminPage: AdminMenu.money,
                   ),
                 ),
               ),
@@ -127,6 +127,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                     : null;
 
                             return Container(
+                              height: 700.0,
                               constraints: BoxConstraints(
                                 maxWidth: 1440.0,
                                 maxHeight: 900.0,
@@ -145,7 +146,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                   Padding(
                                     padding: EdgeInsets.all(24.0),
                                     child: Row(
-                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
