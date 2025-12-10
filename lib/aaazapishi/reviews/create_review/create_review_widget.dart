@@ -12,6 +12,7 @@ import '/flutter_flow/upload_data.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'create_review_model.dart';
 export 'create_review_model.dart';
@@ -120,12 +121,12 @@ class _CreateReviewWidgetState extends State<CreateReviewWidget> {
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                              width: 10.0,
+                              height: 10.0,
+                              child: SpinKitCircle(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                size: 10.0,
                               ),
                             ),
                           );

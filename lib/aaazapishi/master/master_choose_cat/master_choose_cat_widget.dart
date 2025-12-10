@@ -8,6 +8,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'master_choose_cat_model.dart';
@@ -127,12 +128,12 @@ class _MasterChooseCatWidgetState extends State<MasterChooseCatWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
+                                width: 10.0,
+                                height: 10.0,
+                                child: SpinKitCircle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  size: 10.0,
                                 ),
                               ),
                             );
@@ -207,17 +208,13 @@ class _MasterChooseCatWidgetState extends State<MasterChooseCatWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -306,17 +303,16 @@ class _MasterChooseCatWidgetState extends State<MasterChooseCatWidget> {
                                                                 return Center(
                                                                   child:
                                                                       SizedBox(
-                                                                    width: 50.0,
+                                                                    width: 10.0,
                                                                     height:
-                                                                        50.0,
+                                                                        10.0,
                                                                     child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                      ),
+                                                                        SpinKitCircle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ),
                                                                 );

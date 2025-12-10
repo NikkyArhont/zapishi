@@ -19,6 +19,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -97,12 +98,11 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
+                width: 10.0,
+                height: 10.0,
+                child: SpinKitCircle(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -129,12 +129,11 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                   if (!snapshot.hasData) {
                     return Center(
                       child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
-                          ),
+                        width: 10.0,
+                        height: 10.0,
+                        child: SpinKitCircle(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          size: 10.0,
                         ),
                       ),
                     );
@@ -173,8 +172,8 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                     buttonSize: 40.0,
                                     fillColor: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.paperPlane,
+                                    icon: Icon(
+                                      Icons.ios_share,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       size: 24.0,
@@ -502,13 +501,15 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 12.0, 0.0),
                               child: Container(
+                                height: 48.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(100.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(12.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 8.0, 16.0, 8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -549,8 +550,12 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                                 ),
                                           ),
                                           Text(
-                                            servicePageZServicesRecord.duration
-                                                .toString(),
+                                            valueOrDefault<String>(
+                                              servicePageZServicesRecord
+                                                  .duration
+                                                  .toString(),
+                                              '120',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
@@ -611,6 +616,109 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                 ),
                               ),
                             ),
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 12.0, 0.0),
+                                child: Text(
+                                  stackMastersRecord.description,
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelMediumFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .labelMediumIsCustom,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              child: StreamBuilder<List<RecordsRecord>>(
+                                stream: queryRecordsRecord(
+                                  queryBuilder: (recordsRecord) =>
+                                      recordsRecord.where(
+                                    'organisation',
+                                    isEqualTo: stackMastersRecord.reference,
+                                  ),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 10.0,
+                                        height: 10.0,
+                                        child: SpinKitCircle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 10.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<RecordsRecord> buttonRecordsRecordList =
+                                      snapshot.data!;
+
+                                  return FFButtonWidget(
+                                    onPressed: () async {
+                                      context.pushNamed(
+                                        CreateRecordWidget.routeName,
+                                        queryParameters: {
+                                          'initialServ': serializeParam(
+                                            servicePageZServicesRecord,
+                                            ParamType.Document,
+                                          ),
+                                          'organisationCard': serializeParam(
+                                            stackMastersRecord,
+                                            ParamType.Document,
+                                          ),
+                                          'records': serializeParam(
+                                            buttonRecordsRecordList,
+                                            ParamType.Document,
+                                            isList: true,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          'initialServ':
+                                              servicePageZServicesRecord,
+                                          'organisationCard':
+                                              stackMastersRecord,
+                                          'records': buttonRecordsRecordList,
+                                        },
+                                      );
+                                    },
+                                    text: 'Записаться',
+                                    options: FFButtonOptions(
+                                      width: 500.0,
+                                      height: 56.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily: 'involve',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 0.0,
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 12.0, 0.0),
@@ -631,8 +739,8 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                   );
                                 },
                                 child: Container(
-                                  width: 380.0,
-                                  height: 65.0,
+                                  width: 500.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).tertiary,
@@ -679,49 +787,50 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                   final loadWOrker =
                                       stackMastersRecord.worker.toList();
 
-                                  return Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(loadWOrker.length,
-                                            (loadWOrkerIndex) {
-                                      final loadWOrkerItem =
-                                          loadWOrker[loadWOrkerIndex];
-                                      return StreamBuilder<MastersRecord>(
-                                        stream: MastersRecord.getDocument(
-                                            loadWOrkerItem),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                  return SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(loadWOrker.length,
+                                              (loadWOrkerIndex) {
+                                        final loadWOrkerItem =
+                                            loadWOrker[loadWOrkerIndex];
+                                        return StreamBuilder<MastersRecord>(
+                                          stream: MastersRecord.getDocument(
+                                              loadWOrkerItem),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 10.0,
+                                                  height: 10.0,
+                                                  child: SpinKitCircle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    size: 10.0,
                                                   ),
                                                 ),
-                                              ),
+                                              );
+                                            }
+
+                                            final masterCardMastersRecord =
+                                                snapshot.data!;
+
+                                            return MasterCardWidget(
+                                              key: Key(
+                                                  'Keysvq_${loadWOrkerIndex}_of_${loadWOrker.length}'),
+                                              masterCard:
+                                                  masterCardMastersRecord,
                                             );
-                                          }
-
-                                          final masterCardMastersRecord =
-                                              snapshot.data!;
-
-                                          return MasterCardWidget(
-                                            key: Key(
-                                                'Keysvq_${loadWOrkerIndex}_of_${loadWOrker.length}'),
-                                            masterCard: masterCardMastersRecord,
-                                          );
-                                        },
-                                      );
-                                    })
-                                        .divide(SizedBox(width: 12.0))
-                                        .addToStart(SizedBox(width: 12.0))
-                                        .addToEnd(SizedBox(width: 12.0)),
+                                          },
+                                        );
+                                      })
+                                          .divide(SizedBox(width: 12.0))
+                                          .addToStart(SizedBox(width: 12.0))
+                                          .addToEnd(SizedBox(width: 12.0)),
+                                    ),
                                   );
                                 },
                               ),
@@ -760,13 +869,12 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
+                                      width: 10.0,
+                                      height: 10.0,
+                                      child: SpinKitCircle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        size: 10.0,
                                       ),
                                     ),
                                   );
@@ -1314,17 +1422,14 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                                               .hasData) {
                                                             return Center(
                                                               child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
+                                                                width: 10.0,
+                                                                height: 10.0,
                                                                 child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
+                                                                    SpinKitCircle(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  size: 10.0,
                                                                 ),
                                                               ),
                                                             );
@@ -1430,14 +1535,13 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1882,7 +1986,7 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                           ]
                               .divide(SizedBox(height: 12.0))
                               .addToStart(SizedBox(height: 40.0))
-                              .addToEnd(SizedBox(height: 260.0)),
+                              .addToEnd(SizedBox(height: 120.0)),
                         ),
                       ),
                       Align(
@@ -1945,89 +2049,6 @@ class _ServicePageZWidgetState extends State<ServicePageZWidget>
                                       'containerOnActionTriggerAnimation']!,
                                 ),
                               ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              child: StreamBuilder<List<RecordsRecord>>(
-                                stream: queryRecordsRecord(
-                                  queryBuilder: (recordsRecord) =>
-                                      recordsRecord.where(
-                                    'organisation',
-                                    isEqualTo: stackMastersRecord.reference,
-                                  ),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<RecordsRecord> buttonRecordsRecordList =
-                                      snapshot.data!;
-
-                                  return FFButtonWidget(
-                                    onPressed: () async {
-                                      context.pushNamed(
-                                        CreateRecordWidget.routeName,
-                                        queryParameters: {
-                                          'initialServ': serializeParam(
-                                            servicePageZServicesRecord,
-                                            ParamType.Document,
-                                          ),
-                                          'organisationCard': serializeParam(
-                                            stackMastersRecord,
-                                            ParamType.Document,
-                                          ),
-                                          'records': serializeParam(
-                                            buttonRecordsRecordList,
-                                            ParamType.Document,
-                                            isList: true,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'initialServ':
-                                              servicePageZServicesRecord,
-                                          'organisationCard':
-                                              stackMastersRecord,
-                                          'records': buttonRecordsRecordList,
-                                        },
-                                      );
-                                    },
-                                    text: 'Записаться',
-                                    options: FFButtonOptions(
-                                      width: 360.0,
-                                      height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily: 'involve',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      elevation: 0.0,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
                             Align(
                               alignment: AlignmentDirectional(0.0, 1.0),
                               child: wrapWithModel(

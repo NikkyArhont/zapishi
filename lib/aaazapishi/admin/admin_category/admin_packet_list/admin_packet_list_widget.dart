@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:text_search/text_search.dart';
 import 'admin_packet_list_model.dart';
@@ -223,14 +224,12 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
+                                        width: 10.0,
+                                        height: 10.0,
+                                        child: SpinKitCircle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 10.0,
                                         ),
                                       ),
                                     );
@@ -546,7 +545,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    60.0, 0.0, 12.0, 0.0),
+                                                    24.0, 0.0, 12.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -618,7 +617,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      60.0,
+                                                                      24.0,
                                                                       0.0,
                                                                       12.0,
                                                                       0.0),
@@ -760,7 +759,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      60.0,
+                                                                      24.0,
                                                                       0.0,
                                                                       12.0,
                                                                       0.0),
@@ -898,14 +897,12 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
+                                        width: 10.0,
+                                        height: 10.0,
+                                        child: SpinKitCircle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 10.0,
                                         ),
                                       ),
                                     );
@@ -1221,7 +1218,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    60.0, 0.0, 12.0, 0.0),
+                                                    24.0, 0.0, 12.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -1293,7 +1290,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      60.0,
+                                                                      24.0,
                                                                       0.0,
                                                                       12.0,
                                                                       0.0),
@@ -1435,7 +1432,7 @@ class _AdminPacketListWidgetState extends State<AdminPacketListWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      60.0,
+                                                                      24.0,
                                                                       0.0,
                                                                       12.0,
                                                                       0.0),

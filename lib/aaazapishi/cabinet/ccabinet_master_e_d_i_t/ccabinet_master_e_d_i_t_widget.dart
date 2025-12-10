@@ -133,7 +133,7 @@ class _CcabinetMasterEDITWidgetState extends State<CcabinetMasterEDITWidget> {
                           child: BackbuttonWidget(),
                         ),
                         Text(
-                          'Стать исполнителем',
+                          'Редактировать',
                           style: FlutterFlowTheme.of(context)
                               .displayMedium
                               .override(
@@ -1881,152 +1881,129 @@ class _CcabinetMasterEDITWidgetState extends State<CcabinetMasterEDITWidget> {
                         Expanded(
                           child: Builder(
                             builder: (context) => FFButtonWidget(
-                              onPressed: ((_model.banner == null ||
-                                          _model.banner == '') ||
-                                      !(FFAppState()
-                                          .precreateSchedulle
-                                          .isNotEmpty) ||
-                                      !(FFAppState()
-                                          .createdServices
-                                          .isNotEmpty) ||
-                                      (_model.address == null) ||
-                                      (_model.remote &&
-                                          (_model.remoteAdres == null)) ||
-                                      ((_model.essence != UserStatus.manager) &&
-                                          (_model.textController1.text ==
-                                                  '')))
-                                  ? null
-                                  : () async {
-                                      final firestoreBatch =
-                                          FirebaseFirestore.instance.batch();
-                                      try {
-                                        {
-                                          safeSetState(() => _model
-                                                  .isDataUploading_uploadDataDocumentsEdit =
-                                              true);
-                                          var selectedUploadedFiles =
-                                              <FFUploadedFile>[];
-                                          var selectedFiles = <SelectedFile>[];
-                                          var downloadUrls = <String>[];
-                                          try {
-                                            selectedUploadedFiles =
-                                                _model.docList;
-                                            selectedFiles =
-                                                selectedFilesFromUploadedFiles(
-                                              selectedUploadedFiles,
-                                              isMultiData: true,
-                                            );
-                                            downloadUrls = (await Future.wait(
-                                              selectedFiles.map(
-                                                (f) async => await uploadData(
-                                                    f.storagePath, f.bytes),
-                                              ),
-                                            ))
-                                                .where((u) => u != null)
-                                                .map((u) => u!)
-                                                .toList();
-                                          } finally {
-                                            _model.isDataUploading_uploadDataDocumentsEdit =
-                                                false;
-                                          }
-                                          if (selectedUploadedFiles.length ==
-                                                  selectedFiles.length &&
-                                              downloadUrls.length ==
-                                                  selectedFiles.length) {
-                                            safeSetState(() {
-                                              _model.uploadedLocalFiles_uploadDataDocumentsEdit =
-                                                  selectedUploadedFiles;
-                                              _model.uploadedFileUrls_uploadDataDocumentsEdit =
-                                                  downloadUrls;
-                                            });
-                                          } else {
-                                            safeSetState(() {});
-                                            return;
-                                          }
-                                        }
+                              onPressed: () async {
+                                final firestoreBatch =
+                                    FirebaseFirestore.instance.batch();
+                                try {
+                                  {
+                                    safeSetState(() => _model
+                                            .isDataUploading_uploadDataDocumentsEdit =
+                                        true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+                                    var selectedFiles = <SelectedFile>[];
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      selectedUploadedFiles = _model.docList;
+                                      selectedFiles =
+                                          selectedFilesFromUploadedFiles(
+                                        selectedUploadedFiles,
+                                        isMultiData: true,
+                                      );
+                                      downloadUrls = (await Future.wait(
+                                        selectedFiles.map(
+                                          (f) async => await uploadData(
+                                              f.storagePath, f.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
+                                      _model.isDataUploading_uploadDataDocumentsEdit =
+                                          false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                            selectedFiles.length &&
+                                        downloadUrls.length ==
+                                            selectedFiles.length) {
+                                      safeSetState(() {
+                                        _model.uploadedLocalFiles_uploadDataDocumentsEdit =
+                                            selectedUploadedFiles;
+                                        _model.uploadedFileUrls_uploadDataDocumentsEdit =
+                                            downloadUrls;
+                                      });
+                                    } else {
+                                      safeSetState(() {});
+                                      return;
+                                    }
+                                  }
 
-                                        firestoreBatch.update(
-                                            currentUserReference!,
-                                            createUserRecordData(
-                                              essence: _model.essence,
-                                            ));
+                                  firestoreBatch.update(
+                                      currentUserReference!,
+                                      createUserRecordData(
+                                        essence: _model.essence,
+                                      ));
 
-                                        firestoreBatch.update(
-                                            widget.masterDOCC!.reference, {
-                                          ...createMastersRecordData(
-                                            title: _model.textController1.text,
-                                            phone: _model.textController3.text,
-                                            manager:
-                                                _model.textController2.text,
-                                            years: int.tryParse(
-                                                _model.textController4.text),
-                                            banner: _model.banner,
-                                            adres: updateSearchPlaceStruct(
-                                              _model.address,
-                                              clearUnsetFields: false,
-                                            ),
-                                            remoteAdres:
-                                                updateSearchPlaceStruct(
-                                              _model.remoteAdres,
-                                              clearUnsetFields: false,
-                                            ),
-                                            description:
-                                                _model.textController6.text,
-                                            radius: _model.sliderValue,
-                                            type: _model.essence,
-                                            remotePrice: int.tryParse(
-                                                _model.textController5.text),
-                                          ),
-                                          ...mapToFirestore(
-                                            {
-                                              'docs': FieldValue.arrayUnion([
-                                                _model
-                                                    .uploadedFileUrls_uploadDataDocumentsEdit
-                                                    .firstOrNull
-                                              ]),
-                                              'workTime':
-                                                  getWorkSchedulleListFirestoreData(
-                                                FFAppState().precreateSchedulle,
-                                              ),
-                                            },
-                                          ),
-                                        });
-                                        FFAppState().precreateSchedulle = [];
-                                        FFAppState().createdServices = [];
-                                        FFAppState().bannerToMaster = false;
-                                        safeSetState(() {});
-                                        await showDialog(
-                                          barrierDismissible: false,
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child:
-                                                    ModalMastercreaTEWidget(),
-                                              ),
-                                            );
+                                  firestoreBatch
+                                      .update(widget.masterDOCC!.reference, {
+                                    ...createMastersRecordData(
+                                      title: _model.textController1.text,
+                                      phone: _model.textController3.text,
+                                      manager: _model.textController2.text,
+                                      years: int.tryParse(
+                                          _model.textController4.text),
+                                      banner: _model.banner,
+                                      adres: updateSearchPlaceStruct(
+                                        _model.address,
+                                        clearUnsetFields: false,
+                                      ),
+                                      remoteAdres: updateSearchPlaceStruct(
+                                        _model.remoteAdres,
+                                        clearUnsetFields: false,
+                                      ),
+                                      description: _model.textController6.text,
+                                      radius: _model.sliderValue,
+                                      type: _model.essence,
+                                      remotePrice: int.tryParse(
+                                          _model.textController5.text),
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'docs': FieldValue.arrayUnion([
+                                          _model
+                                              .uploadedFileUrls_uploadDataDocumentsEdit
+                                              .firstOrNull
+                                        ]),
+                                        'workTime':
+                                            getWorkSchedulleListFirestoreData(
+                                          FFAppState().precreateSchedulle,
+                                        ),
+                                      },
+                                    ),
+                                  });
+                                  FFAppState().precreateSchedulle = [];
+                                  FFAppState().createdServices = [];
+                                  FFAppState().bannerToMaster = false;
+                                  safeSetState(() {});
+                                  await showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(dialogContext)
+                                                .unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
                                           },
-                                        );
-                                      } finally {
-                                        await firestoreBatch.commit();
-                                      }
+                                          child: ModalMastercreaTEWidget(),
+                                        ),
+                                      );
                                     },
+                                  );
+                                } finally {
+                                  await firestoreBatch.commit();
+                                }
+                              },
                               text: 'Редактировать',
                               options: FFButtonOptions(
                                 width: 360.0,
@@ -2044,8 +2021,6 @@ class _CcabinetMasterEDITWidgetState extends State<CcabinetMasterEDITWidget> {
                                     ),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(16.0),
-                                disabledColor:
-                                    FlutterFlowTheme.of(context).secondary,
                               ),
                             ),
                           ),

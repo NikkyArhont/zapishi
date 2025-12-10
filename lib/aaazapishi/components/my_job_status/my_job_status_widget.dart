@@ -47,11 +47,11 @@ class _MyJobStatusWidgetState extends State<MyJobStatusWidget> {
       decoration: BoxDecoration(
         color: () {
           if (widget.jobStatus == RecordStatus.confirmed) {
-            return FlutterFlowTheme.of(context).lightGreen;
+            return Color(0x1F4ADE80);
           } else if (widget.jobStatus == RecordStatus.newREc) {
-            return Color(0xFFFFE893);
+            return Color(0x1EFACC15);
           } else if (widget.jobStatus == RecordStatus.denied) {
-            return Color(0xFFFF8D8D);
+            return Color(0x1FF75555);
           } else {
             return FlutterFlowTheme.of(context).primaryBackground;
           }
@@ -59,10 +59,10 @@ class _MyJobStatusWidgetState extends State<MyJobStatusWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
+        padding: EdgeInsets.all(2.0),
         child: Text(
           () {
-            if (widget.jobStatus == RecordStatus.newREc) {
+            if (widget.jobStatus == RecordStatus.confirmed) {
               return 'Подтверждена';
             } else if (widget.jobStatus == RecordStatus.newREc) {
               return 'На подтверждении';
@@ -83,6 +83,7 @@ class _MyJobStatusWidgetState extends State<MyJobStatusWidget> {
                     return FlutterFlowTheme.of(context).primaryBackground;
                   }
                 }(),
+                fontSize: 10.0,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.w600,
                 useGoogleFonts:

@@ -22,6 +22,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -87,12 +88,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               body: Center(
                 child: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      FlutterFlowTheme.of(context).primary,
-                    ),
+                  width: 10.0,
+                  height: 10.0,
+                  child: SpinKitCircle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    size: 10.0,
                   ),
                 ),
               ),
@@ -173,13 +173,12 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
+                                      width: 10.0,
+                                      height: 10.0,
+                                      child: SpinKitCircle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        size: 10.0,
                                       ),
                                     ),
                                   );
@@ -193,6 +192,7 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                       alignment: Alignment(0.0, 0),
                                       child: TabBar(
                                         isScrollable: true,
+                                        tabAlignment: TabAlignment.center,
                                         labelColor: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         unselectedLabelColor:
@@ -820,12 +820,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                 if (!snapshot.hasData) {
                                                                                                                   return Center(
                                                                                                                     child: SizedBox(
-                                                                                                                      width: 50.0,
-                                                                                                                      height: 50.0,
-                                                                                                                      child: CircularProgressIndicator(
-                                                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                          FlutterFlowTheme.of(context).primary,
-                                                                                                                        ),
+                                                                                                                      width: 10.0,
+                                                                                                                      height: 10.0,
+                                                                                                                      child: SpinKitCircle(
+                                                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                        size: 10.0,
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   );
@@ -1019,12 +1018,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                       if (!snapshot.hasData) {
                                                                                         return Center(
                                                                                           child: SizedBox(
-                                                                                            width: 50.0,
-                                                                                            height: 50.0,
-                                                                                            child: CircularProgressIndicator(
-                                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                FlutterFlowTheme.of(context).primary,
-                                                                                              ),
+                                                                                            width: 10.0,
+                                                                                            height: 10.0,
+                                                                                            child: SpinKitCircle(
+                                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                              size: 10.0,
                                                                                             ),
                                                                                           ),
                                                                                         );
@@ -1366,12 +1364,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                           if (!snapshot.hasData) {
                                                                                                                             return Center(
                                                                                                                               child: SizedBox(
-                                                                                                                                width: 50.0,
-                                                                                                                                height: 50.0,
-                                                                                                                                child: CircularProgressIndicator(
-                                                                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                                    FlutterFlowTheme.of(context).primary,
-                                                                                                                                  ),
+                                                                                                                                width: 10.0,
+                                                                                                                                height: 10.0,
+                                                                                                                                child: SpinKitCircle(
+                                                                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                                  size: 10.0,
                                                                                                                                 ),
                                                                                                                               ),
                                                                                                                             );
@@ -1678,12 +1675,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                     if (!snapshot.hasData) {
                                                                                                                       return Center(
                                                                                                                         child: SizedBox(
-                                                                                                                          width: 50.0,
-                                                                                                                          height: 50.0,
-                                                                                                                          child: CircularProgressIndicator(
-                                                                                                                            valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                              FlutterFlowTheme.of(context).primary,
-                                                                                                                            ),
+                                                                                                                          width: 10.0,
+                                                                                                                          height: 10.0,
+                                                                                                                          child: SpinKitCircle(
+                                                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                            size: 10.0,
                                                                                                                           ),
                                                                                                                         ),
                                                                                                                       );
@@ -1700,12 +1696,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                           if (!snapshot.hasData) {
                                                                                                                             return Center(
                                                                                                                               child: SizedBox(
-                                                                                                                                width: 50.0,
-                                                                                                                                height: 50.0,
-                                                                                                                                child: CircularProgressIndicator(
-                                                                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                                    FlutterFlowTheme.of(context).primary,
-                                                                                                                                  ),
+                                                                                                                                width: 10.0,
+                                                                                                                                height: 10.0,
+                                                                                                                                child: SpinKitCircle(
+                                                                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                                  size: 10.0,
                                                                                                                                 ),
                                                                                                                               ),
                                                                                                                             );
@@ -1745,12 +1740,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                                     if (!snapshot.hasData) {
                                                                                                                                       return Center(
                                                                                                                                         child: SizedBox(
-                                                                                                                                          width: 50.0,
-                                                                                                                                          height: 50.0,
-                                                                                                                                          child: CircularProgressIndicator(
-                                                                                                                                            valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                                              FlutterFlowTheme.of(context).primary,
-                                                                                                                                            ),
+                                                                                                                                          width: 10.0,
+                                                                                                                                          height: 10.0,
+                                                                                                                                          child: SpinKitCircle(
+                                                                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                                            size: 10.0,
                                                                                                                                           ),
                                                                                                                                         ),
                                                                                                                                       );
@@ -2377,6 +2371,10 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                       builder: (context) {
                                                         final tabBarVar =
                                                             tabBarRecordsRecordList
+                                                                .sortedList(
+                                                                    keyOf: (e) =>
+                                                                        e.date!,
+                                                                    desc: false)
                                                                 .toList();
 
                                                         return ListView
@@ -2484,12 +2482,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                   if (!snapshot.hasData) {
                                                                                     return Center(
                                                                                       child: SizedBox(
-                                                                                        width: 50.0,
-                                                                                        height: 50.0,
-                                                                                        child: CircularProgressIndicator(
-                                                                                          valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                            FlutterFlowTheme.of(context).primary,
-                                                                                          ),
+                                                                                        width: 10.0,
+                                                                                        height: 10.0,
+                                                                                        child: SpinKitCircle(
+                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                          size: 10.0,
                                                                                         ),
                                                                                       ),
                                                                                     );
@@ -2539,6 +2536,7 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                           ),
                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                 fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                                fontSize: 10.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                                               ),
@@ -2678,17 +2676,14 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 10.0,
+                                                              height: 10.0,
                                                               child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                ),
+                                                                  SpinKitCircle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                size: 10.0,
                                                               ),
                                                             ),
                                                           );
@@ -2755,7 +2750,7 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                               context)
                                                                           .customer,
                                                                       size:
-                                                                          24.0,
+                                                                          18.0,
                                                                     ),
                                                                     Text(
                                                                       formatNumber(
@@ -2887,12 +2882,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                           return Center(
                                                                             child:
                                                                                 SizedBox(
-                                                                              width: 50.0,
-                                                                              height: 50.0,
-                                                                              child: CircularProgressIndicator(
-                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                  FlutterFlowTheme.of(context).primary,
-                                                                                ),
+                                                                              width: 10.0,
+                                                                              height: 10.0,
+                                                                              child: SpinKitCircle(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                size: 10.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -2966,12 +2960,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                           return Center(
                                                                             child:
                                                                                 SizedBox(
-                                                                              width: 50.0,
-                                                                              height: 50.0,
-                                                                              child: CircularProgressIndicator(
-                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                  FlutterFlowTheme.of(context).primary,
-                                                                                ),
+                                                                              width: 10.0,
+                                                                              height: 10.0,
+                                                                              child: SpinKitCircle(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                size: 10.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -3379,77 +3372,81 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                       ],
                                                     ),
                                                   ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -1.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Об исполнителе',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      !FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleMediumIsCustom,
-                                                                ),
+                                                  if (cabinetMastersRecord
+                                                              .description !=
+                                                          '')
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Об исполнителе',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                useGoogleFonts:
+                                                                    !FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMediumIsCustom,
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -1.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        cabinetMastersRecord
-                                                            .description,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMediumFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      !FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelMediumIsCustom,
-                                                                ),
+                                                  if (cabinetMastersRecord
+                                                              .description !=
+                                                          '')
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          cabinetMastersRecord
+                                                              .description,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    !FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMediumIsCustom,
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
                                                   if (cabinetMastersRecord
                                                       .docs.isNotEmpty)
                                                     Align(
@@ -3772,17 +3769,14 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                               .hasData) {
                                                             return Center(
                                                               child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
+                                                                width: 10.0,
+                                                                height: 10.0,
                                                                 child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
+                                                                    SpinKitCircle(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  size: 10.0,
                                                                 ),
                                                               ),
                                                             );
@@ -3885,12 +3879,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                 if (!snapshot.hasData) {
                                                                                   return Center(
                                                                                     child: SizedBox(
-                                                                                      width: 50.0,
-                                                                                      height: 50.0,
-                                                                                      child: CircularProgressIndicator(
-                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                          FlutterFlowTheme.of(context).primary,
-                                                                                        ),
+                                                                                      width: 10.0,
+                                                                                      height: 10.0,
+                                                                                      child: SpinKitCircle(
+                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                        size: 10.0,
                                                                                       ),
                                                                                     ),
                                                                                   );
@@ -3950,12 +3943,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                   if (!snapshot.hasData) {
                                                                                                     return Center(
                                                                                                       child: SizedBox(
-                                                                                                        width: 50.0,
-                                                                                                        height: 50.0,
-                                                                                                        child: CircularProgressIndicator(
-                                                                                                          valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                            FlutterFlowTheme.of(context).primary,
-                                                                                                          ),
+                                                                                                        width: 10.0,
+                                                                                                        height: 10.0,
+                                                                                                        child: SpinKitCircle(
+                                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                          size: 10.0,
                                                                                                         ),
                                                                                                       ),
                                                                                                     );
@@ -4017,12 +4009,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                                                       if (!snapshot.hasData) {
                                                                                                                         return Center(
                                                                                                                           child: SizedBox(
-                                                                                                                            width: 50.0,
-                                                                                                                            height: 50.0,
-                                                                                                                            child: CircularProgressIndicator(
-                                                                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                                                FlutterFlowTheme.of(context).primary,
-                                                                                                                              ),
+                                                                                                                            width: 10.0,
+                                                                                                                            height: 10.0,
+                                                                                                                            child: SpinKitCircle(
+                                                                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                                              size: 10.0,
                                                                                                                             ),
                                                                                                                           ),
                                                                                                                         );
@@ -4407,17 +4398,13 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
+                                                      width: 10.0,
+                                                      height: 10.0,
+                                                      child: SpinKitCircle(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 10.0,
                                                       ),
                                                     ),
                                                   );
@@ -4904,12 +4891,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                             if (!snapshot.hasData) {
                                                                               return Center(
                                                                                 child: SizedBox(
-                                                                                  width: 50.0,
-                                                                                  height: 50.0,
-                                                                                  child: CircularProgressIndicator(
-                                                                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                      FlutterFlowTheme.of(context).primary,
-                                                                                    ),
+                                                                                  width: 10.0,
+                                                                                  height: 10.0,
+                                                                                  child: SpinKitCircle(
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    size: 10.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -4975,12 +4961,11 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                         if (!snapshot.hasData) {
                                                                                           return Center(
                                                                                             child: SizedBox(
-                                                                                              width: 50.0,
-                                                                                              height: 50.0,
-                                                                                              child: CircularProgressIndicator(
-                                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                  FlutterFlowTheme.of(context).primary,
-                                                                                                ),
+                                                                                              width: 10.0,
+                                                                                              height: 10.0,
+                                                                                              child: SpinKitCircle(
+                                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                size: 10.0,
                                                                                               ),
                                                                                             ),
                                                                                           );
@@ -5373,14 +5358,13 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -5411,7 +5395,7 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                         child:
                                                                             Padding(
                                                                           padding:
-                                                                              EdgeInsets.all(12.0),
+                                                                              EdgeInsets.all(8.0),
                                                                           child:
                                                                               Row(
                                                                             mainAxisSize:
@@ -5451,7 +5435,7 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                       Icon(
                                                                                         Icons.star_half,
                                                                                         color: FlutterFlowTheme.of(context).warning,
-                                                                                        size: 24.0,
+                                                                                        size: 18.0,
                                                                                       ),
                                                                                       Text(
                                                                                         cabinetMastersRecord.raiting.toString(),
@@ -5469,38 +5453,41 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(1.0, 0.0),
                                                                                   child: Builder(
-                                                                                    builder: (context) => InkWell(
-                                                                                      splashColor: Colors.transparent,
-                                                                                      focusColor: Colors.transparent,
-                                                                                      hoverColor: Colors.transparent,
-                                                                                      highlightColor: Colors.transparent,
-                                                                                      onTap: () async {
-                                                                                        await showDialog(
-                                                                                          context: context,
-                                                                                          builder: (dialogContext) {
-                                                                                            return Dialog(
-                                                                                              elevation: 0,
-                                                                                              insetPadding: EdgeInsets.zero,
-                                                                                              backgroundColor: Colors.transparent,
-                                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                              child: GestureDetector(
-                                                                                                onTap: () {
-                                                                                                  FocusScope.of(dialogContext).unfocus();
-                                                                                                  FocusManager.instance.primaryFocus?.unfocus();
-                                                                                                },
-                                                                                                child: CabenetMasterDeleteWidget(
-                                                                                                  master: containerMastersRecord,
-                                                                                                  organisation: cabinetMastersRecord.reference,
+                                                                                    builder: (context) => Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                                      child: InkWell(
+                                                                                        splashColor: Colors.transparent,
+                                                                                        focusColor: Colors.transparent,
+                                                                                        hoverColor: Colors.transparent,
+                                                                                        highlightColor: Colors.transparent,
+                                                                                        onTap: () async {
+                                                                                          await showDialog(
+                                                                                            context: context,
+                                                                                            builder: (dialogContext) {
+                                                                                              return Dialog(
+                                                                                                elevation: 0,
+                                                                                                insetPadding: EdgeInsets.zero,
+                                                                                                backgroundColor: Colors.transparent,
+                                                                                                alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                child: GestureDetector(
+                                                                                                  onTap: () {
+                                                                                                    FocusScope.of(dialogContext).unfocus();
+                                                                                                    FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                  },
+                                                                                                  child: CabenetMasterDeleteWidget(
+                                                                                                    master: containerMastersRecord,
+                                                                                                    organisation: cabinetMastersRecord.reference,
+                                                                                                  ),
                                                                                                 ),
-                                                                                              ),
-                                                                                            );
-                                                                                          },
-                                                                                        );
-                                                                                      },
-                                                                                      child: FaIcon(
-                                                                                        FontAwesomeIcons.trash,
-                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                        size: 24.0,
+                                                                                              );
+                                                                                            },
+                                                                                          );
+                                                                                        },
+                                                                                        child: FaIcon(
+                                                                                          FontAwesomeIcons.trash,
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                          size: 18.0,
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   ),

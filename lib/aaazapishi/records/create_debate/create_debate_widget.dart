@@ -12,6 +12,7 @@ import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'create_debate_model.dart';
 export 'create_debate_model.dart';
@@ -218,7 +219,7 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .customer,
-                                              size: 24.0,
+                                              size: 18.0,
                                             ),
                                             Text(
                                               formatNumber(
@@ -242,7 +243,7 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                                 .bodyMediumIsCustom,
                                                       ),
                                             ),
-                                          ].divide(SizedBox(width: 12.0)),
+                                          ].divide(SizedBox(width: 6.0)),
                                         ),
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -340,17 +341,13 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
+                                                      width: 10.0,
+                                                      height: 10.0,
+                                                      child: SpinKitCircle(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 10.0,
                                                       ),
                                                     ),
                                                   );
@@ -370,6 +367,7 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                                 FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                            fontSize: 10.0,
                                                             letterSpacing: 0.0,
                                                             useGoogleFonts:
                                                                 !FlutterFlowTheme.of(
@@ -406,17 +404,13 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
+                                                      width: 10.0,
+                                                      height: 10.0,
+                                                      child: SpinKitCircle(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 10.0,
                                                       ),
                                                     ),
                                                   );
@@ -436,6 +430,7 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                                 FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
+                                                            fontSize: 10.0,
                                                             letterSpacing: 0.0,
                                                             useGoogleFonts:
                                                                 !FlutterFlowTheme.of(

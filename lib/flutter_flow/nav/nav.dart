@@ -733,8 +733,9 @@ class FFRoute {
                   child: Center(
                     child: Image.asset(
                       'assets/images/Frame_1851040970.png',
-                      width: 300.0,
-                      fit: BoxFit.fitWidth,
+                      width: 250.0,
+                      height: 250.0,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

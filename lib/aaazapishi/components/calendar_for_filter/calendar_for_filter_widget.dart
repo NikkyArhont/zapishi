@@ -395,7 +395,7 @@ class _CalendarForFilterWidgetState extends State<CalendarForFilterWidget> {
                           FFAppState().updateMainFilterStruct(
                             (e) => e..dateServ = null,
                           );
-                          safeSetState(() {});
+                          _model.updatePage(() {});
                           Navigator.pop(context);
                         },
                         text: 'Отмена',
@@ -430,7 +430,7 @@ class _CalendarForFilterWidgetState extends State<CalendarForFilterWidget> {
                           FFAppState().updateMainFilterStruct(
                             (e) => e..dateServ = _model.choosenDate,
                           );
-                          safeSetState(() {});
+                          _model.updatePage(() {});
                           Navigator.pop(context);
                         },
                         text: 'Выбрать',

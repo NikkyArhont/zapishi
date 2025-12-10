@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_money_model.dart';
@@ -105,12 +106,12 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
+                                  width: 10.0,
+                                  height: 10.0,
+                                  child: SpinKitCircle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    size: 10.0,
                                   ),
                                 ),
                               );
@@ -301,6 +302,9 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                               Color(0xFFF5F5F5),
                                                           hoverColor:
                                                               Color(0x1B0D7A5F),
+                                                          suffixIcon: Icon(
+                                                            Icons.percent,
+                                                          ),
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -655,6 +659,9 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                               Color(0xFFF5F5F5),
                                                           hoverColor:
                                                               Color(0x1B0D7A5F),
+                                                          suffixIcon: Icon(
+                                                            Icons.percent_sharp,
+                                                          ),
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -780,17 +787,13 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -944,31 +947,20 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineLarge
+                                                                .labelLarge
                                                                 .override(
-                                                                  font: GoogleFonts
-                                                                      .geologica(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      20.0,
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontStyle,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelLargeIsCustom,
                                                                 ),
                                                       ),
                                                       Builder(
@@ -1089,7 +1081,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.trash,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
@@ -1125,11 +1117,11 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.pen,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                        ].divide(SizedBox(width: 12.0)),
                                                                       ),
                                                                       Text(
                                                                         'Период действия: ${managersTarifItem.duration.toString()}дней',
@@ -1167,31 +1159,20 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineLarge
+                                                                .labelLarge
                                                                 .override(
-                                                                  font: GoogleFonts
-                                                                      .geologica(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      20.0,
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontStyle,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelLargeIsCustom,
                                                                 ),
                                                       ),
                                                       Builder(
@@ -1312,7 +1293,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.trash,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
@@ -1348,11 +1329,11 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.pen,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                        ].divide(SizedBox(width: 12.0)),
                                                                       ),
                                                                       Text(
                                                                         'Период действия: ${managersTarifItem.duration.toString()}дней',
@@ -1390,31 +1371,20 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineLarge
+                                                                .labelLarge
                                                                 .override(
-                                                                  font: GoogleFonts
-                                                                      .geologica(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      20.0,
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontStyle,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelLargeIsCustom,
                                                                 ),
                                                       ),
                                                       Builder(
@@ -1535,7 +1505,7 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.trash,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
@@ -1571,11 +1541,11 @@ class _AdminMoneyWidgetState extends State<AdminMoneyWidget> {
                                                                               child: FaIcon(
                                                                                 FontAwesomeIcons.pen,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
-                                                                                size: 24.0,
+                                                                                size: 18.0,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                        ].divide(SizedBox(width: 12.0)),
                                                                       ),
                                                                       Text(
                                                                         'Период действия: ${managersTarifItem.duration.toString()}дней',

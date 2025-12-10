@@ -15,7 +15,7 @@ import '/index.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'master_page_model.dart';
@@ -67,12 +67,11 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
+                width: 10.0,
+                height: 10.0,
+                child: SpinKitCircle(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -179,8 +178,8 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                 buttonSize: 40.0,
                                 fillColor: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.paperPlane,
+                                icon: Icon(
+                                  Icons.ios_share,
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   size: 24.0,
@@ -216,12 +215,12 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -269,7 +268,7 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                             Icons.star_half,
                                             color: FlutterFlowTheme.of(context)
                                                 .customer,
-                                            size: 24.0,
+                                            size: 18.0,
                                           ),
                                           Text(
                                             formatNumber(
@@ -358,17 +357,13 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -449,17 +444,13 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -955,12 +946,12 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -1052,17 +1043,13 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                     if (!snapshot.hasData) {
                                                       return Center(
                                                         child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
+                                                          width: 10.0,
+                                                          height: 10.0,
+                                                          child: SpinKitCircle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            size: 10.0,
                                                           ),
                                                         ),
                                                       );
@@ -1173,14 +1160,13 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1258,12 +1244,11 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                                           if (!snapshot.hasData) {
                                                                                             return Center(
                                                                                               child: SizedBox(
-                                                                                                width: 50.0,
-                                                                                                height: 50.0,
-                                                                                                child: CircularProgressIndicator(
-                                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                    FlutterFlowTheme.of(context).primary,
-                                                                                                  ),
+                                                                                                width: 10.0,
+                                                                                                height: 10.0,
+                                                                                                child: SpinKitCircle(
+                                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                  size: 10.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -1436,46 +1421,49 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                               final employee =
                                   masterPageMastersRecord.worker.toList();
 
-                              return Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: List.generate(employee.length,
-                                        (employeeIndex) {
-                                  final employeeItem = employee[employeeIndex];
-                                  return StreamBuilder<MastersRecord>(
-                                    stream:
-                                        MastersRecord.getDocument(employeeItem),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(employee.length,
+                                          (employeeIndex) {
+                                    final employeeItem =
+                                        employee[employeeIndex];
+                                    return StreamBuilder<MastersRecord>(
+                                      stream: MastersRecord.getDocument(
+                                          employeeItem),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 10.0,
+                                              height: 10.0,
+                                              child: SpinKitCircle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
-                                          ),
+                                          );
+                                        }
+
+                                        final masterCardMastersRecord =
+                                            snapshot.data!;
+
+                                        return MasterCardWidget(
+                                          key: Key(
+                                              'Keydwc_${employeeIndex}_of_${employee.length}'),
+                                          masterCard: masterCardMastersRecord,
                                         );
-                                      }
-
-                                      final masterCardMastersRecord =
-                                          snapshot.data!;
-
-                                      return MasterCardWidget(
-                                        key: Key(
-                                            'Keydwc_${employeeIndex}_of_${employee.length}'),
-                                        masterCard: masterCardMastersRecord,
-                                      );
-                                    },
-                                  );
-                                })
-                                    .divide(SizedBox(width: 12.0))
-                                    .addToStart(SizedBox(width: 12.0))
-                                    .addToEnd(SizedBox(width: 12.0)),
+                                      },
+                                    );
+                                  })
+                                      .divide(SizedBox(width: 12.0))
+                                      .addToStart(SizedBox(width: 12.0))
+                                      .addToEnd(SizedBox(width: 12.0)),
+                                ),
                               );
                             },
                           ),
@@ -1514,12 +1502,12 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
+                                  width: 10.0,
+                                  height: 10.0,
+                                  child: SpinKitCircle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    size: 10.0,
                                   ),
                                 ),
                               );
@@ -2034,17 +2022,14 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 10.0,
+                                                            height: 10.0,
                                                             child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
+                                                                SpinKitCircle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 10.0,
                                                             ),
                                                           ),
                                                         );
@@ -2171,15 +2156,15 @@ class _MasterPageWidgetState extends State<MasterPageWidget> {
                                                                       child:
                                                                           SizedBox(
                                                                         width:
-                                                                            50.0,
+                                                                            10.0,
                                                                         height:
-                                                                            50.0,
+                                                                            10.0,
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                          ),
+                                                                            SpinKitCircle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              10.0,
                                                                         ),
                                                                       ),
                                                                     );

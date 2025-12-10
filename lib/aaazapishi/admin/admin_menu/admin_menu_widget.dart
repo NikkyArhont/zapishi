@@ -111,7 +111,16 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                 onPressed: (widget.currentAdminPage == AdminMenu.profile)
                     ? null
                     : () async {
-                        context.pushNamed(AdminMainProfileWidget.routeName);
+                        context.pushNamed(
+                          AdminMainProfileWidget.routeName,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
                       },
                 text: 'Профиль',
                 icon: Icon(
@@ -143,7 +152,16 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                 onPressed: (widget.currentAdminPage == AdminMenu.orders)
                     ? null
                     : () async {
-                        context.pushNamed(AdminOrdersWidget.routeName);
+                        context.pushNamed(
+                          AdminOrdersWidget.routeName,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
                       },
                 text: 'Объявления',
                 icon: Icon(
@@ -175,7 +193,16 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                 onPressed: (widget.currentAdminPage == AdminMenu.money)
                     ? null
                     : () async {
-                        context.pushNamed(AdminMoneyWidget.routeName);
+                        context.pushNamed(
+                          AdminMoneyWidget.routeName,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
                       },
                 text: 'Монитизация',
                 icon: FaIcon(
@@ -221,7 +248,16 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                 onPressed: (widget.currentAdminPage == AdminMenu.category)
                     ? null
                     : () async {
-                        context.pushNamed(AdminCategoryWidget.routeName);
+                        context.pushNamed(
+                          AdminCategoryWidget.routeName,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
                       },
                 text: 'Категории',
                 icon: FaIcon(
@@ -268,7 +304,16 @@ class _AdminMenuWidgetState extends State<AdminMenuWidget> {
                 onPressed: (widget.currentAdminPage == AdminMenu.chats)
                     ? null
                     : () async {
-                        context.pushNamed(AdminCChatsWidget.routeName);
+                        context.pushNamed(
+                          AdminCChatsWidget.routeName,
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                            ),
+                          },
+                        );
                       },
                 text: 'Чаты',
                 icon: Icon(

@@ -129,7 +129,7 @@ class _AdminChaeckNameCheckWidgetState
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
-                'assets/images/Group.png',
+                'assets/images/Group_(4).png',
                 width: 200.0,
                 height: 200.0,
                 fit: BoxFit.contain,

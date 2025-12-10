@@ -13,6 +13,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -65,12 +66,11 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
+                width: 10.0,
+                height: 10.0,
+                child: SpinKitCircle(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -175,12 +175,12 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -228,7 +228,7 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                                             Icons.star_half,
                                             color: FlutterFlowTheme.of(context)
                                                 .customer,
-                                            size: 24.0,
+                                            size: 18.0,
                                           ),
                                           Text(
                                             formatNumber(
@@ -318,17 +318,13 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -409,17 +405,13 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -910,12 +902,12 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
+                                  width: 10.0,
+                                  height: 10.0,
+                                  child: SpinKitCircle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    size: 10.0,
                                   ),
                                 ),
                               );
@@ -1431,17 +1423,14 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 10.0,
+                                                            height: 10.0,
                                                             child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
+                                                                SpinKitCircle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 10.0,
                                                             ),
                                                           ),
                                                         );
@@ -1568,15 +1557,15 @@ class _MasterPageOfferWidgetState extends State<MasterPageOfferWidget> {
                                                                       child:
                                                                           SizedBox(
                                                                         width:
-                                                                            50.0,
+                                                                            10.0,
                                                                         height:
-                                                                            50.0,
+                                                                            10.0,
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                          ),
+                                                                            SpinKitCircle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              10.0,
                                                                         ),
                                                                       ),
                                                                     );

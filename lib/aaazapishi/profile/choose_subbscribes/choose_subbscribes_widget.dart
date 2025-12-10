@@ -6,7 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'choose_subbscribes_model.dart';
 export 'choose_subbscribes_model.dart';
 
@@ -50,6 +52,8 @@ class _ChooseSubbscribesWidgetState extends State<ChooseSubbscribesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -121,12 +125,12 @@ class _ChooseSubbscribesWidgetState extends State<ChooseSubbscribesWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
+                                width: 10.0,
+                                height: 10.0,
+                                child: SpinKitCircle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  size: 10.0,
                                 ),
                               ),
                             );
@@ -221,24 +225,26 @@ class _ChooseSubbscribesWidgetState extends State<ChooseSubbscribesWidget> {
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          listViewTarifRecord.description,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts:
-                                                    !FlutterFlowTheme.of(
-                                                            context)
-                                                        .labelMediumIsCustom,
-                                              ),
-                                        ),
+                                        if (FFAppState().firstTime)
+                                          Text(
+                                            listViewTarifRecord.description,
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts:
+                                                      !FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumIsCustom,
+                                                ),
+                                          ),
                                         if ((widget.tarif != null) &&
                                             (widget.tarif?.reference ==
                                                 listViewTarifRecord.reference))

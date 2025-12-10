@@ -10,6 +10,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
 import 'search_result_model.dart';
@@ -75,12 +76,11 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
               if (!snapshot.hasData) {
                 return Center(
                   child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+                    width: 10.0,
+                    height: 10.0,
+                    child: SpinKitCircle(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      size: 10.0,
                     ),
                   ),
                 );
@@ -198,7 +198,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                     ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color: Color(0xFFBDBDBD),
                                                 width: 1.0,
                                               ),
                                               borderRadius:
@@ -244,9 +244,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                     .accent4,
                                             prefixIcon: Icon(
                                               Icons.search,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              color: Color(0xFFBDBDBD),
                                               size: 20.0,
                                             ),
                                             suffixIcon:
@@ -290,9 +288,8 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                         },
                                                         child: Icon(
                                                           Icons.clear,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
+                                                          color:
+                                                              Color(0xFFBDBDBD),
                                                           size: 20.0,
                                                         ),
                                                       )
@@ -327,13 +324,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                       ),
                                     ),
                                     FlutterFlowIconButton(
-                                      borderRadius: 8.0,
-                                      buttonSize: 40.0,
+                                      borderRadius: 16.0,
+                                      buttonSize: 48.0,
                                       fillColor: Color(0xFFF5F5F5),
                                       icon: Icon(
                                         FFIcons.kfilter2,
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .primaryText,
                                         size: 24.0,
                                       ),
                                       onPressed: () async {
@@ -377,16 +374,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
+                                                width: 10.0,
+                                                height: 10.0,
+                                                child: SpinKitCircle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  size: 10.0,
                                                 ),
                                               ),
                                             );
@@ -400,11 +394,14 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                 BorderRadius.circular(16.0),
                                             child: Container(
                                               width: 380.0,
+                                              height: 155.0,
                                               constraints: BoxConstraints(
                                                 maxWidth: 840.0,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFF3F3F3),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                               ),
@@ -487,9 +484,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                     String>(
                                                                   containerVarItem
                                                                       .title,
-                                                                  'o;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouh',
+                                                                  'asdvadsfvasdvadsfvasdvadsfvasdvadsfvasdvadsfvasdvadsfvasdvadsfv',
                                                                 ),
-                                                                maxLines: 3,
+                                                                maxLines: 1,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .titleMedium
@@ -506,6 +503,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                           !FlutterFlowTheme.of(context)
                                                                               .titleMediumIsCustom,
                                                                     ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
                                                               ),
                                                               StreamBuilder<
                                                                   MastersRecord>(
@@ -522,15 +522,15 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                       child:
                                                                           SizedBox(
                                                                         width:
-                                                                            50.0,
+                                                                            10.0,
                                                                         height:
-                                                                            50.0,
+                                                                            10.0,
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                          ),
+                                                                            SpinKitCircle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              10.0,
                                                                         ),
                                                                       ),
                                                                     );
@@ -548,11 +548,8 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                       Flexible(
                                                                         child:
                                                                             Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            rowMastersRecord.title,
-                                                                            'o;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouho;lihunpiouh',
-                                                                          ),
+                                                                          rowMastersRecord
+                                                                              .title,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -568,7 +565,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .customer,
                                                                         size:
-                                                                            24.0,
+                                                                            18.0,
                                                                       ),
                                                                       Text(
                                                                         valueOrDefault<
@@ -594,7 +591,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                       ),
                                                                     ].divide(SizedBox(
                                                                         width:
-                                                                            12.0)),
+                                                                            6.0)),
                                                                   );
                                                                 },
                                                               ),
@@ -698,14 +695,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -722,6 +718,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                             .bodyMedium
                                                                             .override(
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                             ),
@@ -758,14 +755,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -782,6 +778,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                             .bodyMedium
                                                                             .override(
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                             ),
@@ -842,16 +839,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
+                                                width: 10.0,
+                                                height: 10.0,
+                                                child: SpinKitCircle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  size: 10.0,
                                                 ),
                                               ),
                                             );
@@ -869,7 +863,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                 maxWidth: 840.0,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFDFDFDF),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(16.0),
                                               ),
@@ -947,26 +943,28 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Text(
-                                                                containerVarItem
-                                                                    .title,
-                                                                maxLines: 3,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleMediumFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      useGoogleFonts:
-                                                                          !FlutterFlowTheme.of(context)
-                                                                              .titleMediumIsCustom,
-                                                                    ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  containerVarItem
+                                                                      .title,
+                                                                  maxLines: 1,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        useGoogleFonts:
+                                                                            !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                      ),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
                                                               ),
                                                               StreamBuilder<
                                                                   MastersRecord>(
@@ -983,15 +981,15 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                       child:
                                                                           SizedBox(
                                                                         width:
-                                                                            50.0,
+                                                                            10.0,
                                                                         height:
-                                                                            50.0,
+                                                                            10.0,
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                          ),
+                                                                            SpinKitCircle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              10.0,
                                                                         ),
                                                                       ),
                                                                     );
@@ -1026,7 +1024,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .customer,
                                                                         size:
-                                                                            24.0,
+                                                                            18.0,
                                                                       ),
                                                                       Text(
                                                                         valueOrDefault<
@@ -1052,7 +1050,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                       ),
                                                                     ].divide(SizedBox(
                                                                         width:
-                                                                            12.0)),
+                                                                            6.0)),
                                                                   );
                                                                 },
                                                               ),
@@ -1156,14 +1154,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1180,6 +1177,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                             .bodyMedium
                                                                             .override(
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                             ),
@@ -1216,14 +1214,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1240,6 +1237,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                             .bodyMedium
                                                                             .override(
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                                                                             ),

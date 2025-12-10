@@ -12,6 +12,7 @@ import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'map_filter_model.dart';
 export 'map_filter_model.dart';
@@ -72,12 +73,11 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               body: Center(
                 child: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      FlutterFlowTheme.of(context).primary,
-                    ),
+                  width: 10.0,
+                  height: 10.0,
+                  child: SpinKitCircle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    size: 10.0,
                   ),
                 ),
               ),
@@ -275,17 +275,14 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 10.0,
+                                                            height: 10.0,
                                                             child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
+                                                                SpinKitCircle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 10.0,
                                                             ),
                                                           ),
                                                         );
@@ -321,7 +318,7 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .customer,
-                                                            size: 24.0,
+                                                            size: 18.0,
                                                           ),
                                                           Text(
                                                             valueOrDefault<
@@ -353,7 +350,7 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                                 ),
                                                           ),
                                                         ].divide(SizedBox(
-                                                            width: 12.0)),
+                                                            width: 6.0)),
                                                       );
                                                     },
                                                   ),
@@ -468,17 +465,14 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                               .hasData) {
                                                             return Center(
                                                               child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
+                                                                width: 10.0,
+                                                                height: 10.0,
                                                                 child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
+                                                                    SpinKitCircle(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  size: 10.0,
                                                                 ),
                                                               ),
                                                             );
@@ -497,6 +491,8 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      10.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts:
@@ -525,59 +521,62 @@ class _MapFilterWidgetState extends State<MapFilterWidget> {
                                                                           .bodyMediumIsCustom,
                                                                 ),
                                                       ),
-                                                      StreamBuilder<
-                                                          CategoryRecord>(
-                                                        stream: CategoryRecord
-                                                            .getDocument(_model
-                                                                .choosenServ!
-                                                                .category
-                                                                .elementAtOrNull(
-                                                                    1)!),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
+                                                      Flexible(
+                                                        child: StreamBuilder<
+                                                            CategoryRecord>(
+                                                          stream: CategoryRecord
+                                                              .getDocument(_model
+                                                                  .choosenServ!
+                                                                  .category
+                                                                  .elementAtOrNull(
+                                                                      1)!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 10.0,
+                                                                  height: 10.0,
+                                                                  child:
+                                                                      SpinKitCircle(
+                                                                    color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primary,
+                                                                        .primaryBackground,
+                                                                    size: 10.0,
                                                                   ),
                                                                 ),
-                                                              ),
+                                                              );
+                                                            }
+
+                                                            final textCategoryRecord =
+                                                                snapshot.data!;
+
+                                                            return Text(
+                                                              textCategoryRecord
+                                                                  .title,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts:
+                                                                        !FlutterFlowTheme.of(context)
+                                                                            .bodyMediumIsCustom,
+                                                                  ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                             );
-                                                          }
-
-                                                          final textCategoryRecord =
-                                                              snapshot.data!;
-
-                                                          return Text(
-                                                            textCategoryRecord
-                                                                .title,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      !FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMediumIsCustom,
-                                                                ),
-                                                          );
-                                                        },
+                                                          },
+                                                        ),
                                                       ),
                                                     ].divide(
                                                         SizedBox(width: 4.0)),

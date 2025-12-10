@@ -25,6 +25,12 @@ class MyChatsModel extends FlutterFlowModel<MyChatsWidget> {
   MessagesRecord? firstMessSupport;
   // Stores action output result for [Firestore Query - Query a collection] action in Row widget.
   List<UserRecord>? searchAdmin;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ChatRecord? createChat2;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MessagesRecord? firstMessSupport2;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<UserRecord>? searchAdmin2;
   // Model for menu component.
   late MenuModel menuModel;
 

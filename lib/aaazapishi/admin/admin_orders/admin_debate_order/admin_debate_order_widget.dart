@@ -220,8 +220,7 @@ class _AdminDebateOrderWidgetState extends State<AdminDebateOrderWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
+                  Expanded(
                     child: Builder(
                       builder: (context) => FFButtonWidget(
                         onPressed: (_model.nameTextController.text == '')
@@ -268,8 +267,7 @@ class _AdminDebateOrderWidgetState extends State<AdminDebateOrderWidget> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
+                  Expanded(
                     child: FFButtonWidget(
                       onPressed: () async {
                         Navigator.pop(context);
@@ -277,7 +275,7 @@ class _AdminDebateOrderWidgetState extends State<AdminDebateOrderWidget> {
                       text: 'Нет',
                       options: FFButtonOptions(
                         width: 160.0,
-                        height: 58.0,
+                        height: 48.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
@@ -298,7 +296,7 @@ class _AdminDebateOrderWidgetState extends State<AdminDebateOrderWidget> {
                       ),
                     ),
                   ),
-                ],
+                ].divide(SizedBox(width: 8.0)),
               ),
             ),
           ],

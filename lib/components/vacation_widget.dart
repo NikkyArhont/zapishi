@@ -46,7 +46,7 @@ class _VacationWidgetState extends State<VacationWidget> {
             'assets/images/Group_(4).png',
             width: 200.0,
             height: 200.0,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
         ),
         Text(

@@ -150,7 +150,7 @@ class _AdminCategoryMenuWidgetState extends State<AdminCategoryMenuWidget> {
                         FaIcon(
                           FontAwesomeIcons.eye,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                          size: 20.0,
                         ),
                         Text(
                           'Опубликовать',
@@ -220,7 +220,7 @@ class _AdminCategoryMenuWidgetState extends State<AdminCategoryMenuWidget> {
                         FaIcon(
                           FontAwesomeIcons.eyeSlash,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                          size: 19.0,
                         ),
                         Text(
                           'Снять с публикации',

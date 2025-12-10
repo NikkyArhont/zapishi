@@ -99,7 +99,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
+                Expanded(
                   child: Builder(
                     builder: (context) => FFButtonWidget(
                       onPressed: () async {
@@ -120,7 +120,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                       text: 'Да, удалить',
                       options: FFButtonOptions(
                         width: 360.0,
-                        height: 58.0,
+                        height: 48.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
@@ -142,7 +142,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                     ),
                   ),
                 ),
-                Flexible(
+                Expanded(
                   child: FFButtonWidget(
                     onPressed: () async {
                       Navigator.pop(context);
@@ -166,7 +166,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                     ),
                   ),
                 ),
-              ].divide(SizedBox(width: 24.0)),
+              ].divide(SizedBox(width: 8.0)),
             ),
           ],
         ),

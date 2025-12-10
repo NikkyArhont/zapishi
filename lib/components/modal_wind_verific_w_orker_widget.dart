@@ -120,7 +120,7 @@ class _ModalWindVerificWOrkerWidgetState
               text: 'На главную',
               options: FFButtonOptions(
                 width: 360.0,
-                height: 58.0,
+                height: 48.0,
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryBackground,

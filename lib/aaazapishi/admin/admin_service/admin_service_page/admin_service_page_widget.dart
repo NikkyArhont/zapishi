@@ -16,6 +16,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'admin_service_page_model.dart';
@@ -90,12 +91,12 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+                          width: 10.0,
+                          height: 10.0,
+                          child: SpinKitCircle(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            size: 10.0,
                           ),
                         ),
                       );
@@ -119,12 +120,12 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -454,17 +455,14 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 10.0,
+                                                            height: 10.0,
                                                             child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
+                                                                SpinKitCircle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              size: 10.0,
                                                             ),
                                                           ),
                                                         );
@@ -1086,17 +1084,13 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                     if (!snapshot.hasData) {
                                                       return Center(
                                                         child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
+                                                          width: 10.0,
+                                                          height: 10.0,
+                                                          child: SpinKitCircle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            size: 10.0,
                                                           ),
                                                         ),
                                                       );
@@ -1210,17 +1204,13 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -1790,12 +1780,11 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                                           return Center(
                                                                             child:
                                                                                 SizedBox(
-                                                                              width: 50.0,
-                                                                              height: 50.0,
-                                                                              child: CircularProgressIndicator(
-                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                  FlutterFlowTheme.of(context).primary,
-                                                                                ),
+                                                                              width: 10.0,
+                                                                              height: 10.0,
+                                                                              child: SpinKitCircle(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                size: 10.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -1858,12 +1847,11 @@ class _AdminServicePageWidgetState extends State<AdminServicePageWidget> {
                                                                                     if (!snapshot.hasData) {
                                                                                       return Center(
                                                                                         child: SizedBox(
-                                                                                          width: 50.0,
-                                                                                          height: 50.0,
-                                                                                          child: CircularProgressIndicator(
-                                                                                            valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                              FlutterFlowTheme.of(context).primary,
-                                                                                            ),
+                                                                                          width: 10.0,
+                                                                                          height: 10.0,
+                                                                                          child: SpinKitCircle(
+                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                            size: 10.0,
                                                                                           ),
                                                                                         ),
                                                                                       );

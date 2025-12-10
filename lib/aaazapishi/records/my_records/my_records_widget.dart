@@ -11,6 +11,7 @@ import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'my_records_model.dart';
 export 'my_records_model.dart';
@@ -71,12 +72,11 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                   if (!snapshot.hasData) {
                     return Center(
                       child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
-                          ),
+                        width: 10.0,
+                        height: 10.0,
+                        child: SpinKitCircle(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          size: 10.0,
                         ),
                       ),
                     );
@@ -191,15 +191,13 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
+                                              width: 10.0,
+                                              height: 10.0,
+                                              child: SpinKitCircle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -264,246 +262,236 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent2,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              24.0),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          EdgeInsets.all(
-                                                                              6.0),
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .accent2,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(24.0),
+                                                                      ),
                                                                       child:
                                                                           Text(
-                                                                        dateTimeFormat(
-                                                                          "dd.MM.yy HH:mm",
+                                                                        '',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              fontSize: 10.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    MyJobStatusWidget(
+                                                                      key: Key(
+                                                                          'Keyekl_${futureRecordIndex}_of_${futureRecord.length}'),
+                                                                      jobStatus:
                                                                           futureRecordItem
-                                                                              .date!,
-                                                                          locale:
-                                                                              FFLocalizations.of(context).languageCode,
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
+                                                                              .status!,
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          12.0)),
+                                                                ),
+                                                                Text(
+                                                                  futureRecordItem
+                                                                      .title,
+                                                                  maxLines: 3,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        useGoogleFonts:
+                                                                            !FlutterFlowTheme.of(context).titleMediumIsCustom,
                                                                       ),
-                                                                    ),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        12.0)),
-                                                              ),
-                                                              MyJobStatusWidget(
-                                                                key: Key(
-                                                                    'Keyekl_${futureRecordIndex}_of_${futureRecord.length}'),
-                                                                jobStatus:
-                                                                    futureRecordItem
-                                                                        .status!,
-                                                              ),
-                                                              Text(
-                                                                futureRecordItem
-                                                                    .title,
-                                                                maxLines: 3,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleMediumFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      useGoogleFonts:
-                                                                          !FlutterFlowTheme.of(context)
-                                                                              .titleMediumIsCustom,
-                                                                    ),
-                                                              ),
-                                                              StreamBuilder<
-                                                                  MastersRecord>(
-                                                                stream: MastersRecord
-                                                                    .getDocument(
-                                                                        futureRecordItem
-                                                                            .master!),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  // Customize what your widget looks like when it's loading.
-                                                                  if (!snapshot
-                                                                      .hasData) {
-                                                                    return Center(
-                                                                      child:
-                                                                          SizedBox(
-                                                                        width:
-                                                                            50.0,
-                                                                        height:
-                                                                            50.0,
+                                                                ),
+                                                                StreamBuilder<
+                                                                    MastersRecord>(
+                                                                  stream: MastersRecord
+                                                                      .getDocument(
+                                                                          futureRecordItem
+                                                                              .master!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
+                                                                            SizedBox(
+                                                                          width:
+                                                                              10.0,
+                                                                          height:
+                                                                              10.0,
+                                                                          child:
+                                                                              SpinKitCircle(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            size:
+                                                                                10.0,
                                                                           ),
                                                                         ),
-                                                                      ),
+                                                                      );
+                                                                    }
+
+                                                                    final rowMastersRecord =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children:
+                                                                          [
+                                                                        Text(
+                                                                          rowMastersRecord
+                                                                              .manager,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                        Icon(
+                                                                          FFIcons
+                                                                              .kstar2,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).customer,
+                                                                          size:
+                                                                              18.0,
+                                                                        ),
+                                                                        Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            formatNumber(
+                                                                              rowMastersRecord.raiting,
+                                                                              formatType: FormatType.custom,
+                                                                              format: '#.#',
+                                                                              locale: '',
+                                                                            ),
+                                                                            '0.0',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                              width: 6.0)),
                                                                     );
-                                                                  }
-
-                                                                  final rowMastersRecord =
-                                                                      snapshot
-                                                                          .data!;
-
-                                                                  return Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Text(
-                                                                        rowMastersRecord
-                                                                            .manager,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                      Icon(
-                                                                        FFIcons
-                                                                            .kstar2,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .customer,
-                                                                        size:
-                                                                            18.0,
-                                                                      ),
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          formatNumber(
-                                                                            rowMastersRecord.raiting,
-                                                                            formatType:
-                                                                                FormatType.custom,
-                                                                            format:
-                                                                                '#.#',
-                                                                            locale:
-                                                                                '',
+                                                                  },
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    AutoSizeText(
+                                                                      'от',
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
                                                                           ),
-                                                                          '0.0',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                    ].divide(SizedBox(
-                                                                        width:
-                                                                            6.0)),
-                                                                  );
-                                                                },
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  AutoSizeText(
-                                                                    'от',
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                  AutoSizeText(
-                                                                    futureRecordItem
-                                                                        .totalCost
-                                                                        .toString(),
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                  AutoSizeText(
-                                                                    ' ${FFAppConstants.currency}',
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        4.0)),
-                                                              ),
-                                                            ].divide(SizedBox(
-                                                                height: 4.0)),
+                                                                    ),
+                                                                    AutoSizeText(
+                                                                      futureRecordItem
+                                                                          .totalCost
+                                                                          .toString(),
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                          ),
+                                                                    ),
+                                                                    AutoSizeText(
+                                                                      ' ${FFAppConstants.currency}',
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                          ),
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          4.0)),
+                                                                ),
+                                                              ].divide(SizedBox(
+                                                                  height: 4.0)),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
@@ -577,15 +565,13 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
+                                              width: 10.0,
+                                              height: 10.0,
+                                              child: SpinKitCircle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -650,293 +636,285 @@ class _MyRecordsWidgetState extends State<MyRecordsWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent2,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              24.0),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          EdgeInsets.all(
-                                                                              6.0),
+                                                          Expanded(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .accent2,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(24.0),
+                                                                      ),
                                                                       child:
-                                                                          Text(
-                                                                        dateTimeFormat(
-                                                                          "dd.MM.yy HH:mm",
-                                                                          pastRecordItem
-                                                                              .date!,
-                                                                          locale:
-                                                                              FFLocalizations.of(context).languageCode,
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(6.0),
+                                                                        child:
+                                                                            Text(
+                                                                          dateTimeFormat(
+                                                                            "dd.MM.yy HH:mm",
+                                                                            pastRecordItem.date!,
+                                                                            locale:
+                                                                                FFLocalizations.of(context).languageCode,
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                fontSize: 10.0,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
                                                                         ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  if (pastRecordItem
-                                                                          .revievs !=
-                                                                      null)
-                                                                    StreamBuilder<
-                                                                        ReviewsRecord>(
-                                                                      stream: ReviewsRecord.getDocument(
-                                                                          pastRecordItem
-                                                                              .revievs!),
-                                                                      builder:
-                                                                          (context,
-                                                                              snapshot) {
-                                                                        // Customize what your widget looks like when it's loading.
-                                                                        if (!snapshot
-                                                                            .hasData) {
-                                                                          return Center(
-                                                                            child:
-                                                                                SizedBox(
-                                                                              width: 50.0,
-                                                                              height: 50.0,
-                                                                              child: CircularProgressIndicator(
-                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                  FlutterFlowTheme.of(context).primary,
+                                                                    if (pastRecordItem
+                                                                            .revievs !=
+                                                                        null)
+                                                                      StreamBuilder<
+                                                                          ReviewsRecord>(
+                                                                        stream:
+                                                                            ReviewsRecord.getDocument(pastRecordItem.revievs!),
+                                                                        builder:
+                                                                            (context,
+                                                                                snapshot) {
+                                                                          // Customize what your widget looks like when it's loading.
+                                                                          if (!snapshot
+                                                                              .hasData) {
+                                                                            return Center(
+                                                                              child: SizedBox(
+                                                                                width: 10.0,
+                                                                                height: 10.0,
+                                                                                child: SpinKitCircle(
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                  size: 10.0,
                                                                                 ),
                                                                               ),
+                                                                            );
+                                                                          }
+
+                                                                          final ratingBarReviewsRecord =
+                                                                              snapshot.data!;
+
+                                                                          return RatingBarIndicator(
+                                                                            itemBuilder: (context, index) =>
+                                                                                Icon(
+                                                                              Icons.star_rounded,
+                                                                              color: FlutterFlowTheme.of(context).warning,
                                                                             ),
+                                                                            direction:
+                                                                                Axis.horizontal,
+                                                                            rating:
+                                                                                ratingBarReviewsRecord.star,
+                                                                            unratedColor:
+                                                                                FlutterFlowTheme.of(context).accent3,
+                                                                            itemCount:
+                                                                                5,
+                                                                            itemSize:
+                                                                                18.0,
                                                                           );
-                                                                        }
-
-                                                                        final ratingBarReviewsRecord =
-                                                                            snapshot.data!;
-
-                                                                        return RatingBarIndicator(
-                                                                          itemBuilder: (context, index) =>
-                                                                              Icon(
-                                                                            Icons.star_rounded,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).warning,
-                                                                          ),
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          rating:
-                                                                              ratingBarReviewsRecord.star,
-                                                                          unratedColor:
-                                                                              FlutterFlowTheme.of(context).accent3,
-                                                                          itemCount:
-                                                                              5,
-                                                                          itemSize:
-                                                                              18.0,
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        12.0)),
-                                                              ),
-                                                              Text(
-                                                                pastRecordItem
-                                                                    .title,
-                                                                maxLines: 3,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleMediumFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      useGoogleFonts:
-                                                                          !FlutterFlowTheme.of(context)
-                                                                              .titleMediumIsCustom,
-                                                                    ),
-                                                              ),
-                                                              StreamBuilder<
-                                                                  MastersRecord>(
-                                                                stream: MastersRecord
-                                                                    .getDocument(
-                                                                        pastRecordItem
-                                                                            .master!),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  // Customize what your widget looks like when it's loading.
-                                                                  if (!snapshot
-                                                                      .hasData) {
-                                                                    return Center(
-                                                                      child:
-                                                                          SizedBox(
-                                                                        width:
-                                                                            50.0,
-                                                                        height:
-                                                                            50.0,
+                                                                        },
+                                                                      ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          12.0)),
+                                                                ),
+                                                                Text(
+                                                                  pastRecordItem
+                                                                      .title,
+                                                                  maxLines: 3,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        useGoogleFonts:
+                                                                            !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                      ),
+                                                                ),
+                                                                StreamBuilder<
+                                                                    MastersRecord>(
+                                                                  stream: MastersRecord
+                                                                      .getDocument(
+                                                                          pastRecordItem
+                                                                              .master!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
                                                                         child:
-                                                                            CircularProgressIndicator(
-                                                                          valueColor:
-                                                                              AlwaysStoppedAnimation<Color>(
-                                                                            FlutterFlowTheme.of(context).primary,
+                                                                            SizedBox(
+                                                                          width:
+                                                                              10.0,
+                                                                          height:
+                                                                              10.0,
+                                                                          child:
+                                                                              SpinKitCircle(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            size:
+                                                                                10.0,
                                                                           ),
                                                                         ),
-                                                                      ),
+                                                                      );
+                                                                    }
+
+                                                                    final rowMastersRecord =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children:
+                                                                          [
+                                                                        Text(
+                                                                          rowMastersRecord
+                                                                              .manager,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                        Icon(
+                                                                          FFIcons
+                                                                              .kstar2,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).customer,
+                                                                          size:
+                                                                              18.0,
+                                                                        ),
+                                                                        Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            formatNumber(
+                                                                              rowMastersRecord.raiting,
+                                                                              formatType: FormatType.custom,
+                                                                              format: '#.#',
+                                                                              locale: '',
+                                                                            ),
+                                                                            '0.0',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                              ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                              width: 6.0)),
                                                                     );
-                                                                  }
-
-                                                                  final rowMastersRecord =
-                                                                      snapshot
-                                                                          .data!;
-
-                                                                  return Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Text(
-                                                                        rowMastersRecord
-                                                                            .manager,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                      Icon(
-                                                                        FFIcons
-                                                                            .kstar2,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .customer,
-                                                                        size:
-                                                                            18.0,
-                                                                      ),
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          formatNumber(
-                                                                            rowMastersRecord.raiting,
-                                                                            formatType:
-                                                                                FormatType.custom,
-                                                                            format:
-                                                                                '#.#',
-                                                                            locale:
-                                                                                '',
+                                                                  },
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    AutoSizeText(
+                                                                      'от',
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
                                                                           ),
-                                                                          '0.0',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                            ),
-                                                                      ),
-                                                                    ].divide(SizedBox(
-                                                                        width:
-                                                                            6.0)),
-                                                                  );
-                                                                },
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  AutoSizeText(
-                                                                    'от',
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                  AutoSizeText(
-                                                                    pastRecordItem
-                                                                        .totalCost
-                                                                        .toString(),
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                  AutoSizeText(
-                                                                    ' ${FFAppConstants.currency}',
-                                                                    maxLines: 1,
-                                                                    minFontSize:
-                                                                        10.0,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).titleMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        4.0)),
-                                                              ),
-                                                            ].divide(SizedBox(
-                                                                height: 4.0)),
+                                                                    ),
+                                                                    AutoSizeText(
+                                                                      pastRecordItem
+                                                                          .totalCost
+                                                                          .toString(),
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                          ),
+                                                                    ),
+                                                                    AutoSizeText(
+                                                                      ' ${FFAppConstants.currency}',
+                                                                      maxLines:
+                                                                          1,
+                                                                      minFontSize:
+                                                                          10.0,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).titleMediumIsCustom,
+                                                                          ),
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      width:
+                                                                          4.0)),
+                                                                ),
+                                                              ].divide(SizedBox(
+                                                                  height: 4.0)),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),

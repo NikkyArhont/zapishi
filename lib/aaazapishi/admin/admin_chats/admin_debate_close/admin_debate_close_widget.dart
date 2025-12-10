@@ -117,18 +117,24 @@ class _AdminDebateCloseWidgetState extends State<AdminDebateCloseWidget> {
                 ),
               ].divide(SizedBox(width: 12.0)),
             ),
-            Align(
-              alignment: AlignmentDirectional(-1.0, 0.0),
-              child: Text(
-                'Спор закрыт: в пользу',
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                      fontSize: 18.0,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                    ),
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Text(
+                    'Спор закрыт: в пользу',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          fontSize: 18.0,
+                          letterSpacing: 0.0,
+                          useGoogleFonts:
+                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                        ),
+                  ),
+                ),
+              ],
             ),
             if (widget.debateResult == ReportStatus.master)
               Align(

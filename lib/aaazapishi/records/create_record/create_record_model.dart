@@ -57,6 +57,8 @@ class CreateRecordModel extends FlutterFlowModel<CreateRecordWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
+  // Stores action output result for [Bottom Sheet - enterLocationFilter] action in Container widget.
+  SearchPlaceStruct? setAdres;
   // State field(s) for Switch widget.
   bool? switchValue;
   // Stores action output result for [Bottom Sheet - chooseRecordDate] action in IconButton widget.

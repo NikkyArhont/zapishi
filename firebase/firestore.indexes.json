@@ -94,7 +94,7 @@
         },
         {
           "fieldPath": "last_message_time",
-          "order": "ASCENDING"
+          "order": "DESCENDING"
         }
       ]
     },

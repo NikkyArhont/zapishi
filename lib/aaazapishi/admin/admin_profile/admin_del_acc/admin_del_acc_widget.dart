@@ -126,10 +126,10 @@ class _AdminDelAccWidgetState extends State<AdminDelAccWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
-                'assets/images/Group.png',
+                'assets/images/Group_(4).png',
                 width: 160.0,
                 height: 160.0,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
             Row(

@@ -69,7 +69,7 @@ class _RecordSuccessWidgetState extends State<RecordSuccessWidget> {
               ),
             ),
             Text(
-              'Вы записаны на',
+              'Запись создана',
               style: FlutterFlowTheme.of(context).headlineLarge.override(
                     font: GoogleFonts.geologica(
                       fontWeight:

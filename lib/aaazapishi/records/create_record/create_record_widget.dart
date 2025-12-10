@@ -1,4 +1,5 @@
 import '/aaazapishi/components/menu/menu_widget.dart';
+import '/aaazapishi/filter_search/enter_location_filter/enter_location_filter_widget.dart';
 import '/aaazapishi/master/master_card/master_card_widget.dart';
 import '/aaazapishi/records/choose_record_date/choose_record_date_widget.dart';
 import '/aaazapishi/records/record_success/record_success_widget.dart';
@@ -10,10 +11,13 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -44,6 +48,8 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
   late CreateRecordModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -82,6 +88,15 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
       }
     });
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        safeSetState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.switchValue = _model.choosenServices.isNotEmpty;
     _model.clientNameTextController ??=
         TextEditingController(text: loggedIn ? currentUserDisplayName : '');
@@ -102,6 +117,9 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -200,7 +218,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
-                                      'Выберите локацию',
+                                      'Локация',
                                       style: FlutterFlowTheme.of(context)
                                           .displayMedium
                                           .override(
@@ -248,6 +266,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                   },
                                             text: 'У исполнителя',
                                             options: FFButtonOptions(
+                                              width: 200.0,
                                               height: 40.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -368,49 +387,88 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    height: 58.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.mapMarkerAlt,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24.0,
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              _model.recordPlace?.placeTitle,
-                                              'Введите адрес',
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: EnterLocationFilterWidget(
+                                                oldCity: '',
+                                              ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.setAdres = value));
+
+                                      _model.recordPlace = _model.setAdres;
+                                      safeSetState(() {});
+
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      height: 58.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.mapMarkerAlt,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .primaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeIsCustom,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 12.0)),
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              valueOrDefault<String>(
+                                                _model.recordPlace?.placeTitle,
+                                                'Введите адрес',
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        !FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeIsCustom,
+                                                  ),
+                                            ),
+                                          ].divide(SizedBox(width: 12.0)),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -669,14 +727,12 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                     if (!snapshot.hasData) {
                                       return Center(
                                         child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
+                                          width: 10.0,
+                                          height: 10.0,
+                                          child: SpinKitCircle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            size: 10.0,
                                           ),
                                         ),
                                       );
@@ -716,7 +772,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                 width: double.infinity,
                                                 color: Color(0x00000000),
                                                 child: ExpandableNotifier(
-                                                  initialExpanded: false,
+                                                  initialExpanded: true,
                                                   child: ExpandablePanel(
                                                     header: Text(
                                                       listViewCategoryRecord
@@ -774,17 +830,14 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 10.0,
+                                                              height: 10.0,
                                                               child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                ),
+                                                                  SpinKitCircle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                size: 10.0,
                                                               ),
                                                             ),
                                                           );
@@ -832,7 +885,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                 child:
                                                                     ExpandableNotifier(
                                                                   initialExpanded:
-                                                                      false,
+                                                                      true,
                                                                   child:
                                                                       ExpandablePanel(
                                                                     header:
@@ -884,12 +937,11 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                           return Center(
                                                                             child:
                                                                                 SizedBox(
-                                                                              width: 50.0,
-                                                                              height: 50.0,
-                                                                              child: CircularProgressIndicator(
-                                                                                valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                  FlutterFlowTheme.of(context).primary,
-                                                                                ),
+                                                                              width: 10.0,
+                                                                              height: 10.0,
+                                                                              child: SpinKitCircle(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                size: 10.0,
                                                                               ),
                                                                             ),
                                                                           );
@@ -925,7 +977,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                                 width: double.infinity,
                                                                                 color: Color(0x00000000),
                                                                                 child: ExpandableNotifier(
-                                                                                  initialExpanded: false,
+                                                                                  initialExpanded: true,
                                                                                   child: ExpandablePanel(
                                                                                     header: Text(
                                                                                       listViewCategoryRecord.title,
@@ -960,12 +1012,11 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                                           if (!snapshot.hasData) {
                                                                                             return Center(
                                                                                               child: SizedBox(
-                                                                                                width: 50.0,
-                                                                                                height: 50.0,
-                                                                                                child: CircularProgressIndicator(
-                                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                                    FlutterFlowTheme.of(context).primary,
-                                                                                                  ),
+                                                                                                width: 10.0,
+                                                                                                height: 10.0,
+                                                                                                child: SpinKitCircle(
+                                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                  size: 10.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -1470,17 +1521,13 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
+                                                        width: 10.0,
+                                                        height: 10.0,
+                                                        child: SpinKitCircle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          size: 10.0,
                                                         ),
                                                       ),
                                                     );
@@ -2391,243 +2438,285 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                       ),
                                 ),
                               ),
-                              if (currentUserDocument?.essence !=
-                                  UserStatus.user)
-                                Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => Text(
-                                      'Имя клиента*',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLargeFamily,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts:
-                                                !FlutterFlowTheme.of(context)
-                                                    .labelLargeIsCustom,
+                              if (!(isWeb
+                                  ? MediaQuery.viewInsetsOf(context).bottom > 0
+                                  : _isKeyboardVisible))
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    if (currentUserDocument?.essence !=
+                                        UserStatus.user)
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Text(
+                                            'Имя клиента*',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelLarge
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeFamily,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts:
+                                                      !FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeIsCustom,
+                                                ),
                                           ),
-                                    ),
-                                  ),
-                                ),
-                              if (currentUserDocument?.essence !=
-                                  UserStatus.user)
-                                AuthUserStreamWidget(
-                                  builder: (context) => TextFormField(
-                                    controller: _model.clientNameTextController,
-                                    focusNode: _model.clientNameFocusNode,
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      hintText: 'Введите имя',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily:
+                                        ),
+                                      ),
+                                    if (currentUserDocument?.essence !=
+                                        UserStatus.user)
+                                      AuthUserStreamWidget(
+                                        builder: (context) => TextFormField(
+                                          controller:
+                                              _model.clientNameTextController,
+                                          focusNode: _model.clientNameFocusNode,
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: 'Введите имя',
+                                            hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily,
-                                            color: Color(0xFF9E9E9E),
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            useGoogleFonts:
-                                                !FlutterFlowTheme.of(context)
-                                                    .labelMediumIsCustom,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      color: Color(0xFF9E9E9E),
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      useGoogleFonts:
+                                                          !FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumIsCustom,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            contentPadding:
+                                                EdgeInsets.all(18.0),
                                           ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      contentPadding: EdgeInsets.all(18.0),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts:
+                                                    !FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMediumIsCustom,
+                                              ),
+                                          maxLines: 11,
+                                          minLines: 1,
+                                          maxLength: 300,
+                                          buildCounter: (context,
+                                                  {required currentLength,
+                                                  required isFocused,
+                                                  maxLength}) =>
+                                              null,
+                                          cursorColor:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts:
-                                              !FlutterFlowTheme.of(context)
-                                                  .bodyMediumIsCustom,
+                                                  .primaryText,
+                                          validator: _model
+                                              .clientNameTextControllerValidator
+                                              .asValidator(context),
                                         ),
-                                    maxLines: 11,
-                                    minLines: 1,
-                                    maxLength: 300,
-                                    buildCounter: (context,
-                                            {required currentLength,
-                                            required isFocused,
-                                            maxLength}) =>
-                                        null,
-                                    cursorColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    validator: _model
-                                        .clientNameTextControllerValidator
-                                        .asValidator(context),
-                                  ),
-                                ),
-                              if (currentUserDocument?.essence !=
-                                  UserStatus.user)
-                                Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => Text(
-                                      'Номер телефона*',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLargeFamily,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts:
-                                                !FlutterFlowTheme.of(context)
-                                                    .labelLargeIsCustom,
+                                      ),
+                                    if (currentUserDocument?.essence !=
+                                        UserStatus.user)
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Text(
+                                            'Номер телефона*',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelLarge
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeFamily,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts:
+                                                      !FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeIsCustom,
+                                                ),
                                           ),
-                                    ),
-                                  ),
-                                ),
-                              if (currentUserDocument?.essence !=
-                                  UserStatus.user)
-                                AuthUserStreamWidget(
-                                  builder: (context) => TextFormField(
-                                    controller:
-                                        _model.clientPhoneTextController,
-                                    focusNode: _model.clientPhoneFocusNode,
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      hintText: 'Номер телефона',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily:
+                                        ),
+                                      ),
+                                    if (currentUserDocument?.essence !=
+                                        UserStatus.user)
+                                      AuthUserStreamWidget(
+                                        builder: (context) => TextFormField(
+                                          controller:
+                                              _model.clientPhoneTextController,
+                                          focusNode:
+                                              _model.clientPhoneFocusNode,
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: 'Номер телефона',
+                                            hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily,
-                                            color: Color(0xFF9E9E9E),
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            useGoogleFonts:
-                                                !FlutterFlowTheme.of(context)
-                                                    .labelMediumIsCustom,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      color: Color(0xFF9E9E9E),
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      useGoogleFonts:
+                                                          !FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumIsCustom,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            contentPadding:
+                                                EdgeInsets.all(18.0),
+                                            prefixIcon: Icon(
+                                              Icons.phone,
+                                            ),
                                           ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      contentPadding: EdgeInsets.all(18.0),
-                                      prefixIcon: Icon(
-                                        Icons.phone,
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts:
+                                                    !FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMediumIsCustom,
+                                              ),
+                                          maxLines: 11,
+                                          minLines: 1,
+                                          maxLength: 300,
+                                          buildCounter: (context,
+                                                  {required currentLength,
+                                                  required isFocused,
+                                                  maxLength}) =>
+                                              null,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts:
-                                              !FlutterFlowTheme.of(context)
-                                                  .bodyMediumIsCustom,
+                                                  .primaryText,
+                                          validator: _model
+                                              .clientPhoneTextControllerValidator
+                                              .asValidator(context),
+                                          inputFormatters: [
+                                            _model.clientPhoneMask
+                                          ],
                                         ),
-                                    maxLines: 11,
-                                    minLines: 1,
-                                    maxLength: 300,
-                                    buildCounter: (context,
-                                            {required currentLength,
-                                            required isFocused,
-                                            maxLength}) =>
-                                        null,
-                                    keyboardType: TextInputType.number,
-                                    cursorColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    validator: _model
-                                        .clientPhoneTextControllerValidator
-                                        .asValidator(context),
-                                    inputFormatters: [_model.clientPhoneMask],
-                                  ),
+                                      ),
+                                  ].divide(SizedBox(height: 12.0)),
                                 ),
                               Align(
                                 alignment: AlignmentDirectional(-1.0, 0.0),
@@ -2834,75 +2923,87 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               12.0, 40.0, 12.0, 12.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  FlutterFlowIconButton(
-                                    borderRadius: 8.0,
-                                    buttonSize: 40.0,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    icon: Icon(
-                                      Icons.arrow_back,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 24.0,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 40.0,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      icon: Icon(
+                                        Icons.arrow_back,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        await _model.pageViewController
+                                            ?.previousPage(
+                                          duration: Duration(milliseconds: 300),
+                                          curve: Curves.ease,
+                                        );
+                                      },
                                     ),
-                                    onPressed: () async {
-                                      await _model.pageViewController
-                                          ?.previousPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                  ),
-                                  Flexible(
-                                    flex: 3,
-                                    child: LinearPercentIndicator(
-                                      percent: 0.8,
-                                      lineHeight: 12.0,
-                                      animation: true,
-                                      animateFromLastPercent: true,
-                                      progressColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      backgroundColor: Color(0xFFEEEEEE),
-                                      barRadius: Radius.circular(100.0),
-                                      padding: EdgeInsets.zero,
+                                    Flexible(
+                                      flex: 3,
+                                      child: LinearPercentIndicator(
+                                        percent: 0.8,
+                                        lineHeight: 12.0,
+                                        animation: true,
+                                        animateFromLastPercent: true,
+                                        progressColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                        backgroundColor: Color(0xFFEEEEEE),
+                                        barRadius: Radius.circular(100.0),
+                                        padding: EdgeInsets.zero,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '01/05',
+                                    Text(
+                                      '01/05',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts:
+                                                !FlutterFlowTheme.of(context)
+                                                    .labelLargeIsCustom,
+                                          ),
+                                    ),
+                                  ].divide(SizedBox(width: 8.0)),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Text(
+                                    'Итоговая сумма',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelLarge
+                                        .displayMedium
                                         .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          font: GoogleFonts.geologica(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .displayMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .displayMedium
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
-                                          useGoogleFonts:
-                                              !FlutterFlowTheme.of(context)
-                                                  .labelLargeIsCustom,
-                                        ),
-                                  ),
-                                ].divide(SizedBox(width: 8.0)),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  'Итоговая сумма',
-                                  style: FlutterFlowTheme.of(context)
-                                      .displayMedium
-                                      .override(
-                                        font: GoogleFonts.geologica(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .displayMedium
@@ -2912,156 +3013,103 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                   .displayMedium
                                                   .fontStyle,
                                         ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .displayMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .displayMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                              if (_model.totalPrice != null)
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: Container(
-                                    height: 58.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.coins,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24.0,
-                                          ),
-                                          Text(
-                                            'от',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeIsCustom,
-                                                ),
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              _model.totalPrice?.toString(),
-                                              'noPrice',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeIsCustom,
-                                                ),
-                                          ),
-                                          Text(
-                                            FFAppConstants.currency,
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLargeIsCustom,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 8.0)),
-                                      ),
-                                    ),
                                   ),
                                 ),
-                              Container(
-                                height: 58.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        FFIcons.kinfoSquare,
+                                if (_model.totalPrice != null)
+                                  Align(
+                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    child: Container(
+                                      height: 58.0,
+                                      decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
                                       ),
-                                      Flexible(
-                                        child: Text(
-                                          'Итооговая стоимость может отличаться',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font: GoogleFonts.mulish(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
+                                      child: Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.coins,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              'от',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .primaryText,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        !FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeIsCustom,
+                                                  ),
+                                            ),
+                                            Text(
+                                              valueOrDefault<String>(
+                                                _model.totalPrice?.toString(),
+                                                'noPrice',
                                               ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        !FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeIsCustom,
+                                                  ),
+                                            ),
+                                            Text(
+                                              FFAppConstants.currency,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        !FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeIsCustom,
+                                                  ),
+                                            ),
+                                          ].divide(SizedBox(width: 8.0)),
                                         ),
                                       ),
-                                    ].divide(SizedBox(width: 12.0)),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              if (!_model.masterPlace)
                                 Container(
+                                  height: 58.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -3082,7 +3130,7 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            'Мастер приедет к вам на дом. Потребуется доплата от ${widget.organisationCard?.remotePrice.toString()} ${FFAppConstants.currency}',
+                                            'Итооговая стоимость может отличаться',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -3112,129 +3160,193 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                     ),
                                   ),
                                 ),
-                              Text(
-                                'Выбранные услуги',
-                                style: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .labelLargeFamily,
+                                if (!_model.masterPlace)
+                                  Container(
+                                    decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts:
-                                          !FlutterFlowTheme.of(context)
-                                              .labelLargeIsCustom,
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(),
-                                child: Builder(
-                                  builder: (context) {
-                                    final choosenService =
-                                        _model.choosenServices.toList();
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            FFIcons.kinfoSquare,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              'Мастер приедет к вам на дом. Потребуется доплата от ${widget.organisationCard?.remotePrice.toString()} ${FFAppConstants.currency}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.mulish(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 12.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                          ),
+                                        ].divide(SizedBox(width: 12.0)),
+                                      ),
+                                    ),
+                                  ),
+                                Text(
+                                  'Выбранные услуги',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelLargeFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .labelLargeIsCustom,
+                                      ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final choosenService =
+                                          _model.choosenServices.toList();
 
-                                    return ListView.separated(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: choosenService.length,
-                                      separatorBuilder: (_, __) =>
-                                          SizedBox(height: 12.0),
-                                      itemBuilder:
-                                          (context, choosenServiceIndex) {
-                                        final choosenServiceItem =
-                                            choosenService[choosenServiceIndex];
-                                        return StreamBuilder<ServicesRecord>(
-                                          stream: ServicesRecord.getDocument(
-                                              choosenServiceItem),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: choosenService.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 12.0),
+                                        itemBuilder:
+                                            (context, choosenServiceIndex) {
+                                          final choosenServiceItem =
+                                              choosenService[
+                                                  choosenServiceIndex];
+                                          return StreamBuilder<ServicesRecord>(
+                                            stream: ServicesRecord.getDocument(
+                                                choosenServiceItem),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
-                                                ),
-                                              );
-                                            }
+                                                );
+                                              }
 
-                                            final containerServicesRecord =
-                                                snapshot.data!;
+                                              final containerServicesRecord =
+                                                  snapshot.data!;
 
-                                            return InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (_model.choosenServices
-                                                    .contains(
-                                                        choosenServiceItem)) {
-                                                  _model
-                                                      .removeFromChoosenServices(
-                                                          choosenServiceItem);
-                                                  _model.totalPrice = (_model
-                                                          .totalPrice!) -
-                                                      containerServicesRecord
-                                                          .price;
-                                                  _model.duration = (_model
-                                                          .duration!) -
-                                                      containerServicesRecord
-                                                          .duration;
-                                                  safeSetState(() {});
-                                                }
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(12.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      if (_model.choosenServices
-                                                          .contains(
-                                                              choosenServiceItem))
-                                                        Icon(
-                                                          Icons.check_box,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          size: 24.0,
-                                                        ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          containerServicesRecord
-                                                              .title,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .mulish(
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (_model.choosenServices
+                                                      .contains(
+                                                          choosenServiceItem)) {
+                                                    _model
+                                                        .removeFromChoosenServices(
+                                                            choosenServiceItem);
+                                                    _model.totalPrice = (_model
+                                                            .totalPrice!) -
+                                                        containerServicesRecord
+                                                            .price;
+                                                    _model.duration = (_model
+                                                            .duration!) -
+                                                        containerServicesRecord
+                                                            .duration;
+                                                    safeSetState(() {});
+                                                  }
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(12.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        if (_model
+                                                            .choosenServices
+                                                            .contains(
+                                                                choosenServiceItem))
+                                                          Icon(
+                                                            Icons.check_box,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            size: 24.0,
+                                                          ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            containerServicesRecord
+                                                                .title,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .mulish(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -3243,23 +3355,43 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                fontSize: 18.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      if (!containerServicesRecord
-                                                          .fixedPrice)
+                                                        if (!containerServicesRecord
+                                                            .fixedPrice)
+                                                          Text(
+                                                            'от',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .mulish(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
                                                         Text(
-                                                          'от',
+                                                          containerServicesRecord
+                                                              .price
+                                                              .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -3287,16 +3419,27 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                     .fontStyle,
                                                               ),
                                                         ),
-                                                      Text(
-                                                        containerServicesRecord
-                                                            .price
-                                                            .toString(),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .mulish(
+                                                        Text(
+                                                          FFAppConstants
+                                                              .currency,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .mulish(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -3305,471 +3448,40 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                            ),
-                                                      ),
-                                                      Text(
-                                                        FFAppConstants.currency,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .mulish(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                            ),
-                                                      ),
-                                                    ].divide(
-                                                        SizedBox(width: 8.0)),
+                                                        ),
+                                                      ].divide(
+                                                          SizedBox(width: 8.0)),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    );
-                                  },
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await _model.pageViewController
-                                                ?.previousPage(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          text: 'Назад',
-                                          options: FFButtonOptions(
-                                            width: 360.0,
-                                            height: 47.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 16.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge
-                                                    .override(
-                                                      fontFamily: 'involve',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 0.0,
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Builder(
-                                          builder: (context) => FFButtonWidget(
-                                            onPressed: !(_model
-                                                    .choosenServices.isNotEmpty)
-                                                ? null
-                                                : () async {
-                                                    _model.readServices =
-                                                        await ServicesRecord
-                                                            .getDocumentOnce(_model
-                                                                .choosenServices
-                                                                .firstOrNull!);
-
-                                                    var recordsRecordReference =
-                                                        RecordsRecord.collection
-                                                            .doc();
-                                                    await recordsRecordReference
-                                                        .set({
-                                                      ...createRecordsRecordData(
-                                                        title: _model
-                                                            .readServices
-                                                            ?.title,
-                                                        date: _model
-                                                            .choosenDateForRecord,
-                                                        duration:
-                                                            _model.duration,
-                                                        comment: _model
-                                                            .commentTextController
-                                                            .text,
-                                                        location:
-                                                            updateSearchPlaceStruct(
-                                                          _model.recordPlace,
-                                                          clearUnsetFields:
-                                                              false,
-                                                          create: true,
-                                                        ),
-                                                        totalCost:
-                                                            _model.totalPrice,
-                                                        status:
-                                                            RecordStatus.newREc,
-                                                        organisation: widget
-                                                            .organisationCard
-                                                            ?.reference,
-                                                        createAt:
-                                                            getCurrentTimestamp,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'services': _model
-                                                              .choosenServices,
-                                                        },
-                                                      ),
-                                                    });
-                                                    _model.newRecord =
-                                                        RecordsRecord
-                                                            .getDocumentFromData({
-                                                      ...createRecordsRecordData(
-                                                        title: _model
-                                                            .readServices
-                                                            ?.title,
-                                                        date: _model
-                                                            .choosenDateForRecord,
-                                                        duration:
-                                                            _model.duration,
-                                                        comment: _model
-                                                            .commentTextController
-                                                            .text,
-                                                        location:
-                                                            updateSearchPlaceStruct(
-                                                          _model.recordPlace,
-                                                          clearUnsetFields:
-                                                              false,
-                                                          create: true,
-                                                        ),
-                                                        totalCost:
-                                                            _model.totalPrice,
-                                                        status:
-                                                            RecordStatus.newREc,
-                                                        organisation: widget
-                                                            .organisationCard
-                                                            ?.reference,
-                                                        createAt:
-                                                            getCurrentTimestamp,
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'services': _model
-                                                              .choosenServices,
-                                                        },
-                                                      ),
-                                                    }, recordsRecordReference);
-
-                                                    await widget
-                                                        .organisationCard!
-                                                        .reference
-                                                        .update({
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'records': FieldValue
-                                                              .arrayUnion([
-                                                            _model.newRecord
-                                                                ?.reference
-                                                          ]),
-                                                        },
-                                                      ),
-                                                    });
-                                                    if ((currentUserDocument
-                                                                ?.mainMaster !=
-                                                            widget
-                                                                .organisationCard
-                                                                ?.reference) ||
-                                                        (currentUserDocument
-                                                                ?.mainMaster ==
-                                                            null)) {
-                                                      await currentUserReference!
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'myRecords':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              _model.newRecord
-                                                                  ?.reference
-                                                            ]),
-                                                          },
-                                                        ),
-                                                      });
-
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        client:
-                                                            currentUserReference,
-                                                        clientName:
-                                                            currentUserDisplayName,
-                                                        clientPhone:
-                                                            currentPhoneNumber,
-                                                      ));
-
-                                                      var chatRecordReference =
-                                                          ChatRecord.collection
-                                                              .doc();
-                                                      await chatRecordReference
-                                                          .set({
-                                                        ...createChatRecordData(
-                                                          record: _model
-                                                              .newRecord
-                                                              ?.reference,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'members': [
-                                                              currentUserReference
-                                                            ],
-                                                          },
-                                                        ),
-                                                      });
-                                                      _model.newChat = ChatRecord
-                                                          .getDocumentFromData({
-                                                        ...createChatRecordData(
-                                                          record: _model
-                                                              .newRecord
-                                                              ?.reference,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'members': [
-                                                              currentUserReference
-                                                            ],
-                                                          },
-                                                        ),
-                                                      }, chatRecordReference);
-
-                                                      var messagesRecordReference =
-                                                          MessagesRecord
-                                                              .collection
-                                                              .doc();
-                                                      await messagesRecordReference
-                                                          .set(
-                                                              createMessagesRecordData(
-                                                        chat: _model
-                                                            .newChat?.reference,
-                                                        sender:
-                                                            currentUserReference,
-                                                        text:
-                                                            'Создан чат по заказу: ${_model.readServices?.title}',
-                                                        dateTime:
-                                                            getCurrentTimestamp,
-                                                      ));
-                                                      _model.firstMessage = MessagesRecord
-                                                          .getDocumentFromData(
-                                                              createMessagesRecordData(
-                                                                chat: _model
-                                                                    .newChat
-                                                                    ?.reference,
-                                                                sender:
-                                                                    currentUserReference,
-                                                                text:
-                                                                    'Создан чат по заказу: ${_model.readServices?.title}',
-                                                                dateTime:
-                                                                    getCurrentTimestamp,
-                                                              ),
-                                                              messagesRecordReference);
-
-                                                      await _model
-                                                          .newChat!.reference
-                                                          .update({
-                                                        ...createChatRecordData(
-                                                          lastMessage: _model
-                                                              .firstMessage
-                                                              ?.reference,
-                                                          lastMessageTime:
-                                                              _model
-                                                                  .firstMessage
-                                                                  ?.dateTime,
-                                                          lastMessageText:
-                                                              _model
-                                                                  .firstMessage
-                                                                  ?.text,
-                                                          lastMessageSender:
-                                                              _model
-                                                                  .firstMessage
-                                                                  ?.sender,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'messages':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              _model
-                                                                  .firstMessage
-                                                                  ?.reference
-                                                            ]),
-                                                            'members': FieldValue
-                                                                .arrayUnion([
-                                                              widget
-                                                                  .organisationCard
-                                                                  ?.owner
-                                                            ]),
-                                                            'lastMessageSeenBy':
-                                                                FieldValue
-                                                                    .arrayUnion([
-                                                              currentUserReference
-                                                            ]),
-                                                          },
-                                                        ),
-                                                      });
-
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        chatRecord: _model
-                                                            .newChat?.reference,
-                                                      ));
-                                                      triggerPushNotification(
-                                                        notificationTitle:
-                                                            'Новая запись',
-                                                        notificationText:
-                                                            'Создан чат по заказу: ${_model.readServices?.title}',
-                                                        notificationSound:
-                                                            'default',
-                                                        userRefs: [
-                                                          widget
-                                                              .organisationCard!
-                                                              .owner!
-                                                        ],
-                                                        initialPageName:
-                                                            'cabinet',
-                                                        parameterData: {},
-                                                      );
-                                                    } else {
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        clientName: _model
-                                                            .clientNameTextController
-                                                            .text,
-                                                        clientPhone: _model
-                                                            .clientPhoneTextController
-                                                            .text,
-                                                      ));
-                                                    }
-
-                                                    if (_model.choosenMaster !=
-                                                        null) {
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        master: _model
-                                                            .choosenMaster,
-                                                      ));
-                                                    } else {
-                                                      await _model
-                                                          .newRecord!.reference
-                                                          .update(
-                                                              createRecordsRecordData(
-                                                        master: widget
-                                                            .organisationCard
-                                                            ?.reference,
-                                                      ));
-                                                    }
-
-                                                    safeSetState(() {
-                                                      _model
-                                                          .clientNameTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .clientPhoneTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .commentTextController
-                                                          ?.clear();
-                                                    });
-                                                    await showDialog(
-                                                      barrierDismissible: false,
-                                                      context: context,
-                                                      builder: (dialogContext) {
-                                                        return Dialog(
-                                                          elevation: 0,
-                                                          insetPadding:
-                                                              EdgeInsets.zero,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          alignment: AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              FocusScope.of(
-                                                                      dialogContext)
-                                                                  .unfocus();
-                                                              FocusManager
-                                                                  .instance
-                                                                  .primaryFocus
-                                                                  ?.unfocus();
-                                                            },
-                                                            child:
-                                                                RecordSuccessWidget(
-                                                              recordCard: _model
-                                                                  .newRecord!,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-
-                                                    safeSetState(() {});
-                                                  },
-                                            text: 'Записаться',
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              await _model.pageViewController
+                                                  ?.previousPage(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                curve: Curves.ease,
+                                              );
+                                            },
+                                            text: 'Назад',
                                             options: FFButtonOptions(
                                               width: 360.0,
-                                              height: 48.0,
+                                              height: 47.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
@@ -3777,29 +3489,434 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .primaryBackground,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelLarge
                                                       .override(
                                                         fontFamily: 'involve',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
                                                         letterSpacing: 0.0,
                                                       ),
                                               elevation: 0.0,
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
-                                              disabledColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ].divide(SizedBox(width: 12.0)),
+                                        Expanded(
+                                          child: Builder(
+                                            builder: (context) =>
+                                                FFButtonWidget(
+                                              onPressed: !(_model
+                                                      .choosenServices
+                                                      .isNotEmpty)
+                                                  ? null
+                                                  : () async {
+                                                      _model.readServices =
+                                                          await ServicesRecord
+                                                              .getDocumentOnce(_model
+                                                                  .choosenServices
+                                                                  .firstOrNull!);
+
+                                                      var recordsRecordReference =
+                                                          RecordsRecord
+                                                              .collection
+                                                              .doc();
+                                                      await recordsRecordReference
+                                                          .set({
+                                                        ...createRecordsRecordData(
+                                                          title: _model
+                                                              .readServices
+                                                              ?.title,
+                                                          date: _model
+                                                              .choosenDateForRecord,
+                                                          duration:
+                                                              _model.duration,
+                                                          comment: _model
+                                                              .commentTextController
+                                                              .text,
+                                                          location:
+                                                              updateSearchPlaceStruct(
+                                                            _model.recordPlace,
+                                                            clearUnsetFields:
+                                                                false,
+                                                            create: true,
+                                                          ),
+                                                          totalCost:
+                                                              _model.totalPrice,
+                                                          status: RecordStatus
+                                                              .newREc,
+                                                          organisation: widget
+                                                              .organisationCard
+                                                              ?.reference,
+                                                          createAt:
+                                                              getCurrentTimestamp,
+                                                        ),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'services': _model
+                                                                .choosenServices,
+                                                          },
+                                                        ),
+                                                      });
+                                                      _model.newRecord =
+                                                          RecordsRecord
+                                                              .getDocumentFromData({
+                                                        ...createRecordsRecordData(
+                                                          title: _model
+                                                              .readServices
+                                                              ?.title,
+                                                          date: _model
+                                                              .choosenDateForRecord,
+                                                          duration:
+                                                              _model.duration,
+                                                          comment: _model
+                                                              .commentTextController
+                                                              .text,
+                                                          location:
+                                                              updateSearchPlaceStruct(
+                                                            _model.recordPlace,
+                                                            clearUnsetFields:
+                                                                false,
+                                                            create: true,
+                                                          ),
+                                                          totalCost:
+                                                              _model.totalPrice,
+                                                          status: RecordStatus
+                                                              .newREc,
+                                                          organisation: widget
+                                                              .organisationCard
+                                                              ?.reference,
+                                                          createAt:
+                                                              getCurrentTimestamp,
+                                                        ),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'services': _model
+                                                                .choosenServices,
+                                                          },
+                                                        ),
+                                                      }, recordsRecordReference);
+
+                                                      await widget
+                                                          .organisationCard!
+                                                          .reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'records': FieldValue
+                                                                .arrayUnion([
+                                                              _model.newRecord
+                                                                  ?.reference
+                                                            ]),
+                                                          },
+                                                        ),
+                                                      });
+                                                      if ((currentUserDocument
+                                                                  ?.mainMaster !=
+                                                              widget
+                                                                  .organisationCard
+                                                                  ?.reference) ||
+                                                          (currentUserDocument
+                                                                  ?.mainMaster ==
+                                                              null)) {
+                                                        await currentUserReference!
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'myRecords':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                _model.newRecord
+                                                                    ?.reference
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+
+                                                        await _model.newRecord!
+                                                            .reference
+                                                            .update(
+                                                                createRecordsRecordData(
+                                                          client:
+                                                              currentUserReference,
+                                                          clientName:
+                                                              currentUserDisplayName,
+                                                          clientPhone:
+                                                              currentPhoneNumber,
+                                                        ));
+
+                                                        var chatRecordReference =
+                                                            ChatRecord
+                                                                .collection
+                                                                .doc();
+                                                        await chatRecordReference
+                                                            .set({
+                                                          ...createChatRecordData(
+                                                            record: _model
+                                                                .newRecord
+                                                                ?.reference,
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'members': [
+                                                                currentUserReference
+                                                              ],
+                                                            },
+                                                          ),
+                                                        });
+                                                        _model.newChat = ChatRecord
+                                                            .getDocumentFromData({
+                                                          ...createChatRecordData(
+                                                            record: _model
+                                                                .newRecord
+                                                                ?.reference,
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'members': [
+                                                                currentUserReference
+                                                              ],
+                                                            },
+                                                          ),
+                                                        }, chatRecordReference);
+
+                                                        var messagesRecordReference =
+                                                            MessagesRecord
+                                                                .collection
+                                                                .doc();
+                                                        await messagesRecordReference
+                                                            .set(
+                                                                createMessagesRecordData(
+                                                          chat: _model.newChat
+                                                              ?.reference,
+                                                          sender:
+                                                              currentUserReference,
+                                                          text:
+                                                              'Создан чат по заказу: ${_model.readServices?.title}',
+                                                          dateTime:
+                                                              getCurrentTimestamp,
+                                                        ));
+                                                        _model.firstMessage = MessagesRecord
+                                                            .getDocumentFromData(
+                                                                createMessagesRecordData(
+                                                                  chat: _model
+                                                                      .newChat
+                                                                      ?.reference,
+                                                                  sender:
+                                                                      currentUserReference,
+                                                                  text:
+                                                                      'Создан чат по заказу: ${_model.readServices?.title}',
+                                                                  dateTime:
+                                                                      getCurrentTimestamp,
+                                                                ),
+                                                                messagesRecordReference);
+
+                                                        await _model
+                                                            .newChat!.reference
+                                                            .update({
+                                                          ...createChatRecordData(
+                                                            lastMessage: _model
+                                                                .firstMessage
+                                                                ?.reference,
+                                                            lastMessageTime:
+                                                                _model
+                                                                    .firstMessage
+                                                                    ?.dateTime,
+                                                            lastMessageText:
+                                                                _model
+                                                                    .firstMessage
+                                                                    ?.text,
+                                                            lastMessageSender:
+                                                                _model
+                                                                    .firstMessage
+                                                                    ?.sender,
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'messages':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                _model
+                                                                    .firstMessage
+                                                                    ?.reference
+                                                              ]),
+                                                              'members': FieldValue
+                                                                  .arrayUnion([
+                                                                widget
+                                                                    .organisationCard
+                                                                    ?.owner
+                                                              ]),
+                                                              'lastMessageSeenBy':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                currentUserReference
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+
+                                                        await _model.newRecord!
+                                                            .reference
+                                                            .update(
+                                                                createRecordsRecordData(
+                                                          chatRecord: _model
+                                                              .newChat
+                                                              ?.reference,
+                                                        ));
+                                                        triggerPushNotification(
+                                                          notificationTitle:
+                                                              'Новая запись',
+                                                          notificationText:
+                                                              'Создан чат по заказу: ${_model.readServices?.title}',
+                                                          notificationSound:
+                                                              'default',
+                                                          userRefs: [
+                                                            widget
+                                                                .organisationCard!
+                                                                .owner!
+                                                          ],
+                                                          initialPageName:
+                                                              'reservePage',
+                                                          parameterData: {
+                                                            'recordRef': _model
+                                                                .newRecord
+                                                                ?.reference,
+                                                          },
+                                                        );
+                                                      } else {
+                                                        await _model.newRecord!
+                                                            .reference
+                                                            .update(
+                                                                createRecordsRecordData(
+                                                          clientName: _model
+                                                              .clientNameTextController
+                                                              .text,
+                                                          clientPhone: _model
+                                                              .clientPhoneTextController
+                                                              .text,
+                                                        ));
+                                                      }
+
+                                                      if (_model
+                                                              .choosenMaster !=
+                                                          null) {
+                                                        await _model.newRecord!
+                                                            .reference
+                                                            .update(
+                                                                createRecordsRecordData(
+                                                          master: _model
+                                                              .choosenMaster,
+                                                        ));
+                                                      } else {
+                                                        await _model.newRecord!
+                                                            .reference
+                                                            .update(
+                                                                createRecordsRecordData(
+                                                          master: widget
+                                                              .organisationCard
+                                                              ?.reference,
+                                                        ));
+                                                      }
+
+                                                      safeSetState(() {
+                                                        _model
+                                                            .clientNameTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .clientPhoneTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .commentTextController
+                                                            ?.clear();
+                                                      });
+                                                      await showDialog(
+                                                        barrierDismissible:
+                                                            false,
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        dialogContext)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
+                                                              child:
+                                                                  RecordSuccessWidget(
+                                                                recordCard: _model
+                                                                    .newRecord!,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+
+                                                      safeSetState(() {});
+                                                    },
+                                              text: 'Создать запись',
+                                              options: FFButtonOptions(
+                                                width: 360.0,
+                                                height: 48.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'involve',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                elevation: 0.0,
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                                disabledColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ].divide(SizedBox(width: 12.0)),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ].divide(SizedBox(height: 12.0)),
+                              ].divide(SizedBox(height: 12.0)),
+                            ),
                           ),
                         ),
                       ],

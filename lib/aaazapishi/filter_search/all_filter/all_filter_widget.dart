@@ -13,6 +13,8 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'all_filter_model.dart';
@@ -39,6 +41,12 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
     super.initState();
     _model = createModel(context, () => AllFilterModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.place = FFAppState().mainFilter.place;
+      safeSetState(() {});
+        });
+
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.userLocValue = false;
@@ -61,12 +69,11 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
         child: Center(
           child: SizedBox(
-            width: 50.0,
-            height: 50.0,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                FlutterFlowTheme.of(context).primary,
-              ),
+            width: 10.0,
+            height: 10.0,
+            child: SpinKitCircle(
+              color: FlutterFlowTheme.of(context).primaryBackground,
+              size: 10.0,
             ),
           ),
         ),
@@ -293,7 +300,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                     ),
                                   ],
                                 ),
-                                if (!_model.userLocValue!)
+                                if (!FFAppState().mainFilter.atHome)
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -332,7 +339,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                            .accent4,
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
@@ -378,54 +385,61 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                       ),
                                     ),
                                   ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        'Радиус от текущего местоположения',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  !FlutterFlowTheme.of(context)
-                                                      .bodyMediumIsCustom,
-                                            ),
+                                if (!FFAppState().mainFilter.atHome)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'Радиус от текущего местоположения',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts:
+                                                    !FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMediumIsCustom,
+                                              ),
+                                        ),
                                       ),
-                                    ),
-                                    Switch.adaptive(
-                                      value: _model.userLocValue!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.userLocValue = newValue);
-                                        if (newValue) {
-                                          _model.place = null;
-                                          _model.radius = true;
-                                        } else {
-                                          _model.place = null;
-                                          _model.radius = false;
-                                        }
-                                      },
-                                      activeColor: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context).accent2,
-                                      inactiveThumbColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                    ),
-                                  ],
-                                ),
-                                if (currentUserLocationValue == null)
+                                      Switch.adaptive(
+                                        value: _model.userLocValue!,
+                                        onChanged: (newValue) async {
+                                          safeSetState(() =>
+                                              _model.userLocValue = newValue);
+                                          if (newValue) {
+                                            _model.place = null;
+                                            _model.radius = true;
+                                          } else {
+                                            _model.place = null;
+                                            _model.radius = false;
+                                          }
+                                        },
+                                        activeColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                        activeTrackColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                        inactiveTrackColor:
+                                            FlutterFlowTheme.of(context)
+                                                .accent2,
+                                        inactiveThumbColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                      ),
+                                    ],
+                                  ),
+                                if ((currentUserLocationValue == null) ||
+                                    !FFAppState().mainFilter.atHome)
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -444,7 +458,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                       width: MediaQuery.sizeOf(context).width *
                                           1.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0x33246BFD),
+                                        color: Color(0xFFF5F5F5),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
@@ -453,13 +467,13 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.warning_rounded,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .secondaryText,
                                               size: 24.0,
                                             ),
                                             Text(
@@ -474,7 +488,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                                             .bodyMediumFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primary,
+                                                        .secondaryText,
                                                     fontSize: 10.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
@@ -484,18 +498,52 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                                             .bodyMediumIsCustom,
                                                   ),
                                             ),
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                await requestPermission(
-                                                    locationPermission);
-                                              },
-                                              child: Text(
-                                                'Перейти',
+                                          ].divide(SizedBox(width: 4.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                if (!FFAppState().mainFilter.atHome)
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                      if (_model.userLocValue ?? true)
+                                        Slider(
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          inactiveColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          min: 1.0,
+                                          max: 15.0,
+                                          value: _model.sliderValue ??= 5.0,
+                                          label: _model.sliderValue?.toString(),
+                                          divisions: 14,
+                                          onChanged: (newValue) {
+                                            safeSetState(() =>
+                                                _model.sliderValue = newValue);
+                                          },
+                                        ),
+                                      if (_model.userLocValue ?? true)
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Доступ к геолокации получен',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyMedium
@@ -507,7 +555,8 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .primaryText,
+                                                      fontSize: 10.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -517,122 +566,58 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                                               .bodyMediumIsCustom,
                                                     ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                    if (_model.userLocValue ?? true)
-                                      Slider(
-                                        activeColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                        inactiveColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        min: 1.0,
-                                        max: 15.0,
-                                        value: _model.sliderValue ??= 5.0,
-                                        label: _model.sliderValue?.toString(),
-                                        divisions: 14,
-                                        onChanged: (newValue) {
-                                          safeSetState(() =>
-                                              _model.sliderValue = newValue);
-                                        },
-                                      ),
-                                    if (_model.userLocValue ?? true)
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Доступ к геолокации получен',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    fontSize: 10.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w600,
-                                                    useGoogleFonts:
-                                                        !FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumIsCustom,
-                                                  ),
-                                            ),
-                                            FFButtonWidget(
-                                              onPressed: () async {
-                                                currentUserLocationValue =
-                                                    await getCurrentUserLocation(
-                                                        defaultLocation:
-                                                            LatLng(0.0, 0.0));
-                                                _model.userLoc =
-                                                    currentUserLocationValue;
-                                                safeSetState(() {});
-                                              },
-                                              text: 'Обновить',
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallFamily,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts:
-                                                          !FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallIsCustom,
-                                                    ),
-                                                elevation: 0.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                              FFButtonWidget(
+                                                onPressed: () async {
+                                                  currentUserLocationValue =
+                                                      await getCurrentUserLocation(
+                                                          defaultLocation:
+                                                              LatLng(0.0, 0.0));
+                                                  _model.userLoc =
+                                                      currentUserLocationValue;
+                                                  safeSetState(() {});
+                                                },
+                                                text: 'Обновить',
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          16.0, 0.0, 16.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts:
+                                                                !FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallIsCustom,
+                                                          ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
                               ].divide(SizedBox(height: 12.0)),
                             ),
                           ),
@@ -693,7 +678,7 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).accent2,
+                                color: FlutterFlowTheme.of(context).accent4,
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
@@ -817,78 +802,93 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                 ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 12.0, 0.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              child: StreamBuilder<List<CategoryRecord>>(
-                                stream: queryCategoryRecord(
-                                  queryBuilder: (categoryRecord) =>
-                                      categoryRecord.where(
-                                    'isParent',
-                                    isEqualTo: true,
-                                  ),
+                        Builder(
+                          builder: (context) {
+                            if (!(FFAppState()
+                                .mainFilter
+                                .category
+                                .isNotEmpty)) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: StreamBuilder<List<CategoryRecord>>(
+                                    stream: queryCategoryRecord(
+                                      queryBuilder: (categoryRecord) =>
+                                          categoryRecord.where(
+                                        'isParent',
+                                        isEqualTo: true,
                                       ),
-                                    );
-                                  }
-                                  List<CategoryRecord> firstCategoryRecordList =
-                                      snapshot.data!;
-                                  if (firstCategoryRecordList.isEmpty) {
-                                    return EmptyWidjetWidget();
-                                  }
-
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: firstCategoryRecordList.length,
-                                    itemBuilder: (context, firstIndex) {
-                                      final firstCategoryRecord =
-                                          firstCategoryRecordList[firstIndex];
-                                      return Padding(
-                                        padding: EdgeInsets.all(12.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 10.0,
+                                            height: 10.0,
+                                            child: SpinKitCircle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              size: 10.0,
+                                            ),
                                           ),
-                                          child: Container(
-                                            width: double.infinity,
-                                            color: Color(0x00000000),
-                                            child: ExpandableNotifier(
-                                              initialExpanded: false,
-                                              child: ExpandablePanel(
-                                                header: Text(
-                                                  firstCategoryRecord.title,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.mulish(
+                                        );
+                                      }
+                                      List<CategoryRecord>
+                                          firstCategoryRecordList =
+                                          snapshot.data!;
+                                      if (firstCategoryRecordList.isEmpty) {
+                                        return EmptyWidjetWidget();
+                                      }
+
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount:
+                                            firstCategoryRecordList.length,
+                                        itemBuilder: (context, firstIndex) {
+                                          final firstCategoryRecord =
+                                              firstCategoryRecordList[
+                                                  firstIndex];
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            child: Container(
+                                              width: double.infinity,
+                                              color: Color(0x00000000),
+                                              child: ExpandableNotifier(
+                                                initialExpanded: false,
+                                                child: ExpandablePanel(
+                                                  header: Text(
+                                                    firstCategoryRecord.title,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .mulish(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontStyle:
@@ -897,302 +897,586 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
+                                                  ),
+                                                  collapsed: Container(),
+                                                  expanded: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: StreamBuilder<
+                                                        List<CategoryRecord>>(
+                                                      stream:
+                                                          queryCategoryRecord(
+                                                        queryBuilder:
+                                                            (categoryRecord) =>
+                                                                categoryRecord
+                                                                    .where(
+                                                          'parentCat',
+                                                          isEqualTo:
+                                                              firstCategoryRecord
+                                                                  .reference,
+                                                        ),
                                                       ),
-                                                ),
-                                                collapsed: Container(),
-                                                expanded: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          12.0, 0.0, 0.0, 0.0),
-                                                  child: StreamBuilder<
-                                                      List<CategoryRecord>>(
-                                                    stream: queryCategoryRecord(
-                                                      queryBuilder:
-                                                          (categoryRecord) =>
-                                                              categoryRecord
-                                                                  .where(
-                                                        'parentCat',
-                                                        isEqualTo:
-                                                            firstCategoryRecord
-                                                                .reference,
-                                                      ),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 10.0,
+                                                              height: 10.0,
+                                                              child:
+                                                                  SpinKitCircle(
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primary,
+                                                                    .primaryBackground,
+                                                                size: 10.0,
                                                               ),
                                                             ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<CategoryRecord>
-                                                          secondCategoryRecordList =
-                                                          snapshot.data!;
+                                                          );
+                                                        }
+                                                        List<CategoryRecord>
+                                                            secondCategoryRecordList =
+                                                            snapshot.data!;
 
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        primary: false,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            secondCategoryRecordList
-                                                                .length,
-                                                        itemBuilder: (context,
-                                                            secondIndex) {
-                                                          final secondCategoryRecord =
-                                                              secondCategoryRecordList[
-                                                                  secondIndex];
-                                                          return Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                            ),
-                                                            child: Container(
-                                                              width: double
-                                                                  .infinity,
-                                                              color: Color(
-                                                                  0x00000000),
-                                                              child:
-                                                                  ExpandableNotifier(
-                                                                initialExpanded:
-                                                                    false,
+                                                        return ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          primary: false,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              secondCategoryRecordList
+                                                                  .length,
+                                                          itemBuilder: (context,
+                                                              secondIndex) {
+                                                            final secondCategoryRecord =
+                                                                secondCategoryRecordList[
+                                                                    secondIndex];
+                                                            return Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                              ),
+                                                              child: Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                color: Color(
+                                                                    0x00000000),
                                                                 child:
-                                                                    ExpandablePanel(
-                                                                  header: Text(
-                                                                    secondCategoryRecord
-                                                                        .title,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.mulish(
+                                                                    ExpandableNotifier(
+                                                                  initialExpanded:
+                                                                      false,
+                                                                  child:
+                                                                      ExpandablePanel(
+                                                                    header:
+                                                                        Text(
+                                                                      secondCategoryRecord
+                                                                          .title,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            font:
+                                                                                GoogleFonts.mulish(
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            letterSpacing:
+                                                                                0.0,
                                                                             fontWeight:
                                                                                 FontWeight.w600,
                                                                             fontStyle:
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
-                                                                          fontSize:
-                                                                              18.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
-                                                                        ),
-                                                                  ),
-                                                                  collapsed:
-                                                                      Container(),
-                                                                  expanded:
-                                                                      StreamBuilder<
-                                                                          List<
-                                                                              CategoryRecord>>(
-                                                                    stream:
-                                                                        queryCategoryRecord(
-                                                                      queryBuilder:
-                                                                          (categoryRecord) =>
-                                                                              categoryRecord.where(
-                                                                        'parentCat',
-                                                                        isEqualTo:
-                                                                            secondCategoryRecord.reference,
-                                                                      ),
                                                                     ),
-                                                                    builder:
-                                                                        (context,
-                                                                            snapshot) {
-                                                                      // Customize what your widget looks like when it's loading.
-                                                                      if (!snapshot
-                                                                          .hasData) {
-                                                                        return Center(
-                                                                          child:
-                                                                              SizedBox(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
+                                                                    collapsed:
+                                                                        Container(),
+                                                                    expanded:
+                                                                        StreamBuilder<
+                                                                            List<CategoryRecord>>(
+                                                                      stream:
+                                                                          queryCategoryRecord(
+                                                                        queryBuilder:
+                                                                            (categoryRecord) =>
+                                                                                categoryRecord.where(
+                                                                          'parentCat',
+                                                                          isEqualTo:
+                                                                              secondCategoryRecord.reference,
+                                                                        ),
+                                                                      ),
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        // Customize what your widget looks like when it's loading.
+                                                                        if (!snapshot
+                                                                            .hasData) {
+                                                                          return Center(
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
+                                                                                SizedBox(
+                                                                              width: 10.0,
+                                                                              height: 10.0,
+                                                                              child: SpinKitCircle(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                size: 10.0,
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        );
-                                                                      }
-                                                                      List<CategoryRecord>
-                                                                          thirdCategoryRecordList =
-                                                                          snapshot
-                                                                              .data!;
+                                                                          );
+                                                                        }
+                                                                        List<CategoryRecord>
+                                                                            thirdCategoryRecordList =
+                                                                            snapshot.data!;
 
-                                                                      return ListView
-                                                                          .separated(
-                                                                        padding:
-                                                                            EdgeInsets.zero,
-                                                                        shrinkWrap:
-                                                                            true,
-                                                                        scrollDirection:
-                                                                            Axis.vertical,
-                                                                        itemCount:
-                                                                            thirdCategoryRecordList.length,
-                                                                        separatorBuilder:
-                                                                            (_, __) =>
-                                                                                SizedBox(height: 12.0),
-                                                                        itemBuilder:
-                                                                            (context,
-                                                                                thirdIndex) {
-                                                                          final thirdCategoryRecord =
-                                                                              thirdCategoryRecordList[thirdIndex];
-                                                                          return InkWell(
-                                                                            splashColor:
-                                                                                Colors.transparent,
-                                                                            focusColor:
-                                                                                Colors.transparent,
-                                                                            hoverColor:
-                                                                                Colors.transparent,
-                                                                            highlightColor:
-                                                                                Colors.transparent,
-                                                                            onTap:
-                                                                                () async {
-                                                                              if (_model.choosenCats.contains(thirdCategoryRecord.reference)) {
-                                                                                _model.removeFromChoosenCats(thirdCategoryRecord.reference);
+                                                                        return ListView
+                                                                            .separated(
+                                                                          padding:
+                                                                              EdgeInsets.zero,
+                                                                          primary:
+                                                                              false,
+                                                                          shrinkWrap:
+                                                                              true,
+                                                                          scrollDirection:
+                                                                              Axis.vertical,
+                                                                          itemCount:
+                                                                              thirdCategoryRecordList.length,
+                                                                          separatorBuilder: (_, __) =>
+                                                                              SizedBox(height: 12.0),
+                                                                          itemBuilder:
+                                                                              (context, thirdIndex) {
+                                                                            final thirdCategoryRecord =
+                                                                                thirdCategoryRecordList[thirdIndex];
+                                                                            return InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
+                                                                              onTap: () async {
+                                                                                _model.choosenCats = [];
                                                                                 safeSetState(() {});
-                                                                              } else {
                                                                                 _model.addToChoosenCats(thirdCategoryRecord.reference);
                                                                                 safeSetState(() {});
-                                                                              }
-                                                                            },
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.min,
-                                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                                              children: [
-                                                                                if (_model.choosenCats.contains(thirdCategoryRecord.reference))
-                                                                                  Icon(
-                                                                                    Icons.circle_outlined,
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    size: 24.0,
-                                                                                  ),
-                                                                                if (!_model.choosenCats.contains(thirdCategoryRecord.reference))
-                                                                                  Icon(
-                                                                                    Icons.circle_rounded,
-                                                                                    color: Color(0xFFD3D3D3),
-                                                                                    size: 24.0,
-                                                                                  ),
-                                                                                Text(
-                                                                                  thirdCategoryRecord.title,
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        font: GoogleFonts.mulish(
+                                                                              },
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                children: [
+                                                                                  if (_model.choosenCats.contains(thirdCategoryRecord.reference))
+                                                                                    Icon(
+                                                                                      Icons.circle_outlined,
+                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                      size: 24.0,
+                                                                                    ),
+                                                                                  if (!_model.choosenCats.contains(thirdCategoryRecord.reference))
+                                                                                    Icon(
+                                                                                      Icons.circle_rounded,
+                                                                                      color: Color(0xFFD3D3D3),
+                                                                                      size: 24.0,
+                                                                                    ),
+                                                                                  Text(
+                                                                                    thirdCategoryRecord.title,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          font: GoogleFonts.mulish(
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                          ),
+                                                                                          color: _model.choosenCats.contains(thirdCategoryRecord.reference) ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 18.0,
+                                                                                          letterSpacing: 0.0,
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
-                                                                                        color: _model.choosenCats.contains(thirdCategoryRecord.reference) ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
-                                                                                        fontSize: 18.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                      ),
-                                                                                ),
-                                                                              ].divide(SizedBox(width: 8.0)),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    },
-                                                                  ),
-                                                                  theme:
-                                                                      ExpandableThemeData(
-                                                                    tapHeaderToExpand:
-                                                                        true,
-                                                                    tapBodyToExpand:
-                                                                        false,
-                                                                    tapBodyToCollapse:
-                                                                        false,
-                                                                    headerAlignment:
-                                                                        ExpandablePanelHeaderAlignment
-                                                                            .center,
-                                                                    hasIcon:
-                                                                        true,
-                                                                    expandIcon:
-                                                                        FFIcons
-                                                                            .karrowDown2,
-                                                                    collapseIcon:
-                                                                        FFIcons
-                                                                            .karrowUp2,
-                                                                    iconSize:
-                                                                        24.0,
-                                                                    iconColor: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                                  ),
+                                                                                ].divide(SizedBox(width: 8.0)),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                    theme:
+                                                                        ExpandableThemeData(
+                                                                      tapHeaderToExpand:
+                                                                          true,
+                                                                      tapBodyToExpand:
+                                                                          false,
+                                                                      tapBodyToCollapse:
+                                                                          false,
+                                                                      headerAlignment:
+                                                                          ExpandablePanelHeaderAlignment
+                                                                              .center,
+                                                                      hasIcon:
+                                                                          true,
+                                                                      expandIcon:
+                                                                          FFIcons
+                                                                              .karrowDown2,
+                                                                      collapseIcon:
+                                                                          FFIcons
+                                                                              .karrowUp2,
+                                                                      iconSize:
+                                                                          24.0,
+                                                                      iconColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primaryText,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
-                                                ),
-                                                theme: ExpandableThemeData(
-                                                  tapHeaderToExpand: true,
-                                                  tapBodyToExpand: false,
-                                                  tapBodyToCollapse: false,
-                                                  headerAlignment:
-                                                      ExpandablePanelHeaderAlignment
-                                                          .center,
-                                                  hasIcon: true,
-                                                  expandIcon:
-                                                      FFIcons.karrowDown2,
-                                                  collapseIcon:
-                                                      FFIcons.karrowUp2,
-                                                  iconSize: 24.0,
-                                                  iconColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
+                                                  theme: ExpandableThemeData(
+                                                    tapHeaderToExpand: true,
+                                                    tapBodyToExpand: false,
+                                                    tapBodyToCollapse: false,
+                                                    headerAlignment:
+                                                        ExpandablePanelHeaderAlignment
+                                                            .center,
+                                                    hasIcon: true,
+                                                    expandIcon:
+                                                        FFIcons.karrowDown2,
+                                                    collapseIcon:
+                                                        FFIcons.karrowUp2,
+                                                    iconSize: 24.0,
+                                                    iconColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        },
                                       );
                                     },
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return StreamBuilder<CategoryRecord>(
+                                stream: CategoryRecord.getDocument(FFAppState()
+                                    .mainFilter
+                                    .category
+                                    .firstOrNull!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 10.0,
+                                        height: 10.0,
+                                        child: SpinKitCircle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 10.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  final containerCategoryRecord =
+                                      snapshot.data!;
+
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 0.0, 12.0, 0.0),
+                                      child: ListView(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 0.0, 0.0),
+                                              child: StreamBuilder<
+                                                  List<CategoryRecord>>(
+                                                stream: queryCategoryRecord(
+                                                  queryBuilder:
+                                                      (categoryRecord) =>
+                                                          categoryRecord.where(
+                                                    'parentCat',
+                                                    isEqualTo:
+                                                        containerCategoryRecord
+                                                            .reference,
+                                                  ),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 10.0,
+                                                        height: 10.0,
+                                                        child: SpinKitCircle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          size: 10.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<CategoryRecord>
+                                                      secondCategoryRecordList =
+                                                      snapshot.data!;
+
+                                                  return ListView.builder(
+                                                    padding: EdgeInsets.zero,
+                                                    primary: false,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        secondCategoryRecordList
+                                                            .length,
+                                                    itemBuilder:
+                                                        (context, secondIndex) {
+                                                      final secondCategoryRecord =
+                                                          secondCategoryRecordList[
+                                                              secondIndex];
+                                                      return Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          color:
+                                                              Color(0x00000000),
+                                                          child:
+                                                              ExpandableNotifier(
+                                                            initialExpanded:
+                                                                false,
+                                                            child:
+                                                                ExpandablePanel(
+                                                              header: Text(
+                                                                secondCategoryRecord
+                                                                    .title,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .mulish(
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      fontSize:
+                                                                          18.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                              ),
+                                                              collapsed:
+                                                                  Container(),
+                                                              expanded:
+                                                                  StreamBuilder<
+                                                                      List<
+                                                                          CategoryRecord>>(
+                                                                stream:
+                                                                    queryCategoryRecord(
+                                                                  queryBuilder:
+                                                                      (categoryRecord) =>
+                                                                          categoryRecord
+                                                                              .where(
+                                                                    'parentCat',
+                                                                    isEqualTo:
+                                                                        secondCategoryRecord
+                                                                            .reference,
+                                                                  ),
+                                                                ),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            10.0,
+                                                                        height:
+                                                                            10.0,
+                                                                        child:
+                                                                            SpinKitCircle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              10.0,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  List<CategoryRecord>
+                                                                      thirdCategoryRecordList =
+                                                                      snapshot
+                                                                          .data!;
+
+                                                                  return ListView
+                                                                      .separated(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    primary:
+                                                                        false,
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    scrollDirection:
+                                                                        Axis.vertical,
+                                                                    itemCount:
+                                                                        thirdCategoryRecordList
+                                                                            .length,
+                                                                    separatorBuilder: (_,
+                                                                            __) =>
+                                                                        SizedBox(
+                                                                            height:
+                                                                                12.0),
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            thirdIndex) {
+                                                                      final thirdCategoryRecord =
+                                                                          thirdCategoryRecordList[
+                                                                              thirdIndex];
+                                                                      return InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
+                                                                        onTap:
+                                                                            () async {
+                                                                          _model.choosenCats =
+                                                                              [];
+                                                                          safeSetState(
+                                                                              () {});
+                                                                          _model
+                                                                              .addToChoosenCats(thirdCategoryRecord.reference);
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          children:
+                                                                              [
+                                                                            if (_model.choosenCats.contains(thirdCategoryRecord.reference))
+                                                                              Icon(
+                                                                                Icons.circle_outlined,
+                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                size: 24.0,
+                                                                              ),
+                                                                            if (!_model.choosenCats.contains(thirdCategoryRecord.reference))
+                                                                              Icon(
+                                                                                Icons.circle_rounded,
+                                                                                color: Color(0xFFD3D3D3),
+                                                                                size: 24.0,
+                                                                              ),
+                                                                            Text(
+                                                                              thirdCategoryRecord.title,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    font: GoogleFonts.mulish(
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
+                                                                                    color: _model.choosenCats.contains(thirdCategoryRecord.reference) ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
+                                                                                    fontSize: 18.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                            ),
+                                                                          ].divide(SizedBox(width: 8.0)),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              ),
+                                                              theme:
+                                                                  ExpandableThemeData(
+                                                                tapHeaderToExpand:
+                                                                    true,
+                                                                tapBodyToExpand:
+                                                                    false,
+                                                                tapBodyToCollapse:
+                                                                    false,
+                                                                headerAlignment:
+                                                                    ExpandablePanelHeaderAlignment
+                                                                        .center,
+                                                                hasIcon: true,
+                                                                expandIcon: FFIcons
+                                                                    .karrowDown2,
+                                                                collapseIcon:
+                                                                    FFIcons
+                                                                        .karrowUp2,
+                                                                iconSize: 24.0,
+                                                                iconColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 },
-                              ),
-                            ),
-                          ),
+                              );
+                            }
+                          },
                         ),
                       ]
-                          .divide(SizedBox(height: 24.0))
+                          .divide(SizedBox(height: 12.0))
                           .addToStart(SizedBox(height: 40.0))
                           .addToEnd(SizedBox(height: 120.0)),
                     ),
@@ -1244,7 +1528,9 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                         builder: (context) => FFButtonWidget(
                           onPressed: () async {
                             FFAppState().updateMainFilterStruct(
-                              (e) => e..category = _model.choosenCats.toList(),
+                              (e) => e
+                                ..category = _model.choosenCats.toList()
+                                ..mainCat = false,
                             );
                             if (_model.userLocValue!) {
                               FFAppState().updateMainFilterStruct(

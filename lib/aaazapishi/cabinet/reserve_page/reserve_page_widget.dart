@@ -5,6 +5,7 @@ import '/aaazapishi/components/backbutton/backbutton_widget.dart';
 import '/aaazapishi/components/menu/menu_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +14,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'reserve_page_model.dart';
@@ -64,12 +66,11 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
+                width: 10.0,
+                height: 10.0,
+                child: SpinKitCircle(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -190,17 +191,13 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                             if (!snapshot.hasData) {
                                               return Center(
                                                 child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
+                                                  width: 10.0,
+                                                  height: 10.0,
+                                                  child: SpinKitCircle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    size: 10.0,
                                                   ),
                                                 ),
                                               );
@@ -261,17 +258,13 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
                                                     ),
                                                   ),
                                                 );
@@ -367,15 +360,13 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
+                                              width: 10.0,
+                                              height: 10.0,
+                                              child: SpinKitCircle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
                                           );
@@ -960,6 +951,19 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                             .update(createRecordsRecordData(
                                           status: RecordStatus.confirmed,
                                         ));
+                                        triggerPushNotification(
+                                          notificationTitle:
+                                              'Запись подтверждена мастером',
+                                          notificationText:
+                                              reservePageRecordsRecord.title,
+                                          userRefs: [
+                                            reservePageRecordsRecord.client!
+                                          ],
+                                          initialPageName: 'recordPage',
+                                          parameterData: {
+                                            'recordRef': widget.recordRef,
+                                          },
+                                        );
                                         await showAlignedDialog(
                                           context: context,
                                           isGlobal: false,
@@ -1075,7 +1079,7 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                 ),
                               ),
                             if ((reservePageRecordsRecord.status ==
-                                    RecordStatus.newREc) &&
+                                    RecordStatus.complete) &&
                                 (reservePageRecordsRecord.reviewOnClient ==
                                     null) &&
                                 (reservePageRecordsRecord.client != null))

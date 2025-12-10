@@ -16,6 +16,7 @@ class FilterDataStruct extends FFFirebaseStruct {
     DateTime? dateServ,
     bool? onRadius,
     SearchPlaceStruct? place,
+    bool? mainCat,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _userPoint = userPoint,
         _locationRadius = locationRadius,
@@ -24,6 +25,7 @@ class FilterDataStruct extends FFFirebaseStruct {
         _dateServ = dateServ,
         _onRadius = onRadius,
         _place = place,
+        _mainCat = mainCat,
         super(firestoreUtilData);
 
   // "userPoint" field.
@@ -86,6 +88,13 @@ class FilterDataStruct extends FFFirebaseStruct {
 
   bool hasPlace() => _place != null;
 
+  // "mainCat" field.
+  bool? _mainCat;
+  bool get mainCat => _mainCat ?? true;
+  set mainCat(bool? val) => _mainCat = val;
+
+  bool hasMainCat() => _mainCat != null;
+
   static FilterDataStruct fromMap(Map<String, dynamic> data) =>
       FilterDataStruct(
         userPoint: data['userPoint'] as LatLng?,
@@ -97,6 +106,7 @@ class FilterDataStruct extends FFFirebaseStruct {
         place: data['place'] is SearchPlaceStruct
             ? data['place']
             : SearchPlaceStruct.maybeFromMap(data['place']),
+        mainCat: data['mainCat'] as bool?,
       );
 
   static FilterDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -111,6 +121,7 @@ class FilterDataStruct extends FFFirebaseStruct {
         'dateServ': _dateServ,
         'onRadius': _onRadius,
         'place': _place?.toMap(),
+        'mainCat': _mainCat,
       }.withoutNulls;
 
   @override
@@ -143,6 +154,10 @@ class FilterDataStruct extends FFFirebaseStruct {
         'place': serializeParam(
           _place,
           ParamType.DataStruct,
+        ),
+        'mainCat': serializeParam(
+          _mainCat,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -185,6 +200,11 @@ class FilterDataStruct extends FFFirebaseStruct {
           false,
           structBuilder: SearchPlaceStruct.fromSerializableMap,
         ),
+        mainCat: deserializeParam(
+          data['mainCat'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -200,12 +220,21 @@ class FilterDataStruct extends FFFirebaseStruct {
         atHome == other.atHome &&
         dateServ == other.dateServ &&
         onRadius == other.onRadius &&
-        place == other.place;
+        place == other.place &&
+        mainCat == other.mainCat;
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [userPoint, locationRadius, category, atHome, dateServ, onRadius, place]);
+  int get hashCode => const ListEquality().hash([
+        userPoint,
+        locationRadius,
+        category,
+        atHome,
+        dateServ,
+        onRadius,
+        place,
+        mainCat
+      ]);
 }
 
 FilterDataStruct createFilterDataStruct({
@@ -215,6 +244,7 @@ FilterDataStruct createFilterDataStruct({
   DateTime? dateServ,
   bool? onRadius,
   SearchPlaceStruct? place,
+  bool? mainCat,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -227,6 +257,7 @@ FilterDataStruct createFilterDataStruct({
       dateServ: dateServ,
       onRadius: onRadius,
       place: place ?? (clearUnsetFields ? SearchPlaceStruct() : null),
+      mainCat: mainCat,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

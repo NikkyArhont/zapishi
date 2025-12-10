@@ -14,6 +14,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'admin_c_chats_model.dart';
 export 'admin_c_chats_model.dart';
@@ -109,12 +110,12 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                                    width: 10.0,
+                                    height: 10.0,
+                                    child: SpinKitCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      size: 10.0,
                                     ),
                                   ),
                                 );
@@ -196,16 +197,15 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                     child:
                                                                         SizedBox(
                                                                       width:
-                                                                          50.0,
+                                                                          10.0,
                                                                       height:
-                                                                          50.0,
+                                                                          10.0,
                                                                       child:
-                                                                          CircularProgressIndicator(
-                                                                        valueColor:
-                                                                            AlwaysStoppedAnimation<Color>(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primary,
-                                                                        ),
+                                                                          SpinKitCircle(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        size:
+                                                                            10.0,
                                                                       ),
                                                                     ),
                                                                   );
@@ -238,14 +238,13 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -268,12 +267,11 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                             if (!snapshot.hasData) {
                                                                               return Center(
                                                                                 child: SizedBox(
-                                                                                  width: 50.0,
-                                                                                  height: 50.0,
-                                                                                  child: CircularProgressIndicator(
-                                                                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                      FlutterFlowTheme.of(context).primary,
-                                                                                    ),
+                                                                                  width: 10.0,
+                                                                                  height: 10.0,
+                                                                                  child: SpinKitCircle(
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    size: 10.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -452,16 +450,15 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                     child:
                                                                         SizedBox(
                                                                       width:
-                                                                          50.0,
+                                                                          10.0,
                                                                       height:
-                                                                          50.0,
+                                                                          10.0,
                                                                       child:
-                                                                          CircularProgressIndicator(
-                                                                        valueColor:
-                                                                            AlwaysStoppedAnimation<Color>(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primary,
-                                                                        ),
+                                                                          SpinKitCircle(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        size:
+                                                                            10.0,
                                                                       ),
                                                                     ),
                                                                   );
@@ -669,17 +666,13 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                             if (!snapshot.hasData) {
                                               return Center(
                                                 child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
+                                                  width: 10.0,
+                                                  height: 10.0,
+                                                  child: SpinKitCircle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    size: 10.0,
                                                   ),
                                                 ),
                                               );
@@ -726,17 +719,16 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                 return Center(
                                                                   child:
                                                                       SizedBox(
-                                                                    width: 50.0,
+                                                                    width: 10.0,
                                                                     height:
-                                                                        50.0,
+                                                                        10.0,
                                                                     child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                      ),
+                                                                        SpinKitCircle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ),
                                                                 );
@@ -773,14 +765,13 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                10.0,
                                                                             height:
-                                                                                50.0,
+                                                                                10.0,
                                                                             child:
-                                                                                CircularProgressIndicator(
-                                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                              ),
+                                                                                SpinKitCircle(
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              size: 10.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -963,17 +954,16 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                 return Center(
                                                                   child:
                                                                       SizedBox(
-                                                                    width: 50.0,
+                                                                    width: 10.0,
                                                                     height:
-                                                                        50.0,
+                                                                        10.0,
                                                                     child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                      ),
+                                                                        SpinKitCircle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ),
                                                                 );
@@ -1065,17 +1055,16 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                 return Center(
                                                                   child:
                                                                       SizedBox(
-                                                                    width: 50.0,
+                                                                    width: 10.0,
                                                                     height:
-                                                                        50.0,
+                                                                        10.0,
                                                                     child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                      ),
+                                                                        SpinKitCircle(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ),
                                                                 );
@@ -1132,7 +1121,7 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                             ),
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                              color: FlutterFlowTheme.of(context).accent4,
                                                                               boxShadow: [
                                                                                 BoxShadow(
                                                                                   blurRadius: 4.0,
@@ -1586,7 +1575,7 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
+                                                                      12.0,
                                                                       6.0,
                                                                       0.0,
                                                                       6.0),
@@ -1884,20 +1873,10 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                         maxHeight: 300.0,
                                                       ),
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            blurRadius: 4.0,
-                                                            color: Color(
-                                                                0x33000000),
-                                                            offset: Offset(
-                                                              0.0,
-                                                              -2.0,
-                                                            ),
-                                                          )
-                                                        ],
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .accent4,
                                                       ),
                                                       child: Padding(
                                                         padding: EdgeInsets.all(
@@ -1987,7 +1966,7 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                         fontFamily:
                                                                             FlutterFlowTheme.of(context).labelMediumFamily,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .accent1,
+                                                                            .primaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
@@ -2010,9 +1989,8 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                       OutlineInputBorder(
                                                                     borderSide:
                                                                         BorderSide(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
+                                                                      color: Color(
+                                                                          0x00000000),
                                                                       width:
                                                                           1.0,
                                                                     ),
@@ -2024,9 +2002,8 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                       OutlineInputBorder(
                                                                     borderSide:
                                                                         BorderSide(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
+                                                                      color: Color(
+                                                                          0x00000000),
                                                                       width:
                                                                           1.0,
                                                                     ),
@@ -2038,9 +2015,8 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                       OutlineInputBorder(
                                                                     borderSide:
                                                                         BorderSide(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
+                                                                      color: Color(
+                                                                          0x00000000),
                                                                       width:
                                                                           1.0,
                                                                     ),
@@ -2051,10 +2027,7 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                   filled: true,
                                                                   fillColor: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondaryBackground,
-                                                                  hoverColor: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
+                                                                      .accent4,
                                                                 ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)

@@ -136,7 +136,7 @@ class _AdminDelCatWidgetState extends State<AdminDelCatWidget> {
                 'assets/images/error.png',
                 width: 160.0,
                 height: 160.0,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
             Row(

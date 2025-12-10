@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'cchat_window_model.dart';
 export 'cchat_window_model.dart';
@@ -61,344 +62,339 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFFEEEEEE),
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Builder(
-                builder: (context) {
-                  if (widget.chatDocument?.record != null) {
-                    return StreamBuilder<RecordsRecord>(
-                      stream: RecordsRecord.getDocument(
-                          widget.chatDocument!.record!),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                ),
+                child: Builder(
+                  builder: (context) {
+                    if (widget.chatDocument?.record != null) {
+                      return StreamBuilder<RecordsRecord>(
+                        stream: RecordsRecord.getDocument(
+                            widget.chatDocument!.record!),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 10.0,
+                                height: 10.0,
+                                child: SpinKitCircle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  size: 10.0,
                                 ),
                               ),
-                            ),
-                          );
-                        }
+                            );
+                          }
 
-                        final columnRecordsRecord = snapshot.data!;
+                          final columnRecordsRecord = snapshot.data!;
 
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 12.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  wrapWithModel(
-                                    model: _model.backbuttonModel1,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: BackbuttonWidget(),
-                                  ),
-                                  StreamBuilder<MastersRecord>(
-                                    stream: MastersRecord.getDocument(
-                                        columnRecordsRecord.organisation!),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 12.0, 12.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    wrapWithModel(
+                                      model: _model.backbuttonModel1,
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: BackbuttonWidget(),
+                                    ),
+                                    StreamBuilder<MastersRecord>(
+                                      stream: MastersRecord.getDocument(
+                                          columnRecordsRecord.organisation!),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 10.0,
+                                              height: 10.0,
+                                              child: SpinKitCircle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 10.0,
                                               ),
                                             ),
+                                          );
+                                        }
+
+                                        final containerMastersRecord =
+                                            snapshot.data!;
+
+                                        return Container(
+                                          decoration: BoxDecoration(),
+                                          child: StreamBuilder<UserRecord>(
+                                            stream: UserRecord.getDocument(
+                                                columnRecordsRecord.client!),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 10.0,
+                                                    height: 10.0,
+                                                    child: SpinKitCircle(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      size: 10.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              final rowUserRecord =
+                                                  snapshot.data!;
+
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 32.0,
+                                                    height: 32.0,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Image.network(
+                                                      containerMastersRecord
+                                                                  .owner ==
+                                                              currentUserReference
+                                                          ? containerMastersRecord
+                                                              .banner
+                                                          : rowUserRecord
+                                                              .photoUrl,
+                                                      fit: BoxFit.cover,
+                                                      errorBuilder: (context,
+                                                              error,
+                                                              stackTrace) =>
+                                                          Image.asset(
+                                                        'assets/images/error_image.png',
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      containerMastersRecord
+                                                                  .owner ==
+                                                              currentUserReference
+                                                          ? containerMastersRecord
+                                                              .title
+                                                          : rowUserRecord
+                                                              .displayName,
+                                                      'Собеседник',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts:
+                                                              !FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleMediumIsCustom,
+                                                        ),
+                                                  ),
+                                                ].divide(SizedBox(width: 8.0)),
+                                              );
+                                            },
                                           ),
                                         );
-                                      }
-
-                                      final containerMastersRecord =
-                                          snapshot.data!;
-
-                                      return Container(
-                                        decoration: BoxDecoration(),
-                                        child: StreamBuilder<UserRecord>(
-                                          stream: UserRecord.getDocument(
-                                              columnRecordsRecord.client!),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
+                                      },
+                                    ),
+                                    Container(
+                                      width: 32.0,
+                                      height: 2.0,
+                                      decoration: BoxDecoration(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFEEEEEE),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 12.0, 24.0, 12.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (columnRecordsRecord.client ==
+                                                currentUserReference) {
+                                              context.pushNamed(
+                                                RecordPageWidget.routeName,
+                                                queryParameters: {
+                                                  'recordRef': serializeParam(
+                                                    columnRecordsRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
-                                                ),
+                                                }.withoutNulls,
+                                              );
+                                            } else {
+                                              context.pushNamed(
+                                                ReservePageWidget.routeName,
+                                                queryParameters: {
+                                                  'recordRef': serializeParam(
+                                                    columnRecordsRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
                                               );
                                             }
-
-                                            final rowUserRecord =
-                                                snapshot.data!;
-
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 32.0,
-                                                  height: 32.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    containerMastersRecord
-                                                                .owner ==
-                                                            currentUserReference
-                                                        ? containerMastersRecord
-                                                            .banner
-                                                        : rowUserRecord
-                                                            .photoUrl,
-                                                    fit: BoxFit.cover,
-                                                    errorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        Image.asset(
-                                                      'assets/images/error_image.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    containerMastersRecord
-                                                                .owner ==
-                                                            currentUserReference
-                                                        ? containerMastersRecord
-                                                            .title
-                                                        : rowUserRecord
-                                                            .displayName,
-                                                    'Собеседник',
-                                                  ),
-                                                  style:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumFamily,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMediumIsCustom,
-                                                          ),
-                                                ),
-                                              ].divide(SizedBox(width: 8.0)),
-                                            );
                                           },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                dateTimeFormat(
+                                                  "dd.MM.yy",
+                                                  columnRecordsRecord.date!,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                      useGoogleFonts:
+                                                          !FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumIsCustom,
+                                                    ),
+                                              ),
+                                              Text(
+                                                columnRecordsRecord.title,
+                                                maxLines: 1,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      useGoogleFonts:
+                                                          !FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumIsCustom,
+                                                    ),
+                                              ),
+                                            ].divide(SizedBox(height: 12.0)),
+                                          ),
                                         ),
-                                      );
-                                    },
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(height: 12.0)),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 0.0, 12.0, 12.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            wrapWithModel(
+                              model: _model.backbuttonModel2,
+                              updateCallback: () => safeSetState(() {}),
+                              child: BackbuttonWidget(),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Чат с поддержкой',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMediumFamily,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                          useGoogleFonts:
+                                              !FlutterFlowTheme.of(context)
+                                                  .titleMediumIsCustom,
+                                        ),
                                   ),
-                                  Container(
-                                    width: 32.0,
-                                    height: 2.0,
-                                    decoration: BoxDecoration(),
-                                  ),
-                                ],
+                                ].divide(SizedBox(width: 8.0)),
                               ),
                             ),
                             Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: 32.0,
+                              height: 2.0,
                               decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 6.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(
-                                            0.0,
-                                            2.0,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 12.0, 24.0, 12.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          if (columnRecordsRecord.client ==
-                                              currentUserReference) {
-                                            context.pushNamed(
-                                              RecordPageWidget.routeName,
-                                              queryParameters: {
-                                                'recordRef': serializeParam(
-                                                  columnRecordsRecord.reference,
-                                                  ParamType.DocumentReference,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          } else {
-                                            context.pushNamed(
-                                              ReservePageWidget.routeName,
-                                              queryParameters: {
-                                                'recordRef': serializeParam(
-                                                  columnRecordsRecord.reference,
-                                                  ParamType.DocumentReference,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          }
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              dateTimeFormat(
-                                                "dd.MM.yy",
-                                                columnRecordsRecord.date!,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    letterSpacing: 0.0,
-                                                    useGoogleFonts:
-                                                        !FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumIsCustom,
-                                                  ),
-                                            ),
-                                            Text(
-                                              columnRecordsRecord.title,
-                                              maxLines: 1,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    fontSize: 16.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.bold,
-                                                    useGoogleFonts:
-                                                        !FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumIsCustom,
-                                                  ),
-                                            ),
-                                          ].divide(SizedBox(height: 12.0)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ].divide(SizedBox(height: 12.0)),
-                              ),
                             ),
                           ],
-                        );
-                      },
-                    );
-                  } else {
-                    return Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          wrapWithModel(
-                            model: _model.backbuttonModel2,
-                            updateCallback: () => safeSetState(() {}),
-                            child: BackbuttonWidget(),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'Чат с поддержкой',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleMediumFamily,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .titleMediumIsCustom,
-                                      ),
-                                ),
-                              ].divide(SizedBox(width: 8.0)),
-                            ),
-                          ),
-                          Container(
-                            width: 32.0,
-                            height: 2.0,
-                            decoration: BoxDecoration(),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
               Flexible(
                 child: Align(
@@ -420,12 +416,12 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                              width: 10.0,
+                              height: 10.0,
+                              child: SpinKitCircle(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                size: 10.0,
                               ),
                             ),
                           );
@@ -461,16 +457,6 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: Color(0x33000000),
-                                            offset: Offset(
-                                              0.0,
-                                              2.0,
-                                            ),
-                                          )
-                                        ],
                                         borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(16.0),
                                           bottomRight: Radius.circular(16.0),
@@ -672,10 +658,7 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .bodyMediumFamily,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .accent1,
+                                                      color: Color(0xFF9E9E9E),
                                                       fontSize: 12.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
@@ -702,16 +685,6 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .tertiary,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: Color(0x33000000),
-                                            offset: Offset(
-                                              0.0,
-                                              2.0,
-                                            ),
-                                          )
-                                        ],
                                         borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(16.0),
                                           bottomRight: Radius.circular(16.0),
@@ -1035,406 +1008,377 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                   alignment: AlignmentDirectional(1.0, 0.0),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
-                    child: Material(
-                      color: Colors.transparent,
-                      elevation: 6.0,
-                      shape: RoundedRectangleBorder(
+                    child: Container(
+                      width: 360.0,
+                      height: 140.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: Container(
-                        width: 360.0,
-                        height: 140.0,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FlutterFlowIconButton(
-                                  borderRadius: 100.0,
-                                  buttonSize: 72.0,
-                                  fillColor: Color(0x33A7C4FE),
-                                  icon: Icon(
-                                    FFIcons.kdocument2,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 32.0,
-                                  ),
-                                  onPressed: () async {
-                                    final selectedFiles = await selectFiles(
-                                      multiFile: false,
-                                    );
-                                    if (selectedFiles != null) {
-                                      safeSetState(() =>
-                                          _model.isDataUploading_uploadDataDOC =
-                                              true);
-                                      var selectedUploadedFiles =
-                                          <FFUploadedFile>[];
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderRadius: 100.0,
+                                buttonSize: 72.0,
+                                fillColor: Color(0x33A7C4FE),
+                                icon: Icon(
+                                  FFIcons.kdocument2,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 32.0,
+                                ),
+                                onPressed: () async {
+                                  final selectedFiles = await selectFiles(
+                                    multiFile: false,
+                                  );
+                                  if (selectedFiles != null) {
+                                    safeSetState(() => _model
+                                        .isDataUploading_uploadDataDOC = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
 
-                                      var downloadUrls = <String>[];
-                                      try {
-                                        selectedUploadedFiles = selectedFiles
-                                            .map((m) => FFUploadedFile(
-                                                  name: m.storagePath
-                                                      .split('/')
-                                                      .last,
-                                                  bytes: m.bytes,
-                                                  originalFilename:
-                                                      m.originalFilename,
-                                                ))
-                                            .toList();
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      selectedUploadedFiles = selectedFiles
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                originalFilename:
+                                                    m.originalFilename,
+                                              ))
+                                          .toList();
 
-                                        downloadUrls = (await Future.wait(
-                                          selectedFiles.map(
-                                            (f) async => await uploadData(
-                                                f.storagePath, f.bytes),
-                                          ),
-                                        ))
-                                            .where((u) => u != null)
-                                            .map((u) => u!)
-                                            .toList();
-                                      } finally {
-                                        _model.isDataUploading_uploadDataDOC =
-                                            false;
-                                      }
-                                      if (selectedUploadedFiles.length ==
-                                              selectedFiles.length &&
-                                          downloadUrls.length ==
-                                              selectedFiles.length) {
-                                        safeSetState(() {
-                                          _model.uploadedLocalFile_uploadDataDOC =
-                                              selectedUploadedFiles.first;
-                                          _model.uploadedFileUrl_uploadDataDOC =
-                                              downloadUrls.first;
-                                        });
-                                      } else {
-                                        safeSetState(() {});
-                                        return;
-                                      }
-                                    }
-
-                                    var messagesRecordReference =
-                                        MessagesRecord.collection.doc();
-                                    await messagesRecordReference
-                                        .set(createMessagesRecordData(
-                                      chat: widget.chatDocument?.reference,
-                                      document:
-                                          _model.uploadedFileUrl_uploadDataDOC,
-                                      sender: currentUserReference,
-                                      dateTime: getCurrentTimestamp,
-                                      text: _model.textController.text != ''
-                                          ? _model.textController.text
-                                          : 'Документ',
-                                    ));
-                                    _model.newMessDoc =
-                                        MessagesRecord.getDocumentFromData(
-                                            createMessagesRecordData(
-                                              chat: widget
-                                                  .chatDocument?.reference,
-                                              document: _model
-                                                  .uploadedFileUrl_uploadDataDOC,
-                                              sender: currentUserReference,
-                                              dateTime: getCurrentTimestamp,
-                                              text: _model.textController
-                                                              .text !=
-                                                          ''
-                                                  ? _model.textController.text
-                                                  : 'Документ',
-                                            ),
-                                            messagesRecordReference);
-
-                                    await widget.chatDocument!.reference
-                                        .update({
-                                      ...createChatRecordData(
-                                        lastMessageTime: getCurrentTimestamp,
-                                        lastMessage:
-                                            _model.newMessDoc?.reference,
-                                        lastMessageSender: currentUserReference,
-                                        lastMessageText:
-                                            _model.newMessDoc?.text,
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'messages': FieldValue.arrayUnion(
-                                              [_model.newMessDoc?.reference]),
-                                          'lastMessageSeenBy':
-                                              FieldValue.delete(),
-                                        },
-                                      ),
-                                    });
-
-                                    await widget.chatDocument!.reference
-                                        .update({
-                                      ...mapToFirestore(
-                                        {
-                                          'lastMessageSeenBy':
-                                              FieldValue.arrayUnion(
-                                                  [currentUserReference]),
-                                        },
-                                      ),
-                                    });
-                                    safeSetState(() {
+                                      downloadUrls = (await Future.wait(
+                                        selectedFiles.map(
+                                          (f) async => await uploadData(
+                                              f.storagePath, f.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
                                       _model.isDataUploading_uploadDataDOC =
                                           false;
-                                      _model.uploadedLocalFile_uploadDataDOC =
-                                          FFUploadedFile(
-                                              bytes: Uint8List.fromList([]),
-                                              originalFilename: '');
-                                      _model.uploadedFileUrl_uploadDataDOC = '';
-                                    });
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                            selectedFiles.length &&
+                                        downloadUrls.length ==
+                                            selectedFiles.length) {
+                                      safeSetState(() {
+                                        _model.uploadedLocalFile_uploadDataDOC =
+                                            selectedUploadedFiles.first;
+                                        _model.uploadedFileUrl_uploadDataDOC =
+                                            downloadUrls.first;
+                                      });
+                                    } else {
+                                      safeSetState(() {});
+                                      return;
+                                    }
+                                  }
 
-                                    triggerPushNotification(
-                                      notificationTitle: 'Новое сообщение',
-                                      notificationText: _model.newMessDoc!.text,
-                                      notificationSound: 'default',
-                                      userRefs: widget.chatDocument!.members
-                                          .toList(),
-                                      initialPageName: 'cchatWindow',
-                                      parameterData: {
-                                        'chatDocument': widget.chatDocument,
+                                  var messagesRecordReference =
+                                      MessagesRecord.collection.doc();
+                                  await messagesRecordReference
+                                      .set(createMessagesRecordData(
+                                    chat: widget.chatDocument?.reference,
+                                    document:
+                                        _model.uploadedFileUrl_uploadDataDOC,
+                                    sender: currentUserReference,
+                                    dateTime: getCurrentTimestamp,
+                                    text: _model.textController.text != ''
+                                        ? _model.textController.text
+                                        : 'Документ',
+                                  ));
+                                  _model.newMessDoc =
+                                      MessagesRecord.getDocumentFromData(
+                                          createMessagesRecordData(
+                                            chat:
+                                                widget.chatDocument?.reference,
+                                            document: _model
+                                                .uploadedFileUrl_uploadDataDOC,
+                                            sender: currentUserReference,
+                                            dateTime: getCurrentTimestamp,
+                                            text: _model.textController
+                                                            .text !=
+                                                        ''
+                                                ? _model.textController.text
+                                                : 'Документ',
+                                          ),
+                                          messagesRecordReference);
+
+                                  await widget.chatDocument!.reference.update({
+                                    ...createChatRecordData(
+                                      lastMessageTime: getCurrentTimestamp,
+                                      lastMessage: _model.newMessDoc?.reference,
+                                      lastMessageSender: currentUserReference,
+                                      lastMessageText: _model.newMessDoc?.text,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'messages': FieldValue.arrayUnion(
+                                            [_model.newMessDoc?.reference]),
+                                        'lastMessageSeenBy':
+                                            FieldValue.delete(),
                                       },
-                                    );
+                                    ),
+                                  });
 
-                                    safeSetState(() {});
-                                  },
+                                  await widget.chatDocument!.reference.update({
+                                    ...mapToFirestore(
+                                      {
+                                        'lastMessageSeenBy':
+                                            FieldValue.arrayUnion(
+                                                [currentUserReference]),
+                                      },
+                                    ),
+                                  });
+                                  safeSetState(() {
+                                    _model.isDataUploading_uploadDataDOC =
+                                        false;
+                                    _model.uploadedLocalFile_uploadDataDOC =
+                                        FFUploadedFile(
+                                            bytes: Uint8List.fromList([]),
+                                            originalFilename: '');
+                                    _model.uploadedFileUrl_uploadDataDOC = '';
+                                  });
+
+                                  triggerPushNotification(
+                                    notificationTitle: 'Новое сообщение',
+                                    notificationText: _model.newMessDoc!.text,
+                                    notificationSound: 'default',
+                                    userRefs:
+                                        widget.chatDocument!.members.toList(),
+                                    initialPageName: 'cchatWindow',
+                                    parameterData: {
+                                      'chatDocument': widget.chatDocument,
+                                    },
+                                  );
+
+                                  safeSetState(() {});
+                                },
+                              ),
+                              Text(
+                                'Документ',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                              ),
+                            ].divide(SizedBox(height: 12.0)),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderRadius: 100.0,
+                                buttonSize: 72.0,
+                                fillColor: Color(0x33A7C4FE),
+                                disabledColor:
+                                    FlutterFlowTheme.of(context).alternate,
+                                disabledIconColor:
+                                    FlutterFlowTheme.of(context).accent1,
+                                icon: Icon(
+                                  FFIcons.kcamera2,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 32.0,
                                 ),
-                                Text(
-                                  'Документ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
-                                      ),
-                                ),
-                              ].divide(SizedBox(height: 12.0)),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FlutterFlowIconButton(
-                                  borderRadius: 100.0,
-                                  buttonSize: 72.0,
-                                  fillColor: Color(0x33A7C4FE),
-                                  disabledColor:
-                                      FlutterFlowTheme.of(context).alternate,
-                                  disabledIconColor:
-                                      FlutterFlowTheme.of(context).accent1,
-                                  icon: Icon(
-                                    FFIcons.kcamera2,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 32.0,
-                                  ),
-                                  onPressed: (_model.uploadedPhoto.length >= 5)
-                                      ? null
-                                      : () async {
-                                          final selectedMedia =
-                                              await selectMedia(
-                                            maxWidth: 1920.00,
-                                            maxHeight: 1920.00,
-                                            multiImage: false,
-                                          );
-                                          if (selectedMedia != null &&
-                                              selectedMedia.every((m) =>
-                                                  validateFileFormat(
-                                                      m.storagePath,
-                                                      context))) {
-                                            safeSetState(() => _model
-                                                    .isDataUploading_uploadDataCamera =
-                                                true);
-                                            var selectedUploadedFiles =
-                                                <FFUploadedFile>[];
+                                onPressed: (_model.uploadedPhoto.length >= 5)
+                                    ? null
+                                    : () async {
+                                        final selectedMedia = await selectMedia(
+                                          maxWidth: 1920.00,
+                                          maxHeight: 1920.00,
+                                          multiImage: false,
+                                        );
+                                        if (selectedMedia != null &&
+                                            selectedMedia.every((m) =>
+                                                validateFileFormat(
+                                                    m.storagePath, context))) {
+                                          safeSetState(() => _model
+                                                  .isDataUploading_uploadDataCamera =
+                                              true);
+                                          var selectedUploadedFiles =
+                                              <FFUploadedFile>[];
 
-                                            try {
-                                              selectedUploadedFiles =
-                                                  selectedMedia
-                                                      .map(
-                                                          (m) => FFUploadedFile(
-                                                                name: m
-                                                                    .storagePath
-                                                                    .split('/')
-                                                                    .last,
-                                                                bytes: m.bytes,
-                                                                height: m
-                                                                    .dimensions
-                                                                    ?.height,
-                                                                width: m
-                                                                    .dimensions
-                                                                    ?.width,
-                                                                blurHash:
-                                                                    m.blurHash,
-                                                                originalFilename:
-                                                                    m.originalFilename,
-                                                              ))
-                                                      .toList();
-                                            } finally {
-                                              _model.isDataUploading_uploadDataCamera =
-                                                  false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                selectedMedia.length) {
-                                              safeSetState(() {
-                                                _model.uploadedLocalFile_uploadDataCamera =
-                                                    selectedUploadedFiles.first;
-                                              });
-                                            } else {
-                                              safeSetState(() {});
-                                              return;
-                                            }
-                                          }
-
-                                          _model.addToUploadedPhoto(_model
-                                              .uploadedLocalFile_uploadDataCamera);
-                                          safeSetState(() {
+                                          try {
+                                            selectedUploadedFiles =
+                                                selectedMedia
+                                                    .map((m) => FFUploadedFile(
+                                                          name: m.storagePath
+                                                              .split('/')
+                                                              .last,
+                                                          bytes: m.bytes,
+                                                          height: m.dimensions
+                                                              ?.height,
+                                                          width: m.dimensions
+                                                              ?.width,
+                                                          blurHash: m.blurHash,
+                                                          originalFilename: m
+                                                              .originalFilename,
+                                                        ))
+                                                    .toList();
+                                          } finally {
                                             _model.isDataUploading_uploadDataCamera =
                                                 false;
-                                            _model.uploadedLocalFile_uploadDataCamera =
-                                                FFUploadedFile(
-                                                    bytes:
-                                                        Uint8List.fromList([]),
-                                                    originalFilename: '');
-                                          });
-                                        },
-                                ),
-                                Text(
-                                  'Камера',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
-                                      ),
-                                ),
-                              ].divide(SizedBox(height: 12.0)),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FlutterFlowIconButton(
-                                  borderRadius: 100.0,
-                                  buttonSize: 72.0,
-                                  fillColor: Color(0x33A7C4FE),
-                                  icon: Icon(
-                                    Icons.image_rounded,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 32.0,
-                                  ),
-                                  onPressed: (_model.uploadedPhoto.length >= 5)
-                                      ? null
-                                      : () async {
-                                          final selectedMedia =
-                                              await selectMedia(
-                                            maxWidth: 1920.00,
-                                            maxHeight: 1920.00,
-                                            mediaSource:
-                                                MediaSource.photoGallery,
-                                            multiImage: false,
-                                          );
-                                          if (selectedMedia != null &&
-                                              selectedMedia.every((m) =>
-                                                  validateFileFormat(
-                                                      m.storagePath,
-                                                      context))) {
-                                            safeSetState(() => _model
-                                                    .isDataUploading_uploadDataGallery =
-                                                true);
-                                            var selectedUploadedFiles =
-                                                <FFUploadedFile>[];
-
-                                            try {
-                                              selectedUploadedFiles =
-                                                  selectedMedia
-                                                      .map(
-                                                          (m) => FFUploadedFile(
-                                                                name: m
-                                                                    .storagePath
-                                                                    .split('/')
-                                                                    .last,
-                                                                bytes: m.bytes,
-                                                                height: m
-                                                                    .dimensions
-                                                                    ?.height,
-                                                                width: m
-                                                                    .dimensions
-                                                                    ?.width,
-                                                                blurHash:
-                                                                    m.blurHash,
-                                                                originalFilename:
-                                                                    m.originalFilename,
-                                                              ))
-                                                      .toList();
-                                            } finally {
-                                              _model.isDataUploading_uploadDataGallery =
-                                                  false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                selectedMedia.length) {
-                                              safeSetState(() {
-                                                _model.uploadedLocalFile_uploadDataGallery =
-                                                    selectedUploadedFiles.first;
-                                              });
-                                            } else {
-                                              safeSetState(() {});
-                                              return;
-                                            }
                                           }
+                                          if (selectedUploadedFiles.length ==
+                                              selectedMedia.length) {
+                                            safeSetState(() {
+                                              _model.uploadedLocalFile_uploadDataCamera =
+                                                  selectedUploadedFiles.first;
+                                            });
+                                          } else {
+                                            safeSetState(() {});
+                                            return;
+                                          }
+                                        }
 
-                                          _model.addToUploadedPhoto(_model
-                                              .uploadedLocalFile_uploadDataGallery);
-                                          safeSetState(() {});
-                                          safeSetState(() {
+                                        _model.addToUploadedPhoto(_model
+                                            .uploadedLocalFile_uploadDataCamera);
+                                        safeSetState(() {
+                                          _model.isDataUploading_uploadDataCamera =
+                                              false;
+                                          _model.uploadedLocalFile_uploadDataCamera =
+                                              FFUploadedFile(
+                                                  bytes: Uint8List.fromList([]),
+                                                  originalFilename: '');
+                                        });
+                                      },
+                              ),
+                              Text(
+                                'Камера',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                              ),
+                            ].divide(SizedBox(height: 12.0)),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderRadius: 100.0,
+                                buttonSize: 72.0,
+                                fillColor: Color(0x33A7C4FE),
+                                icon: Icon(
+                                  Icons.image_rounded,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 32.0,
+                                ),
+                                onPressed: (_model.uploadedPhoto.length >= 5)
+                                    ? null
+                                    : () async {
+                                        final selectedMedia = await selectMedia(
+                                          maxWidth: 1920.00,
+                                          maxHeight: 1920.00,
+                                          mediaSource: MediaSource.photoGallery,
+                                          multiImage: false,
+                                        );
+                                        if (selectedMedia != null &&
+                                            selectedMedia.every((m) =>
+                                                validateFileFormat(
+                                                    m.storagePath, context))) {
+                                          safeSetState(() => _model
+                                                  .isDataUploading_uploadDataGallery =
+                                              true);
+                                          var selectedUploadedFiles =
+                                              <FFUploadedFile>[];
+
+                                          try {
+                                            selectedUploadedFiles =
+                                                selectedMedia
+                                                    .map((m) => FFUploadedFile(
+                                                          name: m.storagePath
+                                                              .split('/')
+                                                              .last,
+                                                          bytes: m.bytes,
+                                                          height: m.dimensions
+                                                              ?.height,
+                                                          width: m.dimensions
+                                                              ?.width,
+                                                          blurHash: m.blurHash,
+                                                          originalFilename: m
+                                                              .originalFilename,
+                                                        ))
+                                                    .toList();
+                                          } finally {
                                             _model.isDataUploading_uploadDataGallery =
                                                 false;
-                                            _model.uploadedLocalFile_uploadDataGallery =
-                                                FFUploadedFile(
-                                                    bytes:
-                                                        Uint8List.fromList([]),
-                                                    originalFilename: '');
-                                          });
+                                          }
+                                          if (selectedUploadedFiles.length ==
+                                              selectedMedia.length) {
+                                            safeSetState(() {
+                                              _model.uploadedLocalFile_uploadDataGallery =
+                                                  selectedUploadedFiles.first;
+                                            });
+                                          } else {
+                                            safeSetState(() {});
+                                            return;
+                                          }
+                                        }
 
-                                          safeSetState(() {
-                                            _model.textController?.clear();
-                                          });
-                                        },
-                                ),
-                                Text(
-                                  'Галерея',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts:
-                                            !FlutterFlowTheme.of(context)
-                                                .bodyMediumIsCustom,
-                                      ),
-                                ),
-                              ].divide(SizedBox(height: 12.0)),
-                            ),
-                          ].divide(SizedBox(width: 24.0)),
-                        ),
+                                        _model.addToUploadedPhoto(_model
+                                            .uploadedLocalFile_uploadDataGallery);
+                                        safeSetState(() {});
+                                        safeSetState(() {
+                                          _model.isDataUploading_uploadDataGallery =
+                                              false;
+                                          _model.uploadedLocalFile_uploadDataGallery =
+                                              FFUploadedFile(
+                                                  bytes: Uint8List.fromList([]),
+                                                  originalFilename: '');
+                                        });
+
+                                        safeSetState(() {
+                                          _model.textController?.clear();
+                                        });
+                                      },
+                              ),
+                              Text(
+                                'Галерея',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                              ),
+                            ].divide(SizedBox(height: 12.0)),
+                          ),
+                        ].divide(SizedBox(width: 24.0)),
                       ),
                     ),
                   ),
@@ -1445,17 +1389,7 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                   maxHeight: 300.0,
                 ),
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4.0,
-                      color: Color(0x33000000),
-                      offset: Offset(
-                        0.0,
-                        -2.0,
-                      ),
-                    )
-                  ],
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(24.0),
@@ -1523,7 +1457,7 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: Color(0x00000000),
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
