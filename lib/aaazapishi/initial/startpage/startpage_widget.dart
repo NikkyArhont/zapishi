@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'startpage_model.dart';
 export 'startpage_model.dart';
@@ -102,31 +101,11 @@ class _StartpageWidgetState extends State<StartpageWidget> {
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
                       'assets/images/Frame_1851040970.png',
-                      width: 190.0,
-                      height: 190.0,
+                      width: 250.0,
+                      height: 250.0,
                       fit: BoxFit.contain,
                     ),
                   ),
-                ),
-                Text(
-                  'ZAPISHI',
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).displayLarge.override(
-                        font: GoogleFonts.geologica(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .displayLarge
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .displayLarge
-                              .fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .displayLarge
-                            .fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).displayLarge.fontStyle,
-                      ),
                 ),
               ].divide(SizedBox(height: 12.0)),
             ),
