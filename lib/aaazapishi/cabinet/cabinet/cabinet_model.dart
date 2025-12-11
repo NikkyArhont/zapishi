@@ -1,4 +1,5 @@
 import '/aaazapishi/components/menu/menu_widget.dart';
+import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/avatar_mini_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -16,6 +17,8 @@ class CabinetModel extends FlutterFlowModel<CabinetWidget> {
   DocumentReference? choosenMaster;
 
   int? pin;
+
+  MastersRecord? master;
 
   ///  State fields for stateful widgets in this page.
 

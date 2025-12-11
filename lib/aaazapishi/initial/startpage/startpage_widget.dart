@@ -35,7 +35,7 @@ class _StartpageWidgetState extends State<StartpageWidget> {
         if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
           return false;
         } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-          return false;
+          return true;
         } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
           return true;
         } else {
@@ -89,25 +89,16 @@ class _StartpageWidgetState extends State<StartpageWidget> {
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).secondary,
-          body: SafeArea(
-            top: true,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/Frame_1851040970.png',
-                      width: 250.0,
-                      height: 250.0,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ].divide(SizedBox(height: 12.0)),
+          body: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                'assets/images/slidf_.png',
+                width: MediaQuery.sizeOf(context).width * 1.0,
+                height: MediaQuery.sizeOf(context).height * 1.0,
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ),
