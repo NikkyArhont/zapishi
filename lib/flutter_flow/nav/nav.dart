@@ -8,7 +8,6 @@ import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -729,14 +728,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).secondary,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/Frame_1851040970.png',
-                      width: 250.0,
-                      height: 250.0,
-                      fit: BoxFit.contain,
-                    ),
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/slidf_.png',
+                    fit: BoxFit.fitHeight,
                   ),
                 )
               : PushNotificationsHandler(child: page);

@@ -1,7 +1,6 @@
 import '/aaazapishi/components/calendar_for_filter/calendar_for_filter_widget.dart';
 import '/aaazapishi/components/empty_widjet/empty_widjet_widget.dart';
 import '/aaazapishi/filter_search/enter_location_filter/enter_location_filter_widget.dart';
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/search_error_widget.dart';
@@ -448,11 +447,6 @@ class _AllFilterWidgetState extends State<AllFilterWidget> {
                                     onTap: () async {
                                       await requestPermission(
                                           locationPermission);
-
-                                      await currentUserReference!
-                                          .update(createUserRecordData(
-                                        email: '',
-                                      ));
                                     },
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *

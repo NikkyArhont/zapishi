@@ -998,3 +998,23 @@ bool? mainFilter(
 
   return true;
 }
+
+List<String>? summLists(
+  List<String>? var1,
+  List<String>? var2,
+) {
+  // Если оба списока null → вернуть пустой список
+  if (var1 == null && var2 == null) return [];
+
+  // Преобразуем null в пустой список
+  final list1 = var1 ?? [];
+  final list2 = var2 ?? [];
+
+  // Объединяем + удаляем null и пустые строки, если вдруг попали
+  final result = [
+    ...list1,
+    ...list2,
+  ].where((e) => e != null && e.trim().isNotEmpty).toList();
+
+  return result;
+}

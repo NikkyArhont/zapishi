@@ -1,7 +1,6 @@
 import '/aaazapishi/components/backbutton/backbutton_widget.dart';
 import '/aaazapishi/components/upload_media_card/upload_media_card_widget.dart';
 import '/aaazapishi/master/enter_location_master/enter_location_master_widget.dart';
-import '/aaazapishi/master/modal_mastercrea_t_e/modal_mastercrea_t_e_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
@@ -11,6 +10,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -1309,7 +1309,7 @@ class _CcabinetMasterEDITWidgetState extends State<CcabinetMasterEDITWidget> {
                               safeSetState(
                                   () => _model.switchValue3 = newValue);
                               if (newValue) {
-                                _model.radiusTog = false;
+                                _model.radiusTog = true;
                                 safeSetState(() {});
                               } else {
                                 _model.radiusTog = false;
@@ -1879,149 +1879,126 @@ class _CcabinetMasterEDITWidgetState extends State<CcabinetMasterEDITWidget> {
                           ),
                         ),
                         Expanded(
-                          child: Builder(
-                            builder: (context) => FFButtonWidget(
-                              onPressed: () async {
-                                final firestoreBatch =
-                                    FirebaseFirestore.instance.batch();
-                                try {
-                                  {
-                                    safeSetState(() => _model
-                                            .isDataUploading_uploadDataDocumentsEdit =
-                                        true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-                                    var selectedFiles = <SelectedFile>[];
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      selectedUploadedFiles = _model.docList;
-                                      selectedFiles =
-                                          selectedFilesFromUploadedFiles(
-                                        selectedUploadedFiles,
-                                        isMultiData: true,
-                                      );
-                                      downloadUrls = (await Future.wait(
-                                        selectedFiles.map(
-                                          (f) async => await uploadData(
-                                              f.storagePath, f.bytes),
-                                        ),
-                                      ))
-                                          .where((u) => u != null)
-                                          .map((u) => u!)
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading_uploadDataDocumentsEdit =
-                                          false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                            selectedFiles.length &&
-                                        downloadUrls.length ==
-                                            selectedFiles.length) {
-                                      safeSetState(() {
-                                        _model.uploadedLocalFiles_uploadDataDocumentsEdit =
-                                            selectedUploadedFiles;
-                                        _model.uploadedFileUrls_uploadDataDocumentsEdit =
-                                            downloadUrls;
-                                      });
-                                    } else {
-                                      safeSetState(() {});
-                                      return;
-                                    }
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              if (_model.docList.isNotEmpty) {
+                                {
+                                  safeSetState(() => _model
+                                          .isDataUploading_uploadDataDocumentsEdit =
+                                      true);
+                                  var selectedUploadedFiles =
+                                      <FFUploadedFile>[];
+                                  var selectedFiles = <SelectedFile>[];
+                                  var downloadUrls = <String>[];
+                                  try {
+                                    selectedUploadedFiles = _model.docList;
+                                    selectedFiles =
+                                        selectedFilesFromUploadedFiles(
+                                      selectedUploadedFiles,
+                                      isMultiData: true,
+                                    );
+                                    downloadUrls = (await Future.wait(
+                                      selectedFiles.map(
+                                        (f) async => await uploadData(
+                                            f.storagePath, f.bytes),
+                                      ),
+                                    ))
+                                        .where((u) => u != null)
+                                        .map((u) => u!)
+                                        .toList();
+                                  } finally {
+                                    _model.isDataUploading_uploadDataDocumentsEdit =
+                                        false;
                                   }
+                                  if (selectedUploadedFiles.length ==
+                                          selectedFiles.length &&
+                                      downloadUrls.length ==
+                                          selectedFiles.length) {
+                                    safeSetState(() {
+                                      _model.uploadedLocalFiles_uploadDataDocumentsEdit =
+                                          selectedUploadedFiles;
+                                      _model.uploadedFileUrls_uploadDataDocumentsEdit =
+                                          downloadUrls;
+                                    });
+                                  } else {
+                                    safeSetState(() {});
+                                    return;
+                                  }
+                                }
 
-                                  firestoreBatch.update(
-                                      currentUserReference!,
-                                      createUserRecordData(
-                                        essence: _model.essence,
-                                      ));
-
-                                  firestoreBatch
-                                      .update(widget.masterDOCC!.reference, {
-                                    ...createMastersRecordData(
-                                      title: _model.textController1.text,
-                                      phone: _model.textController3.text,
-                                      manager: _model.textController2.text,
-                                      years: int.tryParse(
-                                          _model.textController4.text),
-                                      banner: _model.banner,
-                                      adres: updateSearchPlaceStruct(
-                                        _model.address,
-                                        clearUnsetFields: false,
-                                      ),
-                                      remoteAdres: updateSearchPlaceStruct(
-                                        _model.remoteAdres,
-                                        clearUnsetFields: false,
-                                      ),
-                                      description: _model.textController6.text,
-                                      radius: _model.sliderValue,
-                                      type: _model.essence,
-                                      remotePrice: int.tryParse(
-                                          _model.textController5.text),
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'docs': FieldValue.arrayUnion([
+                                await widget.masterDOCC!.reference.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'docs': functions.summLists(
+                                          widget.masterDOCC?.docs.toList(),
                                           _model
                                               .uploadedFileUrls_uploadDataDocumentsEdit
-                                              .firstOrNull
-                                        ]),
-                                        'workTime':
-                                            getWorkSchedulleListFirestoreData(
-                                          FFAppState().precreateSchedulle,
-                                        ),
-                                      },
-                                    ),
-                                  });
-                                  FFAppState().precreateSchedulle = [];
-                                  FFAppState().createdServices = [];
-                                  FFAppState().bannerToMaster = false;
-                                  safeSetState(() {});
-                                  await showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(dialogContext)
-                                                .unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: ModalMastercreaTEWidget(),
-                                        ),
-                                      );
+                                              .toList()),
                                     },
-                                  );
-                                } finally {
-                                  await firestoreBatch.commit();
-                                }
-                              },
-                              text: 'Редактировать',
-                              options: FFButtonOptions(
-                                width: 360.0,
-                                height: 48.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .labelLarge
-                                    .override(
-                                      fontFamily: 'involve',
-                                      letterSpacing: 0.0,
+                                  ),
+                                });
+                              }
+
+                              await currentUserReference!
+                                  .update(createUserRecordData(
+                                essence: _model.essence,
+                              ));
+
+                              await widget.masterDOCC!.reference.update({
+                                ...createMastersRecordData(
+                                  title: _model.textController1.text,
+                                  phone: _model.textController3.text,
+                                  manager: _model.textController2.text,
+                                  years:
+                                      int.tryParse(_model.textController4.text),
+                                  banner: _model.banner,
+                                  adres: updateSearchPlaceStruct(
+                                    _model.address,
+                                    clearUnsetFields: false,
+                                  ),
+                                  remoteAdres: updateSearchPlaceStruct(
+                                    _model.remoteAdres,
+                                    clearUnsetFields: false,
+                                  ),
+                                  description: _model.textController6.text,
+                                  radius: _model.sliderValue,
+                                  type: _model.essence,
+                                  remotePrice:
+                                      int.tryParse(_model.textController5.text),
+                                ),
+                                ...mapToFirestore(
+                                  {
+                                    'workTime':
+                                        getWorkSchedulleListFirestoreData(
+                                      FFAppState().precreateSchedulle,
                                     ),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
+                                  },
+                                ),
+                              });
+                              FFAppState().precreateSchedulle = [];
+                              FFAppState().createdServices = [];
+                              FFAppState().bannerToMaster = false;
+                              safeSetState(() {});
+
+                              context.goNamed(CabinetWidget.routeName);
+                            },
+                            text: 'Редактировать',
+                            options: FFButtonOptions(
+                              width: 360.0,
+                              height: 48.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).primary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'involve',
+                                    letterSpacing: 0.0,
+                                  ),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(16.0),
                             ),
                           ),
                         ),

@@ -2753,15 +2753,19 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                           18.0,
                                                                     ),
                                                                     Text(
-                                                                      formatNumber(
-                                                                        cabinetMastersRecord
-                                                                            .raiting,
-                                                                        formatType:
-                                                                            FormatType.custom,
-                                                                        format:
-                                                                            '#.#',
-                                                                        locale:
-                                                                            '',
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        formatNumber(
+                                                                          cabinetMastersRecord
+                                                                              .raiting,
+                                                                          formatType:
+                                                                              FormatType.custom,
+                                                                          format:
+                                                                              '#.#',
+                                                                          locale:
+                                                                              '',
+                                                                        ),
+                                                                        '0.0',
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -4198,134 +4202,60 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                       ),
                                                     ),
                                                   ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    0.0,
-                                                                    12.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Expanded(
-                                                              child: Builder(
-                                                                builder:
-                                                                    (context) =>
-                                                                        FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    await showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (dialogContext) {
-                                                                        return Dialog(
-                                                                          elevation:
-                                                                              0,
-                                                                          insetPadding:
-                                                                              EdgeInsets.zero,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          alignment:
-                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                          child:
-                                                                              GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              FocusScope.of(dialogContext).unfocus();
-                                                                              FocusManager.instance.primaryFocus?.unfocus();
-                                                                            },
-                                                                            child:
-                                                                                CabenetMasterDeletePROFILEWidget(
-                                                                              organisation: cabinetMastersRecord,
-                                                                            ),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                  text:
-                                                                      'Удалить',
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    height:
-                                                                        48.0,
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground,
-                                                                    textStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'involve',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                        ),
-                                                                    elevation:
-                                                                        0.0,
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            16.0),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child:
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 1.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Builder(
+                                                              builder: (context) =>
                                                                   FFButtonWidget(
                                                                 onPressed:
                                                                     () async {
-                                                                  context
-                                                                      .pushNamed(
-                                                                    CcabinetMasterEDITWidget
-                                                                        .routeName,
-                                                                    queryParameters:
-                                                                        {
-                                                                      'masterDOCC':
-                                                                          serializeParam(
-                                                                        cabinetMastersRecord,
-                                                                        ParamType
-                                                                            .Document,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                    extra: <String,
-                                                                        dynamic>{
-                                                                      'masterDOCC':
-                                                                          cabinetMastersRecord,
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (dialogContext) {
+                                                                      return Dialog(
+                                                                        elevation:
+                                                                            0,
+                                                                        insetPadding:
+                                                                            EdgeInsets.zero,
+                                                                        backgroundColor:
+                                                                            Colors.transparent,
+                                                                        alignment:
+                                                                            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                        child:
+                                                                            GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            FocusScope.of(dialogContext).unfocus();
+                                                                            FocusManager.instance.primaryFocus?.unfocus();
+                                                                          },
+                                                                          child:
+                                                                              CabenetMasterDeletePROFILEWidget(
+                                                                            organisation:
+                                                                                cabinetMastersRecord,
+                                                                          ),
+                                                                        ),
+                                                                      );
                                                                     },
                                                                   );
                                                                 },
-                                                                text:
-                                                                    'Редактировать',
+                                                                text: 'Удалить',
                                                                 options:
                                                                     FFButtonOptions(
                                                                   height: 48.0,
@@ -4343,18 +4273,26 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                           0.0),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
+                                                                      .primaryBackground,
                                                                   textStyle: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelLarge
                                                                       .override(
                                                                         fontFamily:
                                                                             'involve',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                       ),
                                                                   elevation:
                                                                       0.0,
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                  ),
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
@@ -4362,9 +4300,72 @@ class _CabinetWidgetState extends State<CabinetWidget>
                                                                 ),
                                                               ),
                                                             ),
-                                                          ].divide(SizedBox(
-                                                              width: 12.0)),
-                                                        ),
+                                                          ),
+                                                          Expanded(
+                                                            child:
+                                                                FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  CcabinetMasterEDITWidget
+                                                                      .routeName,
+                                                                  queryParameters:
+                                                                      {
+                                                                    'masterDOCC':
+                                                                        serializeParam(
+                                                                      cabinetMastersRecord,
+                                                                      ParamType
+                                                                          .Document,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                  extra: <String,
+                                                                      dynamic>{
+                                                                    'masterDOCC':
+                                                                        cabinetMastersRecord,
+                                                                  },
+                                                                );
+                                                              },
+                                                              text:
+                                                                  'Редактировать',
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                height: 48.0,
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0),
+                                                                iconPadding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'involve',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                                elevation: 0.0,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 12.0)),
                                                       ),
                                                     ),
                                                   ),
@@ -5584,20 +5585,16 @@ class _CabinetWidgetState extends State<CabinetWidget>
                             .addToStart(SizedBox(height: 40.0))
                             .addToEnd(SizedBox(height: 100.0)),
                       ),
-                      if (responsiveVisibility(
-                        context: context,
-                        desktop: false,
-                      ))
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: wrapWithModel(
-                            model: _model.menuModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: MenuWidget(
-                              currentPage: CurrentPage.work,
-                            ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: wrapWithModel(
+                          model: _model.menuModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: MenuWidget(
+                            currentPage: CurrentPage.work,
                           ),
                         ),
+                      ),
                     ],
                   ),
                 ),
