@@ -952,676 +952,695 @@ class _AdminServiceListWidgetState extends State<AdminServiceListWidget> {
                                       containerCategoryRecordList =
                                       snapshot.data!;
 
-                                  return Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth: 1440.0,
-                                      maxHeight: 900.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 1440.0,
+                                        maxHeight: 900.0,
                                       ),
-                                    ),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(24.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 400.0,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        _model.textController2,
-                                                    focusNode: _model
-                                                        .textFieldFocusNode2,
-                                                    onChanged: (_) =>
-                                                        EasyDebounce.debounce(
-                                                      '_model.textController2',
-                                                      Duration(
-                                                          milliseconds: 100),
-                                                      () async {
-                                                        safeSetState(() {
-                                                          _model.simpleSearchResults2 =
-                                                              TextSearch(
-                                                            containerCategoryRecordList
-                                                                .map(
-                                                                  (record) => TextSearchItem
-                                                                      .fromTerms(
-                                                                          record,
-                                                                          [
-                                                                        record
-                                                                            .title
-                                                                      ]),
-                                                                )
-                                                                .toList(),
-                                                          )
-                                                                  .search(_model
-                                                                      .textController2
-                                                                      .text)
-                                                                  .map((r) =>
-                                                                      r.object)
-                                                                  .toList();
-                                                          ;
-                                                        });
-                                                      },
-                                                    ),
-                                                    autofocus: false,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      isDense: false,
-                                                      labelStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMediumIsCustom,
-                                                              ),
-                                                      hintText: 'Поиск',
-                                                      hintStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily,
-                                                                color: Color(
-                                                                    0xFFBDBDBD),
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMediumIsCustom,
-                                                              ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x00000000),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x00000000),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                      errorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .error,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                      focusedErrorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .error,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: (_model
-                                                                  .textFieldFocusNode2
-                                                                  ?.hasFocus ??
-                                                              false)
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .accent4,
-                                                      prefixIcon: Icon(
-                                                        Icons.search,
-                                                        size: 20.0,
-                                                      ),
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts:
-                                                              !FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMediumIsCustom,
-                                                        ),
-                                                    maxLength: 40,
-                                                    buildCounter: (context,
-                                                            {required currentLength,
-                                                            required isFocused,
-                                                            maxLength}) =>
-                                                        null,
-                                                    cursorColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                    validator: _model
-                                                        .textController2Validator
-                                                        .asValidator(context),
-                                                  ),
-                                                ),
-                                                Builder(
-                                                  builder: (context) =>
-                                                      FFButtonWidget(
-                                                    onPressed: () async {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (dialogContext) {
-                                                          return Dialog(
-                                                            elevation: 0,
-                                                            insetPadding:
-                                                                EdgeInsets.zero,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            alignment: AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () {
-                                                                FocusScope.of(
-                                                                        dialogContext)
-                                                                    .unfocus();
-                                                                FocusManager
-                                                                    .instance
-                                                                    .primaryFocus
-                                                                    ?.unfocus();
-                                                              },
-                                                              child:
-                                                                  AdminCreateserviceWidget(
-                                                                refCat: widget
-                                                                    .catDoc!
-                                                                    .reference,
-                                                              ),
-                                                            ),
-                                                          );
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
+                                      ),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(24.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width: 400.0,
+                                                    child: TextFormField(
+                                                      controller: _model
+                                                          .textController2,
+                                                      focusNode: _model
+                                                          .textFieldFocusNode2,
+                                                      onChanged: (_) =>
+                                                          EasyDebounce.debounce(
+                                                        '_model.textController2',
+                                                        Duration(
+                                                            milliseconds: 100),
+                                                        () async {
+                                                          safeSetState(() {
+                                                            _model.simpleSearchResults2 =
+                                                                TextSearch(
+                                                              containerCategoryRecordList
+                                                                  .map(
+                                                                    (record) =>
+                                                                        TextSearchItem.fromTerms(
+                                                                            record,
+                                                                            [
+                                                                          record
+                                                                              .title
+                                                                        ]),
+                                                                  )
+                                                                  .toList(),
+                                                            )
+                                                                    .search(_model
+                                                                        .textController2
+                                                                        .text)
+                                                                    .map((r) =>
+                                                                        r.object)
+                                                                    .toList();
+                                                            ;
+                                                          });
                                                         },
-                                                      );
-                                                    },
-                                                    text: 'Создать услугу',
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16.0,
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmallIsCustom,
-                                                              ),
-                                                      elevation: 0.0,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24.0),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Divider(
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 12.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 200.0,
-                                                  height: 30.0,
-                                                  decoration: BoxDecoration(),
-                                                  child: Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -1.0, 0.0),
-                                                    child: Text(
-                                                      'Категория',
+                                                      ),
+                                                      autofocus: false,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        isDense: false,
+                                                        labelStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMediumIsCustom,
+                                                                ),
+                                                        hintText: 'Поиск',
+                                                        hintStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily,
+                                                                  color: Color(
+                                                                      0xFFBDBDBD),
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMediumIsCustom,
+                                                                ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        errorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: (_model
+                                                                    .textFieldFocusNode2
+                                                                    ?.hasFocus ??
+                                                                false)
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .accent4,
+                                                        prefixIcon: Icon(
+                                                          Icons.search,
+                                                          size: 20.0,
+                                                        ),
+                                                      ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
-                                                          .labelSmall
+                                                          .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelSmallFamily,
+                                                                    .bodyMediumFamily,
+                                                            fontSize: 16.0,
                                                             letterSpacing: 0.0,
                                                             useGoogleFonts:
                                                                 !FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelSmallIsCustom,
+                                                                    .bodyMediumIsCustom,
                                                           ),
+                                                      maxLength: 40,
+                                                      buildCounter: (context,
+                                                              {required currentLength,
+                                                              required isFocused,
+                                                              maxLength}) =>
+                                                          null,
+                                                      cursorColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      validator: _model
+                                                          .textController2Validator
+                                                          .asValidator(context),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Builder(
+                                                    builder: (context) =>
+                                                        FFButtonWidget(
+                                                      onPressed: () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (dialogContext) {
+                                                            return Dialog(
+                                                              elevation: 0,
+                                                              insetPadding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              alignment: AlignmentDirectional(
+                                                                      0.0, 0.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  FocusScope.of(
+                                                                          dialogContext)
+                                                                      .unfocus();
+                                                                  FocusManager
+                                                                      .instance
+                                                                      .primaryFocus
+                                                                      ?.unfocus();
+                                                                },
+                                                                child:
+                                                                    AdminCreateserviceWidget(
+                                                                  refCat: widget
+                                                                      .catDoc!
+                                                                      .reference,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      text: 'Создать услугу',
+                                                      options: FFButtonOptions(
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmallIsCustom,
+                                                                ),
+                                                        elevation: 0.0,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Divider(
-                                            thickness: 2.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                          if (_model.textController2.text == '')
-                                            Builder(
-                                              builder: (context) {
-                                                final noSearchCat =
-                                                    containerCategoryRecordList
-                                                        .toList();
-                                                if (noSearchCat.isEmpty) {
-                                                  return EmptyWidjetWidget();
-                                                }
+                                            Divider(
+                                              thickness: 2.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 12.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width: 200.0,
+                                                    height: 30.0,
+                                                    decoration: BoxDecoration(),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -1.0, 0.0),
+                                                      child: Text(
+                                                        'Категория',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelSmallFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelSmallIsCustom,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Divider(
+                                              thickness: 2.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                            if (_model.textController2.text ==
+                                                    '')
+                                              Builder(
+                                                builder: (context) {
+                                                  final noSearchCat =
+                                                      containerCategoryRecordList
+                                                          .toList();
+                                                  if (noSearchCat.isEmpty) {
+                                                    return EmptyWidjetWidget();
+                                                  }
 
-                                                return ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount: noSearchCat.length,
-                                                  itemBuilder: (context,
-                                                      noSearchCatIndex) {
-                                                    final noSearchCatItem =
-                                                        noSearchCat[
-                                                            noSearchCatIndex];
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        context.pushNamed(
-                                                          AdminPacketListWidget
-                                                              .routeName,
-                                                          queryParameters: {
-                                                            'catDoc':
-                                                                serializeParam(
-                                                              noSearchCatItem,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                          }.withoutNulls,
-                                                          extra: <String,
-                                                              dynamic>{
-                                                            'catDoc':
+                                                  return ListView.builder(
+                                                    padding: EdgeInsets.zero,
+                                                    primary: false,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        noSearchCat.length,
+                                                    itemBuilder: (context,
+                                                        noSearchCatIndex) {
+                                                      final noSearchCatItem =
+                                                          noSearchCat[
+                                                              noSearchCatIndex];
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                            AdminPacketListWidget
+                                                                .routeName,
+                                                            queryParameters: {
+                                                              'catDoc':
+                                                                  serializeParam(
                                                                 noSearchCatItem,
-                                                          },
-                                                        );
-                                                      },
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        24.0,
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Container(
-                                                                  width: 200.0,
-                                                                  decoration:
-                                                                      BoxDecoration(),
-                                                                  child: Text(
-                                                                    noSearchCatItem
-                                                                        .title,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                                Builder(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          FlutterFlowIconButton(
-                                                                    borderRadius:
-                                                                        8.0,
-                                                                    buttonSize:
-                                                                        40.0,
-                                                                    icon:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .ellipsisH,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      size:
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              'catDoc':
+                                                                  noSearchCatItem,
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           24.0,
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        200.0,
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child: Text(
+                                                                      noSearchCatItem
+                                                                          .title,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                          ),
                                                                     ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      await showAlignedDialog(
-                                                                        context:
-                                                                            context,
-                                                                        isGlobal:
-                                                                            false,
-                                                                        avoidOverflow:
-                                                                            false,
-                                                                        targetAnchor:
-                                                                            AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
-                                                                        followerAnchor:
-                                                                            AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
-                                                                        builder:
-                                                                            (dialogContext) {
-                                                                          return Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child:
-                                                                                GestureDetector(
-                                                                              onTap: () {
-                                                                                FocusScope.of(dialogContext).unfocus();
-                                                                                FocusManager.instance.primaryFocus?.unfocus();
-                                                                              },
-                                                                              child: AdminCategoryMenuWidget(
-                                                                                catDoc: noSearchCatItem,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    },
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                  Builder(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            FlutterFlowIconButton(
+                                                                      borderRadius:
+                                                                          8.0,
+                                                                      buttonSize:
+                                                                          40.0,
+                                                                      icon:
+                                                                          FaIcon(
+                                                                        FontAwesomeIcons
+                                                                            .ellipsisH,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        size:
+                                                                            24.0,
+                                                                      ),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await showAlignedDialog(
+                                                                          context:
+                                                                              context,
+                                                                          isGlobal:
+                                                                              false,
+                                                                          avoidOverflow:
+                                                                              false,
+                                                                          targetAnchor:
+                                                                              AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
+                                                                          followerAnchor:
+                                                                              AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Material(
+                                                                              color: Colors.transparent,
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                },
+                                                                                child: AdminCategoryMenuWidget(
+                                                                                  catDoc: noSearchCatItem,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Divider(
-                                                            thickness: 2.0,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          if (_model.textController2.text != '')
-                                            Builder(
-                                              builder: (context) {
-                                                final searchCat = _model
-                                                    .simpleSearchResults2
-                                                    .toList();
-                                                if (searchCat.isEmpty) {
-                                                  return EmptyWidjetWidget();
-                                                }
+                                                            Divider(
+                                                              thickness: 2.0,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            if (_model.textController2.text !=
+                                                    '')
+                                              Builder(
+                                                builder: (context) {
+                                                  final searchCat = _model
+                                                      .simpleSearchResults2
+                                                      .toList();
+                                                  if (searchCat.isEmpty) {
+                                                    return EmptyWidjetWidget();
+                                                  }
 
-                                                return ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount: searchCat.length,
-                                                  itemBuilder: (context,
-                                                      searchCatIndex) {
-                                                    final searchCatItem =
-                                                        searchCat[
-                                                            searchCatIndex];
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        context.pushNamed(
-                                                          AdminPacketListWidget
-                                                              .routeName,
-                                                          queryParameters: {
-                                                            'catDoc':
-                                                                serializeParam(
-                                                              searchCatItem,
-                                                              ParamType
-                                                                  .Document,
-                                                            ),
-                                                          }.withoutNulls,
-                                                          extra: <String,
-                                                              dynamic>{
-                                                            'catDoc':
+                                                  return ListView.builder(
+                                                    padding: EdgeInsets.zero,
+                                                    primary: false,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount: searchCat.length,
+                                                    itemBuilder: (context,
+                                                        searchCatIndex) {
+                                                      final searchCatItem =
+                                                          searchCat[
+                                                              searchCatIndex];
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                            AdminPacketListWidget
+                                                                .routeName,
+                                                            queryParameters: {
+                                                              'catDoc':
+                                                                  serializeParam(
                                                                 searchCatItem,
-                                                          },
-                                                        );
-                                                      },
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        24.0,
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Container(
-                                                                  width: 200.0,
-                                                                  decoration:
-                                                                      BoxDecoration(),
-                                                                  child: Text(
-                                                                    searchCatItem
-                                                                        .title,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                                Builder(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          FlutterFlowIconButton(
-                                                                    borderRadius:
-                                                                        8.0,
-                                                                    buttonSize:
-                                                                        40.0,
-                                                                    icon:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .ellipsisH,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      size:
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              'catDoc':
+                                                                  searchCatItem,
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           24.0,
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        200.0,
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child: Text(
+                                                                      searchCatItem
+                                                                          .title,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                                                                          ),
                                                                     ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      await showAlignedDialog(
-                                                                        context:
-                                                                            context,
-                                                                        isGlobal:
-                                                                            false,
-                                                                        avoidOverflow:
-                                                                            false,
-                                                                        targetAnchor:
-                                                                            AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
-                                                                        followerAnchor:
-                                                                            AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
-                                                                        builder:
-                                                                            (dialogContext) {
-                                                                          return Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child:
-                                                                                GestureDetector(
-                                                                              onTap: () {
-                                                                                FocusScope.of(dialogContext).unfocus();
-                                                                                FocusManager.instance.primaryFocus?.unfocus();
-                                                                              },
-                                                                              child: AdminCategoryMenuWidget(
-                                                                                catDoc: searchCatItem,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    },
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                  Builder(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            FlutterFlowIconButton(
+                                                                      borderRadius:
+                                                                          8.0,
+                                                                      buttonSize:
+                                                                          40.0,
+                                                                      icon:
+                                                                          FaIcon(
+                                                                        FontAwesomeIcons
+                                                                            .ellipsisH,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        size:
+                                                                            24.0,
+                                                                      ),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await showAlignedDialog(
+                                                                          context:
+                                                                              context,
+                                                                          isGlobal:
+                                                                              false,
+                                                                          avoidOverflow:
+                                                                              false,
+                                                                          targetAnchor:
+                                                                              AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
+                                                                          followerAnchor:
+                                                                              AlignmentDirectional(1.0, -1.0).resolve(Directionality.of(context)),
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Material(
+                                                                              color: Colors.transparent,
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                },
+                                                                                child: AdminCategoryMenuWidget(
+                                                                                  catDoc: searchCatItem,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Divider(
-                                                            thickness: 2.0,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                        ],
+                                                            Divider(
+                                                              thickness: 2.0,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

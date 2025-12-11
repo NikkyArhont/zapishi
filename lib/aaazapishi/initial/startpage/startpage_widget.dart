@@ -35,7 +35,7 @@ class _StartpageWidgetState extends State<StartpageWidget> {
         if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
           return false;
         } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-          return false;
+          return true;
         } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
           return true;
         } else {
