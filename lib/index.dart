@@ -1,0 +1,94 @@
+// Export pages
+export '/aaazapishi/initial/startpage/startpage_widget.dart'
+    show StartpageWidget;
+export '/aaazapishi/initial/onboarding/onboarding_widget.dart'
+    show OnboardingWidget;
+export '/aaazapishi/initial/enter_phone/enter_phone_widget.dart'
+    show EnterPhoneWidget;
+export '/aaazapishi/initial/smsverification/smsverification_widget.dart'
+    show SmsverificationWidget;
+export '/aaazapishi/initial/enter_edit_profile/enter_edit_profile_widget.dart'
+    show EnterEditProfileWidget;
+export '/aaazapishi/main/main_widget.dart' show MainWidget;
+export '/aaazapishi/filter_search/map_filter/map_filter_widget.dart'
+    show MapFilterWidget;
+export '/aaazapishi/search_result/search_result_widget.dart'
+    show SearchResultWidget;
+export '/aaazapishi/filter_search/all_filter/all_filter_widget.dart'
+    show AllFilterWidget;
+export '/aaazapishi/my_profile/my_profile_widget.dart' show MyProfileWidget;
+export '/aaazapishi/profile/edit_profile/edit_profile_widget.dart'
+    show EditProfileWidget;
+export '/aaazapishi/admin/admin_singup/admin_page_login/admin_page_login_widget.dart'
+    show AdminPageLoginWidget;
+export '/aaazapishi/records/create_record/create_record_widget.dart'
+    show CreateRecordWidget;
+export '/aaazapishi/admin/admin_profile/admin_main_profile/admin_main_profile_widget.dart'
+    show AdminMainProfileWidget;
+export '/aaazapishi/admin/admin_singup/admin_page_registration/admin_page_registration_widget.dart'
+    show AdminPageRegistrationWidget;
+export '/aaazapishi/admin/admin_category/admin_category/admin_category_widget.dart'
+    show AdminCategoryWidget;
+export '/aaazapishi/master/master_page/master_page_widget.dart'
+    show MasterPageWidget;
+export '/aaazapishi/records/create_debate/create_debate_widget.dart'
+    show CreateDebateWidget;
+export '/aaazapishi/master/service_page_z/service_page_z_widget.dart'
+    show ServicePageZWidget;
+export '/aaazapishi/master/master_create/master_create_widget.dart'
+    show MasterCreateWidget;
+export '/aaazapishi/records/my_records/my_records_widget.dart'
+    show MyRecordsWidget;
+export '/aaazapishi/records/record_page/record_page_widget.dart'
+    show RecordPageWidget;
+export '/aaazapishi/admin/admin_category/admin_service_list/admin_service_list_widget.dart'
+    show AdminServiceListWidget;
+export '/aaazapishi/admin/admin_category/admin_packet_list/admin_packet_list_widget.dart'
+    show AdminPacketListWidget;
+export '/aaazapishi/master/master_create_service/master_create_service_widget.dart'
+    show MasterCreateServiceWidget;
+export '/aaazapishi/master/master_work_schedule/master_work_schedule_widget.dart'
+    show MasterWorkScheduleWidget;
+export '/aaazapishi/master/master_choose_cat/master_choose_cat_widget.dart'
+    show MasterChooseCatWidget;
+export '/aaazapishi/cabinet/cabinet/cabinet_widget.dart' show CabinetWidget;
+export '/aaazapishi/cabinet/reserve_page/reserve_page_widget.dart'
+    show ReservePageWidget;
+export '/aaazapishi/cabinet/master_add_service/master_add_service_widget.dart'
+    show MasterAddServiceWidget;
+export '/aaazapishi/cabinet/master_choose_cat_add_serv/master_choose_cat_add_serv_widget.dart'
+    show MasterChooseCatAddServWidget;
+export '/chats/my_chats/my_chats_widget.dart' show MyChatsWidget;
+export '/chats/cchat_window/cchat_window_widget.dart' show CchatWindowWidget;
+export '/aaazapishi/reviews/reviews/reviews_widget.dart' show ReviewsWidget;
+export '/aaazapishi/reviews/create_review/create_review_widget.dart'
+    show CreateReviewWidget;
+export '/aaazapishi/cabinet/master_search/master_search_widget.dart'
+    show MasterSearchWidget;
+export '/aaazapishi/cabinet/master_page_offer/master_page_offer_widget.dart'
+    show MasterPageOfferWidget;
+export '/aaazapishi/profile/favorite_masters/favorite_masters_widget.dart'
+    show FavoriteMastersWidget;
+export '/aaazapishi/cabinet/master_offer_organisation/master_offer_organisation_widget.dart'
+    show MasterOfferOrganisationWidget;
+export '/aaazapishi/cabinet/master_offer_set_serv/master_offer_set_serv_widget.dart'
+    show MasterOfferSetServWidget;
+export '/aaazapishi/profile/subbscribes/subbscribes_widget.dart'
+    show SubbscribesWidget;
+export '/aaazapishi/profile/choose_subbscribes/choose_subbscribes_widget.dart'
+    show ChooseSubbscribesWidget;
+export '/aaazapishi/admin/admin_orders/admin_orders/admin_orders_widget.dart'
+    show AdminOrdersWidget;
+export '/aaazapishi/admin/admin_service/admin_service_page/admin_service_page_widget.dart'
+    show AdminServicePageWidget;
+export '/aaazapishi/initial/politic/politic_widget.dart' show PoliticWidget;
+export '/aaazapishi/initial/user_agreevment/user_agreevment_widget.dart'
+    show UserAgreevmentWidget;
+export '/aaazapishi/admin/admin_money/admin_money/admin_money_widget.dart'
+    show AdminMoneyWidget;
+export '/aaazapishi/admin/admin_chats/admin_c_chats/admin_c_chats_widget.dart'
+    show AdminCChatsWidget;
+export '/aaazapishi/cabinet/ccabinet_master_e_d_i_t/ccabinet_master_e_d_i_t_widget.dart'
+    show CcabinetMasterEDITWidget;
+export '/aaazapishi/cabinet/master_work_schedule_e_d_i_t/master_work_schedule_e_d_i_t_widget.dart'
+    show MasterWorkScheduleEDITWidget;
