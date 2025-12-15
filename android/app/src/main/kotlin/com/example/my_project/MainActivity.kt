@@ -1,4 +1,4 @@
-package com.mycompany.profimongolia
+package com.zapishiapp.zapishi
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -23,6 +23,44 @@
           "other_platform_oauth_client": []
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006934420365:android:354510b7e2830fa39e2bc4",
+        "android_client_info": {
+          "package_name": "com.mycompany.zapishiapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqjNQRagDVZtfxSIysxWhC4F9uZYJEJ7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006934420365:android:eb348ffbd71130d09e2bc4",
+        "android_client_info": {
+          "package_name": "com.zapishiapp.zapishi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqjNQRagDVZtfxSIysxWhC4F9uZYJEJ7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
     }
   ],
   "configuration_version": "1"

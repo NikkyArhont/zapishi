@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mycompany.profimongolia</string>
+	<string>com.zapishiapp.zapishi</string>
 	<key>PROJECT_ID</key>
 	<string>zapishi-backend-482da</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1006934420365:ios:3b2983189d61a18a9e2bc4</string>
+	<string>1:1006934420365:ios:07bf9397969e53fc9e2bc4</string>
 </dict>
 </plist>
