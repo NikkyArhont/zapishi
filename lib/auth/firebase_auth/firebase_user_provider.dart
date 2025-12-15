@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class Zapishi4FirebaseUser extends BaseAuthUser {
-  Zapishi4FirebaseUser(this.user);
+class ZapishiFirebaseUser extends BaseAuthUser {
+  ZapishiFirebaseUser(this.user);
   User? user;
   bool get loggedIn => user != null;
 
@@ -58,18 +58,17 @@ class Zapishi4FirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
-  static BaseAuthUser fromFirebaseUser(User? user) =>
-      Zapishi4FirebaseUser(user);
+  static BaseAuthUser fromFirebaseUser(User? user) => ZapishiFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> zapishi4FirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> zapishiFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = Zapishi4FirebaseUser(user);
+        currentUser = ZapishiFirebaseUser(user);
         return currentUser!;
       },
     );
