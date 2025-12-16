@@ -56,11 +56,12 @@
 	<false/>
 
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>In order to search nearby, this app requires access to your current location.</string>
+    <string>Геолокация используется для подбора услуг и специалистов поблизости, а также для корректного отображения адресов и маршрутов, даже если приложение работает в фоновом режиме.</string>
 	<key>NSCameraUsageDescription</key>
-    <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+    <string>Камера используется для создания фотографий, которые пользователь добавляет в профиль и при публикации услуг.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload data, this app requires permission to access the photo library.</string>
+    <string>Доступ к галерее нужен для выбора и загрузки фотографий в профиль и к услугам пользователя.
+</string>
 	<key>PermissionGroupNotification</key>
     <string>Разрешите приложению отправлять уведомления</string>
     <key>UIBackgroundModes</key>
