@@ -1,5 +1,4 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/schema/enums/enums.dart';
+import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -53,11 +52,7 @@ class _StartpageWidgetState extends State<StartpageWidget> {
           context.goNamed(OnboardingWidget.routeName);
         } else {
           if (loggedIn) {
-            if (currentUserDocument?.essence == UserStatus.admin) {
-              context.goNamed(AdminMainProfileWidget.routeName);
-            } else {
-              context.goNamed(MainWidget.routeName);
-            }
+            context.goNamed(MainWidget.routeName);
           } else {
             context.goNamed(EnterPhoneWidget.routeName);
           }
