@@ -541,6 +541,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: BootPageWidget.routeName,
+          path: BootPageWidget.routePath,
+          builder: (context, params) => BootPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

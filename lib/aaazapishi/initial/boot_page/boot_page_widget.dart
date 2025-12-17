@@ -1,48 +1,63 @@
+import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'startpage_model.dart';
-export 'startpage_model.dart';
+import 'package:provider/provider.dart';
+import 'boot_page_model.dart';
+export 'boot_page_model.dart';
 
-class StartpageWidget extends StatefulWidget {
-  const StartpageWidget({super.key});
+class BootPageWidget extends StatefulWidget {
+  const BootPageWidget({super.key});
 
-  static String routeName = 'startpage';
-  static String routePath = '/startpage';
+  static String routeName = 'bootPage';
+  static String routePath = '/bootPage';
 
   @override
-  State<StartpageWidget> createState() => _StartpageWidgetState();
+  State<BootPageWidget> createState() => _BootPageWidgetState();
 }
 
-class _StartpageWidgetState extends State<StartpageWidget> {
-  late StartpageModel _model;
+class _BootPageWidgetState extends State<BootPageWidget> {
+  late BootPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => StartpageModel());
+    _model = createModel(context, () => BootPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(
-        Duration(
-          milliseconds: 15000,
-        ),
-      );
-
-      context.goNamed(
-        StartpageWidget.routeName,
-        extra: <String, dynamic>{
-          kTransitionInfoKey: TransitionInfo(
-            hasTransition: true,
-            transitionType: PageTransitionType.fade,
-            duration: Duration(milliseconds: 0),
+      if (() {
+        if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+          return false;
+        } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+          return true;
+        } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+          return true;
+        } else {
+          return isWeb;
+        }
+      }()) {
+        context.pushNamed(AdminPageLoginWidget.routeName);
+      } else {
+        await Future.delayed(
+          Duration(
+            milliseconds: 1000,
           ),
-        },
-      );
+        );
+        if (FFAppState().firstTime) {
+          context.goNamed(OnboardingWidget.routeName);
+        } else {
+          if (loggedIn) {
+            context.goNamed(MainWidget.routeName);
+          } else {
+            context.goNamed(EnterPhoneWidget.routeName);
+          }
+        }
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -57,6 +72,8 @@ class _StartpageWidgetState extends State<StartpageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
