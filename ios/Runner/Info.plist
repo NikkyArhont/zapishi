@@ -52,8 +52,6 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>Приложение использует местоположение для поиска услуг поблизости.</string>
@@ -63,11 +61,6 @@
     <string>Доступ к галерее нужен для выбора и загрузки фотографий</string>
 	<key>PermissionGroupNotification</key>
     <string>Разрешите приложению отправлять уведомления</string>
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>remote-notification</string>
-    </array>
 
 
 

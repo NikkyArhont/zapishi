@@ -1,6 +1,5 @@
 import '/aaazapishi/admin/admin_service/admin_banned_master_info/admin_banned_master_info_widget.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -250,14 +249,6 @@ class _AdminBannedMasterWidgetState extends State<AdminBannedMasterWidget> {
                                   .update(createMastersRecordData(
                                 banned: true,
                               ));
-                              triggerPushNotification(
-                                notificationTitle:
-                                    'Вам запретили публиковать новые объявления',
-                                notificationText: _model.textController.text,
-                                userRefs: [widget.masterDocc!.owner!],
-                                initialPageName: 'cabinet',
-                                parameterData: {},
-                              );
                               Navigator.pop(context);
                               _model.updatePage(() {});
                               await showDialog(

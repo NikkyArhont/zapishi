@@ -5,7 +5,6 @@ import '/aaazapishi/records/choose_record_date/choose_record_date_widget.dart';
 import '/aaazapishi/records/record_success/record_success_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -3773,26 +3772,6 @@ class _CreateRecordWidgetState extends State<CreateRecordWidget> {
                                                               .newChat
                                                               ?.reference,
                                                         ));
-                                                        triggerPushNotification(
-                                                          notificationTitle:
-                                                              'Новая запись',
-                                                          notificationText:
-                                                              'Создан чат по заказу: ${_model.readServices?.title}',
-                                                          notificationSound:
-                                                              'default',
-                                                          userRefs: [
-                                                            widget
-                                                                .organisationCard!
-                                                                .owner!
-                                                          ],
-                                                          initialPageName:
-                                                              'reservePage',
-                                                          parameterData: {
-                                                            'recordRef': _model
-                                                                .newRecord
-                                                                ?.reference,
-                                                          },
-                                                        );
                                                       } else {
                                                         await _model.newRecord!
                                                             .reference
