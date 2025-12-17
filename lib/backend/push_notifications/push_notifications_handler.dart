@@ -265,6 +265,7 @@ final parametersBuilderMap =
               data, 'masterDoc', MastersRecord.fromSnapshot),
         },
       ),
+  'bootPage': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

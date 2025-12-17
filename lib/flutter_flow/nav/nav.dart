@@ -78,13 +78,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? MainWidget() : StartpageWidget(),
+          appStateNotifier.loggedIn ? MainWidget() : BootPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? MainWidget() : StartpageWidget(),
+              appStateNotifier.loggedIn ? MainWidget() : BootPageWidget(),
         ),
         FFRoute(
           name: StartpageWidget.routeName,
@@ -541,6 +541,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: BootPageWidget.routeName,
+          path: BootPageWidget.routePath,
+          builder: (context, params) => BootPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -713,7 +718,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/startpage';
+            return '/bootPage';
           }
           return null;
         },

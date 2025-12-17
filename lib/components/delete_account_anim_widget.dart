@@ -42,7 +42,7 @@ class _DeleteAccountAnimWidgetState extends State<DeleteAccountAnimWidget> {
       await authManager.signOut();
       GoRouter.of(context).clearRedirectLocation();
 
-      context.goNamedAuth(StartpageWidget.routeName, context.mounted);
+      context.goNamedAuth(BootPageWidget.routeName, context.mounted);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));

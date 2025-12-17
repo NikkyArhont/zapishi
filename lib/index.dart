@@ -92,3 +92,5 @@ export '/aaazapishi/cabinet/ccabinet_master_e_d_i_t/ccabinet_master_e_d_i_t_widg
     show CcabinetMasterEDITWidget;
 export '/aaazapishi/cabinet/master_work_schedule_e_d_i_t/master_work_schedule_e_d_i_t_widget.dart'
     show MasterWorkScheduleEDITWidget;
+export '/aaazapishi/initial/boot_page/boot_page_widget.dart'
+    show BootPageWidget;
