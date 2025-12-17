@@ -1,7 +1,6 @@
 import '/aaazapishi/records/create_debate_commplete/create_debate_commplete_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -734,20 +733,6 @@ class _CreateDebateWidgetState extends State<CreateDebateWidget> {
                                                   },
                                                 ),
                                               });
-                                              triggerPushNotification(
-                                                notificationTitle:
-                                                    'Открыт спор',
-                                                notificationText: _model
-                                                    .noteTextController.text,
-                                                userRefs: [
-                                                  widget.masrterDoc!.owner!
-                                                ],
-                                                initialPageName: 'cchatWindow',
-                                                parameterData: {
-                                                  'chatDocument':
-                                                      _model.readChat,
-                                                },
-                                              );
                                               await showDialog(
                                                 barrierDismissible: false,
                                                 context: context,

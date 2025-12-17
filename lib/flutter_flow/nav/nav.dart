@@ -6,8 +6,6 @@ import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/backend/push_notifications/push_notifications_handler.dart'
-    show PushNotificationsHandler;
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -739,7 +737,7 @@ class FFRoute {
                     fit: BoxFit.fitHeight,
                   ),
                 )
-              : PushNotificationsHandler(child: page);
+              : page;
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

@@ -1,6 +1,5 @@
 import '/aaazapishi/admin/admin_service/admin_hide_servicenfo/admin_hide_servicenfo_widget.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -250,14 +249,6 @@ class _AdminHideServWidgetState extends State<AdminHideServWidget> {
                                   .update(createServicesRecordData(
                                 status: ServiceStatus.hide,
                               ));
-                              triggerPushNotification(
-                                notificationTitle:
-                                    'Ваша услуга снята с публикации',
-                                notificationText: _model.textController.text,
-                                userRefs: [widget.servDocc!.whoCreate!],
-                                initialPageName: 'cabinet',
-                                parameterData: {},
-                              );
                               Navigator.pop(context);
                               _model.updatePage(() {});
                               await showDialog(

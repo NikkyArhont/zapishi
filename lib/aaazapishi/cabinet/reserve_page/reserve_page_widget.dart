@@ -5,7 +5,6 @@ import '/aaazapishi/components/backbutton/backbutton_widget.dart';
 import '/aaazapishi/components/menu/menu_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -951,19 +950,6 @@ class _ReservePageWidgetState extends State<ReservePageWidget> {
                                             .update(createRecordsRecordData(
                                           status: RecordStatus.confirmed,
                                         ));
-                                        triggerPushNotification(
-                                          notificationTitle:
-                                              'Запись подтверждена мастером',
-                                          notificationText:
-                                              reservePageRecordsRecord.title,
-                                          userRefs: [
-                                            reservePageRecordsRecord.client!
-                                          ],
-                                          initialPageName: 'recordPage',
-                                          parameterData: {
-                                            'recordRef': widget.recordRef,
-                                          },
-                                        );
                                         await showAlignedDialog(
                                           context: context,
                                           isGlobal: false,

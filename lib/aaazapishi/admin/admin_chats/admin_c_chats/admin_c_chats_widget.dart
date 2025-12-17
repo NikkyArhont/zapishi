@@ -4,7 +4,6 @@ import '/aaazapishi/admin/admin_top/admin_top_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/chats/empty_chats/empty_chats_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -1737,17 +1736,6 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                               _model.uploadedFileUrl_uploadDataDOCWebWeb = '';
                                                                             });
 
-                                                                            triggerPushNotification(
-                                                                              notificationTitle: 'Новое сообщение',
-                                                                              notificationText: _model.newMessDoc!.text,
-                                                                              notificationSound: 'default',
-                                                                              userRefs: _model.choosenChat!.members.toList(),
-                                                                              initialPageName: 'cchatWindow',
-                                                                              parameterData: {
-                                                                                'chatDocument': _model.choosenChat,
-                                                                              },
-                                                                            );
-
                                                                             safeSetState(() {});
                                                                           },
                                                                         ),
@@ -2225,23 +2213,6 @@ class _AdminCChatsWidgetState extends State<AdminCChatsWidget> {
                                                                           },
                                                                         ),
                                                                       });
-                                                                      triggerPushNotification(
-                                                                        notificationTitle:
-                                                                            'Новое сообщение',
-                                                                        notificationText: _model
-                                                                            .newMessTextOrPhoto!
-                                                                            .text,
-                                                                        userRefs: _model
-                                                                            .choosenChat!
-                                                                            .members
-                                                                            .toList(),
-                                                                        initialPageName:
-                                                                            'cchatWindow',
-                                                                        parameterData: {
-                                                                          'chatDocument':
-                                                                              _model.choosenChat,
-                                                                        },
-                                                                      );
                                                                       safeSetState(
                                                                           () {
                                                                         _model

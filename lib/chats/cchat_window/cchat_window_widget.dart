@@ -2,7 +2,6 @@ import '/aaazapishi/components/backbutton/backbutton_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1150,18 +1149,6 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                     _model.uploadedFileUrl_uploadDataDOC = '';
                                   });
 
-                                  triggerPushNotification(
-                                    notificationTitle: 'Новое сообщение',
-                                    notificationText: _model.newMessDoc!.text,
-                                    notificationSound: 'default',
-                                    userRefs:
-                                        widget.chatDocument!.members.toList(),
-                                    initialPageName: 'cchatWindow',
-                                    parameterData: {
-                                      'chatDocument': widget.chatDocument,
-                                    },
-                                  );
-
                                   safeSetState(() {});
                                 },
                               ),
@@ -1628,17 +1615,6 @@ class _CchatWindowWidgetState extends State<CchatWindowWidget> {
                                     },
                                   ),
                                 });
-                                triggerPushNotification(
-                                  notificationTitle: 'Новое сообщение',
-                                  notificationText:
-                                      _model.newMessTextOrPhoto!.text,
-                                  userRefs:
-                                      widget.chatDocument!.members.toList(),
-                                  initialPageName: 'cchatWindow',
-                                  parameterData: {
-                                    'chatDocument': widget.chatDocument,
-                                  },
-                                );
                                 safeSetState(() {
                                   _model.textController?.clear();
                                 });
