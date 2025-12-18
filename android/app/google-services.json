@@ -61,6 +61,25 @@
           "other_platform_oauth_client": []
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006934420365:android:87a64c056cd9264e9e2bc4",
+        "android_client_info": {
+          "package_name": "com.zapishiapp.zapishi.clean"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqjNQRagDVZtfxSIysxWhC4F9uZYJEJ7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
     }
   ],
   "configuration_version": "1"
