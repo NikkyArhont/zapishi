@@ -40,7 +40,7 @@ class _AdminLogoutInfoWidgetState extends State<AdminLogoutInfoWidget> {
       await authManager.signOut();
       GoRouter.of(context).clearRedirectLocation();
 
-      context.goNamedAuth(BootPageWidget.routeName, context.mounted);
+      context.goNamedAuth(StartpageWidget.routeName, context.mounted);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));

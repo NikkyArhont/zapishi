@@ -138,7 +138,7 @@ class _LogOutWidgetState extends State<LogOutWidget> {
                         GoRouter.of(context).clearRedirectLocation();
 
                         context.goNamedAuth(
-                            BootPageWidget.routeName, context.mounted);
+                            StartpageWidget.routeName, context.mounted);
                       },
                       text: 'Да, выйти',
                       options: FFButtonOptions(
