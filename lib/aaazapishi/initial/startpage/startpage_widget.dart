@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'startpage_model.dart';
@@ -34,7 +35,7 @@ class _StartpageWidgetState extends State<StartpageWidget> {
       );
 
       context.goNamed(
-        StartpageWidget.routeName,
+        BootPageWidget.routeName,
         extra: <String, dynamic>{
           kTransitionInfoKey: TransitionInfo(
             hasTransition: true,
