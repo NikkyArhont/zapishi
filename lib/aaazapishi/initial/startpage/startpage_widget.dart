@@ -30,7 +30,7 @@ class _StartpageWidgetState extends State<StartpageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(
         Duration(
-          milliseconds: 15000,
+          milliseconds: 1500,
         ),
       );
 
