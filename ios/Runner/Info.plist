@@ -61,6 +61,9 @@
     <string>Доступ к галерее нужен для выбора и загрузки фотографий</string>
 	<key>PermissionGroupNotification</key>
     <string>Разрешите приложению отправлять уведомления</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app uses location data to improve functionality and provide relevant features.
+</string>
 
 
 
