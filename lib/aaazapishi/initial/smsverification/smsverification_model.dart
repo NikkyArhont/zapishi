@@ -14,6 +14,8 @@ class SmsverificationModel extends FlutterFlowModel<SmsverificationWidget> {
 
   bool test = false;
 
+  bool faildPin = false;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

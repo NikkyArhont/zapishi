@@ -52,7 +52,12 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
     });
 
     _model.pinCodeFocusNode ??= FocusNode();
-
+    _model.pinCodeFocusNode!.addListener(
+      () async {
+        _model.faildPin = false;
+        safeSetState(() {});
+      },
+    );
     authManager.handlePhoneAuthStateChanges(context);
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -156,60 +161,92 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                       width: 450.0,
                       height: 100.0,
                       decoration: BoxDecoration(),
-                      child: Form(
-                        key: _model.formKey,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        child: PinCodeTextField(
-                          autoDisposeControllers: false,
-                          appContext: context,
-                          length: 6,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .displayMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .displayMediumFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: !FlutterFlowTheme.of(context)
-                                    .displayMediumIsCustom,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Form(
+                            key: _model.formKey,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            child: PinCodeTextField(
+                              autoDisposeControllers: false,
+                              appContext: context,
+                              length: 6,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .displayMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .displayMediumFamily,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts:
+                                        !FlutterFlowTheme.of(context)
+                                            .displayMediumIsCustom,
+                                  ),
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              enableActiveFill: true,
+                              autoFocus: true,
+                              focusNode: _model.pinCodeFocusNode,
+                              enablePinAutofill: true,
+                              errorTextSpace: 16.0,
+                              showCursor: false,
+                              cursorColor: FlutterFlowTheme.of(context).primary,
+                              obscureText: false,
+                              keyboardType: TextInputType.number,
+                              pinTheme: PinTheme(
+                                fieldHeight: 61.0,
+                                fieldWidth: 50.0,
+                                borderWidth: 1.0,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(16.0),
+                                  bottomRight: Radius.circular(16.0),
+                                  topLeft: Radius.circular(16.0),
+                                  topRight: Radius.circular(16.0),
+                                ),
+                                shape: PinCodeFieldShape.box,
+                                activeColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                inactiveColor: Color(0xFFEEEEEE),
+                                selectedColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                activeFillColor: Color(0x330D7A5F),
+                                inactiveFillColor: Color(0xFFFAFAFA),
+                                selectedFillColor: Color(0x2216A085),
                               ),
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          enableActiveFill: true,
-                          autoFocus: true,
-                          focusNode: _model.pinCodeFocusNode,
-                          enablePinAutofill: true,
-                          errorTextSpace: 16.0,
-                          showCursor: false,
-                          cursorColor: FlutterFlowTheme.of(context).primary,
-                          obscureText: false,
-                          keyboardType: TextInputType.number,
-                          pinTheme: PinTheme(
-                            fieldHeight: 61.0,
-                            fieldWidth: 50.0,
-                            borderWidth: 1.0,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16.0),
-                              bottomRight: Radius.circular(16.0),
-                              topLeft: Radius.circular(16.0),
-                              topRight: Radius.circular(16.0),
+                              controller: _model.pinCodeController,
+                              onChanged: (_) async {
+                                _model.faildPin = false;
+                                safeSetState(() {});
+                              },
+                              onCompleted: (_) async {
+                                _model.pinSet = true;
+                                safeSetState(() {});
+                              },
+                              autovalidateMode: AutovalidateMode.disabled,
+                              validator: _model.pinCodeControllerValidator
+                                  .asValidator(context),
                             ),
-                            shape: PinCodeFieldShape.box,
-                            activeColor: FlutterFlowTheme.of(context).primary,
-                            inactiveColor: Color(0xFFEEEEEE),
-                            selectedColor: FlutterFlowTheme.of(context).primary,
-                            activeFillColor: Color(0x330D7A5F),
-                            inactiveFillColor: Color(0xFFFAFAFA),
-                            selectedFillColor: Color(0x2216A085),
                           ),
-                          controller: _model.pinCodeController,
-                          onChanged: (_) {},
-                          onCompleted: (_) async {
-                            _model.pinSet = true;
-                            safeSetState(() {});
-                          },
-                          autovalidateMode: AutovalidateMode.disabled,
-                          validator: _model.pinCodeControllerValidator
-                              .asValidator(context),
-                        ),
+                          Container(
+                            height: 20.0,
+                            decoration: BoxDecoration(),
+                            child: Visibility(
+                              visible: _model.faildPin,
+                              child: Text(
+                                'Неверный код',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      color: FlutterFlowTheme.of(context).error,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Text(
@@ -377,6 +414,7 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                       onPressed: !_model.pinSet
                           ? null
                           : () async {
+                              var _shouldSetState = false;
                               if (widget.test) {
                                 GoRouter.of(context).prepareAuthEvent();
                                 final smsCodeVal =
@@ -404,6 +442,7 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                                   verifyCode: _model.pinCodeController!.text,
                                 );
 
+                                _shouldSetState = true;
                                 if ((_model.apiResult2yx?.succeeded ?? true)) {
                                   GoRouter.of(context).prepareAuthEvent();
                                   final user =
@@ -421,6 +460,11 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                                       .update(createUserRecordData(
                                     phoneNumber: widget.phone,
                                   ));
+                                } else {
+                                  _model.faildPin = true;
+                                  safeSetState(() {});
+                                  if (_shouldSetState) safeSetState(() {});
+                                  return;
                                 }
                               }
 
@@ -437,7 +481,7 @@ class _SmsverificationWidgetState extends State<SmsverificationWidget> {
                                     context.mounted);
                               }
 
-                              safeSetState(() {});
+                              if (_shouldSetState) safeSetState(() {});
                             },
                       text: 'Применить',
                       options: FFButtonOptions(
